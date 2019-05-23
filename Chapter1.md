@@ -36,10 +36,10 @@
 
     ```c++
     /*
-    * 注释/* */不能嵌套
-    * 
-    * 
-    * /
+     * 注释/* */不能嵌套
+     * 
+     * 
+     */
     ```
 
 ## 1.4 控制流
@@ -49,7 +49,7 @@
     ```c++
     int value;
     while(std::cin >> value){
-
+        //code block
     }
     ```
 
@@ -67,7 +67,7 @@
     ```c++
     int value;
     if(std::cin >> value){
-
+        //code block
     }
     ```
 
@@ -82,9 +82,9 @@
 4. 文件重定向:
 
     ```bash
-    addItems <infile >outfile
+    addItems  <infile  >outfile
     ```
 
     此处 <infile表示输入file中的内容， 而 >outfile则表示输出到文件outfile中
 
-5. **成员函数(member function)**是定义为类的一部分的函数，有时也被称为**方法(method)**
+5. **成员函数(member function)**是定义为类的一部分的函数，有时也被称为**方法(method)
