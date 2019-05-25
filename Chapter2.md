@@ -429,7 +429,7 @@
     ```c++
     constexpr int mf = 20; // 20是常量表达式
     constexpr int limit = mf + 10; // mf+10是常量表达式
-    constexpr int sz = get_size() // 只有当get_size是一个constexpr函数时此条正确
+    constexpr int sz = get_size(); // 只有当get_size是一个constexpr函数时此条正确
     ```
 
 1. 一般来说，如果你认定一个变量是一个常量表达式，就把它声明成constexpr类型
