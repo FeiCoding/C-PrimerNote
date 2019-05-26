@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>Chapter 1 开始</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body>
+        <h1 id="chapter-1-%E5%BC%80%E5%A7%8B">Chapter 1 开始</h1>
+<h2 id="11-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F">1.1 编译运行程序</h2>
+<ol>
+<li>
+<p>在大多系统中，main的返回值被用来指示状态，返回值0表示成功，非0的返回值则有系统来定义，   通常用来指出错误类型。</p>
+</li>
+<li>
+<p>常见的后缀名为cpp, cxx, cp, cc, C</p>
+</li>
+</ol>
+<h2 id="12-%E5%88%9D%E8%AF%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%B5%81">1.2 初识输入输出流</h2>
+<ol>
+<li>
+<p>cerr来输出警告和错误信息，也被称为标准错误(standard error)。而clog用来输出程序运行时的一般性信息</p>
+</li>
+<li>
+<p>&lt;&lt;运算符左侧必须是ostream对象，右侧是要打印的值。连续使用&lt;&lt;例如</p>
+<pre><code class="language-c++"><div><span class="hljs-built_in">cout</span> &lt;&lt;  <span class="hljs-string">"Enter two numbers"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+</div></code></pre>
+<p>此时&lt;&lt;返回一个ostream对象，也就等价于：</p>
+<pre><code class="language-c++"><div>(<span class="hljs-built_in">cout</span> &lt;&lt;  <span class="hljs-string">"Enter two numbers"</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
+</div></code></pre>
+</li>
+<li>
+<p>endl是操纵符(manipulator)的特殊值，写入endl的效果是结束当前行，并将与设备关联的**缓冲区(buffer)**中的内容疏导设备中。endl可以保证到目前为止程序所产生的输出都真正写到输出流中，而不是仅在buffer区等待输出。<strong>注意：在调试时添加打印语句，这类语句应当保证一直刷新流，否则如果程序崩溃输出可能还留在缓冲区内从而导致我们错误推断程序崩溃的位置</strong></p>
+</li>
+<li>
+<p>std是命名空间的名字，所有标准库中定义的名字都存在std中。</p>
+</li>
+</ol>
+<h2 id="13-%E6%B3%A8%E9%87%8A%E7%AE%80%E4%BB%8B">1.3 注释简介</h2>
+<ol>
+<li>
+<p>单行注释以(//)开始，换行符为结束。这种注释可以包含任何文本，包括额外的双斜线(// //)</p>
+</li>
+<li>
+<p>另一种继承自c语言的两个界定符(/* 和 */)，可以包含除了 */ 以外的任何内容，也包含换行符</p>
+</li>
+<li>
+<p>注释界定符不能嵌套：</p>
+<pre><code class="language-c++"><div><span class="hljs-comment">/*
+ * 注释/* */</span>不能嵌套
+ * 
+ * 
+ */
+</div></code></pre>
+</li>
+</ol>
+<h2 id="14-%E6%8E%A7%E5%88%B6%E6%B5%81">1.4 控制流</h2>
+<ol>
+<li>
+<p>当我们使用istream对象作为条件时，其效果是检测流的状态。如果流是有效的，即未遇到错误，那么检测成功，当遇到文件结束符(end-of-file)或遇到一个无效输入时（例如读入的值不是一个整数）那么istream的状态会变为无效。此时条件会变为假。</p>
+<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> value;
+<span class="hljs-keyword">while</span>(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cin</span> &gt;&gt; value){
+    <span class="hljs-comment">//code block</span>
+}
+</div></code></pre>
+</li>
+<li>
+<p>编译错误：</p>
+<ul>
+<li>
+<p>语法错误（syntax error）：C++语言文法上的错误。例如缺少括号、漏掉引号等等</p>
+</li>
+<li>
+<p>类型错误（type error）：数据项的类型赋了错误类型的值，比如string类型的变量赋值了int型的值</p>
+</li>
+<li>
+<p>声明错误（declaration error）：即出现未定义的变量。<strong>C++每个名字都要先声明后使用</strong>。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>每次修复一个bug就立即重新编译，按照 <strong>“编辑-编译-调试”（edit-compile-debug）</strong> 周期来工作</p>
+</li>
+<li>
+<p>类似于while，if语句也可以用文件输入来作为条件判断</p>
+<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> value;
+<span class="hljs-keyword">if</span>(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cin</span> &gt;&gt; value){
+    <span class="hljs-comment">//code block</span>
+}
+</div></code></pre>
+</li>
+</ol>
+<h2 id="15-%E7%B1%BB%E7%AE%80%E4%BB%8B">1.5 类简介</h2>
+<ol>
+<li>
+<p>习惯上，头文件根据其中定义的类的名字来命名，以.h为或.hpp、.H、.hxx来作为后缀名。</p>
+</li>
+<li>
+<p>标准库头文件通常不带后缀名</p>
+</li>
+<li>
+<p>来自标准库的头文件用&lt;&gt;来包围，而不属于标准库的我们使用&quot;&quot;来包围</p>
+</li>
+<li>
+<p>文件重定向:</p>
+<pre><code class="language-bash"><div>addItems  &lt;infile  &gt;outfile
+</div></code></pre>
+<p>此处 &lt;infile表示输入file中的内容， 而 &gt;outfile则表示输出到文件outfile中</p>
+</li>
+<li>
+<p><strong>成员函数(member function)<strong>是定义为类的一部分的函数，有时也被称为</strong>方法(method)</strong></p>
+</li>
+</ol>
+
+    </body>
+    </html>
