@@ -432,15 +432,20 @@
     constexpr int sz = get_size(); // 只有当get_size是一个constexpr函数时此条正确
     ```
 
+1. const和constexpr的区别：
+   >const修饰的是类型，constexpr修饰的是用来算出值的那段代码。
+    >
+   >constexpr表示这玩意儿在编译期就可以算出来（前提是为了算出它所依赖的东西也是在编译期可以算出来的）。而const只保证了运行时不直接被修改（但这个东西仍然可能是个动态变量）。
+
 1. 一般来说，如果你认定一个变量是一个常量表达式，就把它声明成constexpr类型
 
 1. 常量表达式要在编译过程都能获得计算结果，因此对声明constexpr时用到的类型必须是“字面值类型”（literal type）。目前接触过的类型中算数类型、引用、指针都属于字面值类型。自定义的类、IO库、string类都**不能被定义成constexpr**。
 
-1. **constexpr只能将指针声明称const，而对该指针指向的对象无影响**。(也就是说constexpr是定义一个顶层const)，此时constexpr指针既可以指向常量又可以指向非常量。
+1. **constexpr只能将指针声明成const，而对该指针指向的对象无影响**。(也就是说constexpr是定义一个顶层const)，此时constexpr指针既可以指向常量又可以指向非常量。
 
     ```c++
     const int *ptr = nullptr; // 指向常量的指针
-    constexpr int ptr2 = nullptr; // 常量指针，指针本身是常量
+    constexpr int *ptr2 = nullptr; // 常量指针，指针本身是常量
     ```
 
 ## 2.5 处理类型
@@ -459,7 +464,7 @@
         using SI = Sales_item; // SI是Sales_item的同义词
         ```
 
-1. 当类型别名指代复合类型或常量时：
+1. 当类型别名指代复合类型或常量时（**此处要特别注意**）：
 
     ```c++
     typedef char *pstr;
@@ -467,7 +472,7 @@
     const pstr *ps; // ps是一个指针，他的对象是指向char的常量指针
     ```
 
-    - pstr实际上是指向char的指针，因此const pstr就是指向char的**常量指针**，而**非指向常量字符的指针**。
+    - pstr实际上是指向char的指针，因此const pstr就是指向char的**常量指针**，而非**指向常量字符的指针**。
   
 1. auto类型说明符，能让编译器代替我们去分析表达式所属的类型。auto让编译器通过初始值来推算变量的类型，所以**auto定义的变量必须有初始值**。
 
@@ -502,10 +507,10 @@
         const auto f = ci; // ci的推演类型是int，f是const int
         ```
 
-   - 还可以将引用的类型设置为auto，此时原来的初始化规则仍然使用 
+   - 还可以**将引用的类型设置为auto，此时原来的初始化规则仍然使用**
 
         ```c++
-        auto &g = ci; // 正确
+        auto &g = ci; // 正确，g为int&
         auto &h = 42; // 错误，不能为非常量引用绑定字面值
         const auto &j = 42; // 正确：可以为常量引用绑定字面值
         ```
@@ -536,42 +541,42 @@
     ```
 
 1. decltype和auto的区别：
-    - 处理顶层const和引用的方式不同（auto会忽略顶层const，而decltype不会）
-    - decltype直接跟上变量则直接返回变量类型，如果decltype加上一或多层括号则会将该变量视为表达式（**双括号的结果视永远视为引用**）
+    - 处理顶层const和引用的方式不同，auto会忽略顶层const，对于引用返回引用对象类型，而decltype不会忽视，对于引用直接返回引用类型）
+    - decltype直接跟上变量则直接返回变量类型，如果decltype加上一或多层括号则会将该变量视为表达式（**decltype的双括号结果永远视为引用**）
 
         ```c++
         int i = 1;
-        decltype((i)) d; // 类型为int&
+        decltype((i)) d; // 双括号，类型为int&
         decltype(i) e; // 类型为int
         ```
 
 ## 2.6 自定义数据结构
 
-1. 类体右侧的表示结束的花括号必须写一个分号，这是因为类体后面可以紧跟变量名医师对该类型对象的定义，所以分号**必不可少**：
+1. 类体右侧的表示结束的花括号必须写一个分号，这是因为类体后面可以紧跟变量名以示对该类型对象的定义，所以分号**必不可少**：
 
     ```c++
-    struct Sales_data{   } accum, trans, *salesptr;
-    //与上一条语句等价，但更好一点
+    struct Sales_data{   } accum, trans, *salesptr; // 后面直接跟要声明的对象名
+    //下方代码与上一条语句等价，但更好一点
     struct Sales_data{   };
     Sales_data accum, trans, *salesptr;
     ```
 
-1. c++11新标准规定我们可以为数据成员（data memeber）提供一个类内初始值（in-class initializer）。没有初始化的值将被默认初始化（函数体外的变量默认初始化都为0）。
+2. c++11新标准规定我们可以为数据成员（data memeber）提供一个类内初始值（in-class initializer）。没有初始化的值将被默认初始化（函数体外的变量默认初始化都为0，函数体内的为undefined）。
 
-1. 为了确保各个文件中的类定义一致，类通常被定义在头文件中，而且**类所在头文件的名字应该与类的名字一样**。例如库类型string在名为string的头文件中定义。
+3. 为了确保各个文件中的类定义一致，类通常被定义在头文件中，而且**类所在头文件的名字应该与类的名字一样**。例如库类型string在名为string.h的头文件中定义。
 
-1. 头文件一旦改变，相关的源文件必须重新编译以获取更新过的声明。
+4. 头文件一旦改变，相关的源文件必须重新编译以获取更新过的声明。
 
-1. 预处理器：确保头文件多次包含仍能安全工作。由c++从c语言继承而来。
+5. 预处理器：确保头文件多次包含仍能安全工作。由c++从c语言继承而来。
    - #include：当预处理器看到#include标记时就会用指定的头文件的内容代替#include
 
-1. 头文件保护符（header guard）依赖于预处理变量。预处理变量有两种状态：已定义和未定义。#define指令把一个名字设定为预处理变量。#ifdef当且仅当变量已定义时为真。#ifdef当且仅当变量定义时为真。一旦检查结果微针，则执行后续操作直至遇到#endif指令为止。
+6. 头文件保护符（header guard）依赖于预处理变量。预处理变量有两种状态：已定义和未定义。#define指令把一个名字设定为预处理变量。#ifdef当且仅当变量已定义时为真。#ifndef当且仅当变量未定义时为真。一旦检查结果为真，则执行后续操作直至遇到#endif指令为止。
 
     ```c++
     // 判断SALES_DATA_H是否定义，如果已定义则跳过直到#endif符号，否则执行到#endif
-    #ifndef SALES_DATA_H 
+    #ifndef SALES_DATA_H
     #define SALES_DATA_H // 将SALES_DATA_H设置为预处理变量
-    #include <string> 
+    #include <string>
     struct Sales_data{
         std::string bookNo;
         unsigned units_sold = 0;
@@ -580,4 +585,4 @@
     #endif // !SALES_DATA_H
     ```
 
-1. 整个程序中的预处理变量包括头文件保护符必须唯一。通常做法是基于头文件中类的名字来构建保护符的名字，以确保其唯一性。**一般把预处理变量的名字全部大写**。
+7. 整个程序中的预处理变量包括头文件保护符必须唯一。通常做法是基于头文件中类的名字来构建保护符的名字，以确保其唯一性。**一般把预处理变量的名字全部大写**。如上述代码中的SALES_DATA_H。
