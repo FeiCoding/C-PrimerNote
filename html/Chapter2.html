@@ -130,7 +130,7 @@
 <p>符号类型</p>
 <ul>
 <li>
-<p>带符号类型（signed）可以表示整数、负数或者0，无符号则只能表示大于0的数</p>
+<p>带符号类型（signed）可以表示整数、负数或者0，无符号则只能表示大于等于0的数</p>
 </li>
 <li>
 <p>int、short、long和long long都是带符号的，前面加上unsigned就是无符号类型</p>
@@ -214,7 +214,7 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 <p>当一个算术表达式中既有无符号数又有int值的时候，int值会被自动转换成无符号数。</p>
 <pre><code class="language-c++"><div><span class="hljs-keyword">unsigned</span> u = <span class="hljs-number">10</span>;
 <span class="hljs-keyword">int</span> i = <span class="hljs-number">-42</span>;
-<span class="hljs-built_in">cout</span> &lt;&lt; i + <span class="hljs-number">1</span> &lt;&lt;<span class="hljs-built_in">endl</span>; <span class="hljs-comment">// 输出-84</span>
+<span class="hljs-built_in">cout</span> &lt;&lt; i + i &lt;&lt;<span class="hljs-built_in">endl</span>; <span class="hljs-comment">// 输出-84</span>
 <span class="hljs-built_in">cout</span> &lt;&lt;u + i &lt;&lt;<span class="hljs-built_in">endl</span>; <span class="hljs-comment">// 如果int占32bit，输出4294967264</span>
 </div></code></pre>
 <ul>
@@ -231,7 +231,7 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 <ul>
 <li>要避免这种情况一般用while代替for循环，同时将判断语句设置为u大于1</li>
 </ul>
-<pre><code class="language-c++"><div><span class="hljs-keyword">unsigned</span> u = <span class="hljs-number">10</span>;
+<pre><code class="language-c++"><div><span class="hljs-keyword">unsigned</span> u = <span class="hljs-number">11</span>;
 <span class="hljs-keyword">while</span>( u &gt; <span class="hljs-number">1</span>){
   --u;
   <span class="hljs-built_in">cout</span> &lt;&lt; u &lt;&lt; <span class="hljs-built_in">endl</span>; 
@@ -241,7 +241,7 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 <li>
 <p>字面值常量：</p>
 <ul>
-<li>十进制字面值是带符号数，八进制和十六进制极可能带符号也可能不带符号</li>
+<li>十进制字面值是带符号数，八进制和十六进制既可能带符号也可能不带符号</li>
 <li>十进制字面值类型是int、long、long long中能容下该数值的最小者</li>
 <li>八进制和十六进制是int、unsigned int、long、unsigned long、long long、unsigned long long中能容下该数值的尺寸最小者</li>
 <li>浮点型字面值是double</li>
@@ -368,7 +368,7 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 <li>定义则负责创建与名字关联的实体</li>
 <li>变量规定类型和名字，定义在此之上还申请了内存空间，也可能直接为变量赋值</li>
 <li>如果只想声明，需在名字前加上<strong>extern</strong>关键字，如果此时初始化了则成为定义</li>
-<li>函数内部如果初始化一个<strong>extern</strong>关键字标记的变量将引发错误</li>
+<li>函数内部如果初始化一个<strong>extern</strong>关键字标记的变量将引发错误（<strong>不能再函数体内使用extern</strong>）</li>
 </ul>
 <pre><code class="language-c++"><div><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i; <span class="hljs-comment">// 仅声明变量i</span>
 <span class="hljs-keyword">int</span> j;  <span class="hljs-comment">// 声明并定义j</span>
@@ -461,7 +461,7 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 <p>空指针用nullptr来初始化指针。另一种方法是通过字面值0来初始化指针。</p>
 </li>
 <li>
-<p>过去我们会用NULL这样一个预处理变量来给指针赋值，其值就是0。预处理器是运行于编译过程之前的一段程序。我们可以直接使用预处理变量而不需加上std::。当于处理变量会被预处理器自动转换成实际值。</p>
+<p>过去我们会用NULL这样一个预处理变量来给指针赋值，其值就是0。预处理器是运行于编译过程之前的一段程序。我们可以直接使用预处理变量而不需加上std::。预处理变量会被预处理器自动转换成实际值。</p>
 </li>
 <li>
 <p>注意：直接为指针赋值int型变量0是错误的。</p>
@@ -482,12 +482,12 @@ pi = <span class="hljs-number">0</span>; <span class="hljs-comment">// pi不再�
 </div></code></pre>
 </li>
 <li>
-<p>空指针在条件判断中为false，其他都为true。两个指针可以使用“==”和&quot;!=&quot;来判断他们存放的地址是否相同。</p>
+<p>只有空指针在条件判断中为false，其他值得指针都为true。两个指针可以使用“==”和&quot;!=&quot;来判断他们存放的地址是否相同。</p>
 </li>
 <li>
 <p>void指针是一种特殊的指针，可用于存放任意对象的地址。void*存放地址，但我们不了解该指针存放地址的类型是什么。</p>
 <ul>
-<li>我们不能直接操作void*指针所指的对象，因为我们并不知道这个对象到底是什么类型，也无法能在这个对象上做哪些操作</li>
+<li>我们不能直接操作void*指针所指的对象，因为我们并不知道这个对象到底是什么类型，也无法知道在这个对象上做哪些操作</li>
 </ul>
 </li>
 <li>
@@ -541,9 +541,13 @@ r = <span class="hljs-number">20</span>; <span class="hljs-comment">// 错误，
 <li>
 <p>临时量（temporary）:所谓临时量对象就是当编译器需要一个空间来暂存表达式的求值结果时临时创建的一个未命名的对象。</p>
 <pre><code class="language-c++"><div><span class="hljs-keyword">double</span> v1 = <span class="hljs-number">3.14</span>;
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = v1; <span class="hljs-comment">// const引用可以用任意表达式作为初始值，只要该表达式的结果可以转换成引用类型</span>
-<span class="hljs-comment">// 原因在于此处应该r无法修改所引用的内容，相对来说仍然是安全的，但如果r不是const的，</span>
-<span class="hljs-comment">// 那么就会导致r可以修改内容，但是所引用的内容是double，而引用本身却是int，此时就会产生错误。</span>
+<span class="hljs-comment">// const引用可以用任意表达式作为初始值，只要该表达式的结果可以转换成引用类型</span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = v1;
+<span class="hljs-comment">/*
+* 原因在于此处应该r无法修改所引用的内容，相对来说仍然是安全的，但如果r不是const的，
+* 那么就会导致r可以修改内容，但是所引用的内容是double，而引用本身却是int，
+* 此时就会产生错误。
+*/</span>
 
 <span class="hljs-comment">// 上述相当于下式</span>
 <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> temp = v1; <span class="hljs-comment">// 此处temp为临时量</span>
@@ -557,7 +561,7 @@ r = <span class="hljs-number">20</span>; <span class="hljs-comment">// 错误，
 <p>被指向常量的指针或是常量引用绑定的非常量对象，虽然无法通过指针或者引用改变值，但可以通过其他方式改变值。</p>
 </li>
 <li>
-<p>常量指针（将const放在*的后边，例如int *const ptr）<strong>必须初始化</strong>，而且一旦初始化完成它所存储的地址值就无法改变了。然而在该地址上存储的值却是依赖于其类型，如果该值不是const类型，也可以改变，只是改变的结果依然存储在该地址，所以此时常量指针所存储的值也就是该值得地址没有发生改变。</p>
+<p>常量指针（将const放在*的后边，例如int *const ptr）<strong>必须初始化</strong>，而且一旦初始化完成它所存储的地址值就无法改变了。然而在该地址上存储的值却是依赖于其类型，如果该值不是const类型，也可以改变，只是改变的结果依然存储在该地址，所以此时常量指针所存储的值也就是该值的地址没有发生改变。</p>
 <pre><code class="language-c++"><div><span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> cp; <span class="hljs-comment">// 不合法，常量指针必须初始化</span>
 </div></code></pre>
 </li>
@@ -585,7 +589,7 @@ ic = *p3;   <span class="hljs-comment">// 不合法, ic是const int，初始化�
 <p>顶层const（top-level const) 表示指针<strong>本身是一个常量</strong>；底层const（low-level const）表示指针<strong>所指的对象是一个常量</strong>。</p>
 </li>
 <li>
-<p>指针类型既可以是顶层const，也可以是底层const。<strong>用于声明引用的const都是底层const</strong>。</p>
+<p>指针类型既可以是顶层const，也可以是底层const。<strong>用于声明引用（&amp;）的const都是底层const</strong>。</p>
 </li>
 <li>
 <p>执行拷贝操作并不会改变被拷贝对象的值，所以考入和考出的对象对于顶层const是否是常量都没什么影响。然而对于底层const，考入考出的拷贝对象必须具有相同的底层const</p>
@@ -598,9 +602,7 @@ ic = *p3;   <span class="hljs-comment">// 不合法, ic是const int，初始化�
 
 i = ci; <span class="hljs-comment">// 正确：拷贝ci的值，ci是一个顶层const，操作无影响</span>
 p2 = p3; <span class="hljs-comment">// 正确：p2和p3指向的对象类型相同，p3顶层const部分不受影响</span>
-
 <span class="hljs-keyword">int</span> *p = p3; <span class="hljs-comment">// 错误：p3包含底层const，p没有，不能用const指针为非const初始化</span>
-p2 = p3; <span class="hljs-comment">// 正确：p2和p3都是底层const</span>
 p2 = &amp;i; <span class="hljs-comment">// 正确：此时int*被转换成const int*</span>
 <span class="hljs-keyword">int</span> &amp;r2 = ci; <span class="hljs-comment">// 错误：普通引用无法绑定const值 </span>
 <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r3 = i; <span class="hljs-comment">// 正确</span>
@@ -671,7 +673,7 @@ p2 = p3; <span class="hljs-comment">// 合法, p2 和 p3 都是底层const，拷
 </div></code></pre>
 </li>
 <li>
-<p>c++11新方法：using</p>
+<p>c++11新方法：using（推荐使用using）</p>
 <pre><code class="language-c++"><div><span class="hljs-keyword">using</span> SI = Sales_item; <span class="hljs-comment">// SI是Sales_item的同义词</span>
 </div></code></pre>
 </li>
@@ -747,7 +749,7 @@ p2 = p3; <span class="hljs-comment">// 合法, p2 和 p3 都是底层const，拷
 <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>, e = <span class="hljs-number">3</span>;
 <span class="hljs-keyword">decltype</span>(r + <span class="hljs-number">0</span>) b; <span class="hljs-comment">// b为int，r+0返回int型</span>
 <span class="hljs-keyword">decltype</span>(*p) c; <span class="hljs-comment">// c为int&amp;，此处错误，必须初始化。*p是解引用操作，也就是返回引用</span>
-<span class="hljs-keyword">decltype</span>(a = e) d; <span class="hljs-comment">// d为int&amp;，赋值操作是一种引用类型</span>
+<span class="hljs-keyword">decltype</span>(a = e) d; <span class="hljs-comment">// d为int&amp;，赋值操作是一种引用类型。此处错误，未初始化</span>
 </div></code></pre>
 </li>
 <li>
@@ -792,7 +794,7 @@ Sales_data accum, trans, *salesptr;
 </ul>
 </li>
 <li>
-<p>头文件保护符（header guard）依赖于预处理变量。预处理变量有两种状态：已定义和未定义。#define指令把一个名字设定为预处理变量。#ifdef当且仅当变量已定义时为真。#ifndef当且仅当变量未定义时为真。一旦检查结果为真，则执行后续操作直至遇到#endif指令为止。</p>
+<p>头文件保护符（header guard）依赖于预处理变量。预处理变量有两种状态：已定义和未定义。#define指令把一个名字设定为预处理变量。#ifdef当且仅当预处理变量已定义时为真。#ifndef当且仅当预处理变量未定义时为真。一旦检查结果为真，则执行后续操作直至遇到#endif指令为止。否则跳过。</p>
 <pre><code class="language-c++"><div><span class="hljs-comment">// 判断SALES_DATA_H是否定义，如果已定义则跳过直到#endif符号，否则执行到#endif</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> SALES_DATA_H</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SALES_DATA_H <span class="hljs-comment">// 将SALES_DATA_H设置为预处理变量</span></span>
