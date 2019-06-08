@@ -312,4 +312,66 @@
 
 1. **end返回的迭代器并不实际指示某个元素，所以不能对其进行递增或者解引用的操作。**
 
+1. 在使用迭代器时，要尽可能更多使用"!="符号来代替"<"
+
+1. 迭代器两种类型：iterator和const_iterator，const_iterator只能读取但却不能改变所指的元素值。如果vector或者string对象是一个常量，那我们只能使用const_iterator，如果该对象不是一个常量，那么这两种迭代器都可以使用
+
+1. begin和end返回的具体类型由对象是否是常量决定，如果对象是常量那么begin和end返回的是const_iterator，如果对象不是常量，则返回的是iterator。**如果对象只需要读操作，最好使用const_iterator**。
+
+1. 为了得到const_iterator类型的返回值，c++11标准引入了两个新函数，分别是cbegin和cend，不论对象是否是const，这两个函数返回的都是const_iterator
+
+    ```c++
+    auto ite = v.cbegin() // it3是const_vector类型
+    ```
+
+1. **但凡是使用了迭代器的循环体，都不要向迭代器所属的容器添加元素**
+
+1. 练习：使用迭代器将所有vector中的元素都变为原来的两倍
+
+    ```c++
+    #include <vector>
+    #include <iostream>
+    using namespace std;
+
+    int main()
+    {
+        vector<int> ve{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        auto vi = ve.begin();
+        for (; vi != ve.end(); vi++)
+        {
+            *vi = *vi * 2;
+        }
+        for (auto i : ve)
+        {
+            cout << i << " ";
+        }
+        cout << endl;
+        return 0;
+    }
+    ```
+
+1. 两个迭代器之间相减的结果是他们之间的距离。参与运算的两个迭代器必须是指向的同一个容器中的元素或者尾元素的下一个位置。其类型是difference_type的带符号整型数。string和vector都定义了difference_type，因为这个距离可正可负，所以difference_type是带符号类型的。
+
+1. 使用迭代器可以进行二分搜索：
+
+    ```c++
+    // text必须有序
+    // beg和end是我们的搜索范围
+    auto beg = text.begin(), end = text.end();
+    auto mid = text.begin() + (end - beg) / 2; // 初始状态中间点
+    while(mid  != end && *mid != sought){
+        if(sought < *mid)
+            end = mid; // 搜索点在前半部分
+        else
+            beg = mid + 1; // 搜索点在后半部分
+        mid = beg + (end - beg) / 2;
+    }
+    ```
+
+## 3.5 数组
+
+1. 数组也是存放类型相同的对象的容器，这些对象本身没有名字，需要通过其所在位置访问。与vector不同的是，数组的大小确定不变，不能随意向数组中增加元素。因为数组的大小固定，因此对某些特殊的应用来说程序运行时性能较好，但同时损失一些灵活性。
+
+1. 如果不清楚元素的确切个数，请使用vector
+
 1. 
