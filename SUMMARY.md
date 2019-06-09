@@ -11,13 +11,13 @@
 
 ## 第二部分：C++标准库
 
-* [Untitled](second_part/untitled.md)
+* [Untitled](second-part/untitled.md)
 
 ## 第三部分：类设计者的工具
 
-* [Untitled](third_part/untitled.md)
+* [Untitled](third-part/untitled.md)
 
 ## 第四部分：高级主题
 
-* [Untitled](fouth_part/untitled.md)
+* [Untitled](fouth-part/untitled.md)
 
