@@ -11,13 +11,13 @@
 
 ## 第二部分：C++标准库
 
-* [Untitled](di-er-bu-fen-c++-biao-zhun-ku/untitled.md)
+* [Untitled](second_part/untitled.md)
 
 ## 第三部分：类设计者的工具
 
-* [Untitled](di-san-bu-fen-lei-she-ji-zhe-de-gong-ju/untitled.md)
+* [Untitled](third_part/untitled.md)
 
 ## 第四部分：高级主题
 
-* [Untitled](di-si-bu-fen-gao-ji-zhu-ti/untitled.md)
+* [Untitled](fouth_part/untitled.md)
 
