@@ -4,19 +4,19 @@
 
 1. C++算数类型表：
 
-   | 类型 | 含义 | 最小尺寸（至少） |
-   | :--- | :--- | :--- |
-   | bool | 布尔 | Not defined |
-   | char | 字符 | 8 bit |
-   | wchar\_t | 宽字符 | 16 bit |
-   | char16\_t | Unicode字符 | 16 bit |
-   | char32\_t | Unicode字符 | 32 bit |
-   | short | 短整型 | 16 bit |
-   | int | 整型 | 16 bit |
-   | long | 长整型 | 16 bit |
-   | long long | 长整型 | 64 bit |
-   | float | 单精度浮点数 | 至少6位有效数字 |
-   | double | 双精度浮点数 | 至少10位有效数字 |
+   | 类型        | 含义           | 最小尺寸（至少） |
+   | :---------- | :------------- | :--------------- |
+   | bool        | 布尔           | Not defined      |
+   | char        | 字符           | 8 bit            |
+   | wchar\_t    | 宽字符         | 16 bit           |
+   | char16\_t   | Unicode字符    | 16 bit           |
+   | char32\_t   | Unicode字符    | 32 bit           |
+   | short       | 短整型         | 16 bit           |
+   | int         | 整型           | 16 bit           |
+   | long        | 长整型         | 16 bit           |
+   | long long   | 长整型         | 64 bit           |
+   | float       | 单精度浮点数   | 至少6位有效数字  |
+   | double      | 双精度浮点数   | 至少10位有效数字 |
    | long double | 扩展精度浮点数 | 至少10位有效数字 |
 
 2. 字符类型：
@@ -117,25 +117,25 @@
 
     * 前缀
 
-    | 前缀 | 含义 | 类型 |
-    | :--- | :--- | :--- |
-    | u | Unicode16字符 | char16\_t |
-    | U | Unicode32字符 | char32\_t |
-    | L | 宽字符 | wchar\_t |
-    | u8 | UTF-8 | char |
+    | 前缀 | 含义          | 类型      |
+    | :--- | :------------ | :-------- |
+    | u    | Unicode16字符 | char16\_t |
+    | U    | Unicode32字符 | char32\_t |
+    | L    | 宽字符        | wchar\_t  |
+    | u8   | UTF-8         | char      |
 
     * 后缀（尽量使用L来代替小写的l，因为小写的l像数字1）
 
       | 后缀整型 | 最小匹配类型 |
-      | :--- | :--- |
-      | u or U | unsigned |
-      | l or L | long |
-      | ll or LL | long long |
+      | :------- | :----------- |
+      | u or U   | unsigned     |
+      | l or L   | long         |
+      | ll or LL | long long    |
 
-      | 后缀浮点型 | 类型 |
-      | :--- | :--- |
-      | f or F | float |
-      | l or L | long double |
+      | 后缀浮点型 | 类型        |
+      | :--------- | :---------- |
+      | f or F     | float       |
+      | l or L     | long double |
 
 13. 例子：
 
