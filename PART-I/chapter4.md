@@ -347,10 +347,32 @@
 
     ```c++
     unsigned long ull = 3, ul2 = 7;
-    ull & ul2; //
-    ull | ul2; //
-    ull && ul2; //
-    ul1 || ul2; //
+    ull & ul2; // 3
+    ull | ul2; // 7
+    ull && ul2; // 1
+    ul1 || ul2; // 1
     ```
 
-1. 
+## 4.9 sizeof运算符
+
+1. sizeof运算符返回一条表达式或一个类型名字所占的字节数。sizeof运算符满足右结合律，其所得的值是一个size_t类型的常量表达式。
+
+1. 运算符的运算对象有两种形式：
+   - sizeof(type)
+   - suzeif expr
+
+1. 在上述第二种形式中，sizeof返回的是表达式结果类型的大小。与众不同的一点是，sizeof并不实际计算其运算对象的值：
+
+    ```c++
+    Sales_data data, *p;
+    sizeof(Sales_data); // 存储Sales_data类型的对象所占的空间大小
+    sizeof data;// data的类型的大小，即sizeof(Sales_data)
+    sizeof p; //指针所占空间大小
+    sizeof *p; // p所指类型的空间大小，即sizeof(Sales_data)
+    sizeof data.revenue; // revenue成员所对应的大小
+    sizeof Sales_data::revenue; // 另一种获取revenue大小的方式
+    ```
+
+1. 上述例子中最有意思的是sizeof *p，首先因为sizeof满足右结合律并且与\*的运算符的优先级一样，所以表达式按照从右向左的顺序组合。也就是说，他等价于sizeof(*p)。其次，因为sizeof不会实际求运算对象的值，所以即使p是一个无效的（未初始化的）指针，也不会有什么影响。在sizeof的运算对象中解引用一个无效指针仍然是一种安全的行为，因为指针实际上并没有被真正的使用。sizeof不需要真的解引用指针也能知道他所指对象的类型。
+
+1. c++11新标准允许我们使用作用域运算来获取类成员的大小。通常情况下只有通过类的对象才能访问到类的成员，但是sizeof运算符无须我们提供一个具体的对象，因为要想知道类成员的大小无须真的获取该成员。

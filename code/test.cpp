@@ -3,10 +3,7 @@
 using namespace std;
 
 int main(){
-    string ss;
-    while(cin >> ss){
-        cout << "This is a c++ test" << endl;
-        cout << ss << endl;
-    }
+    unsigned long ull = 3, ul2 = 7;
+    cout << (ull || ul2) << endl; 
     return 0;
 }
