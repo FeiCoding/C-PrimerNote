@@ -524,7 +524,49 @@
    double d = 1.2321;
    void* p = &d; // 任何非常量对象的地址都能存入void\*
    double *dp = static_cast<double *>(p); // 将void\*转换回初始的指针类型
-   int* dp3 = static_cast<int *>(d); // 会打印出奇怪的值
+   int* dp3 = static_cast<int *>(d); // 未定义的
    ```
 
-1. 
+1. const_cast只能改变运算对象底层const
+
+    ```c++
+    const char *pc;
+    char *p = const_cast<char*>(pc); //正确
+    // 如果对象本身不是一个常量，使用强制类型转换获得写权限是合法的，
+    // 如果对象是常量，那么再使用const_cast执行写操作就会产生未定义的后果
+    ```
+
+1. const_cast只能改变表达式的常量属性，不能改变一般表达式的类型：
+
+    ```c++
+    const char *cp;
+    static_cast<char *>(cp); // 错误static_cast不能换掉const性质
+    static_cast<string>(cp); // 正确，字符串字面值换成string类型
+    const_cast<string>(cp); // 错误，const_cast只能改变常量属性
+    ```
+
+1. reinterpret_cast通常为运算对象的位模式提供较低层次上的重新解释。使用reinterpret_cast是非常危险的。该种转换本质上依赖机器。**要想安全地使用reinterpret_cast必须对设计的类型和编译器实现转换的过程都非常了解。**
+
+    ```c++
+    int a = 10;
+    int *ip = &a;
+    char *pc = reinterpret_cast<char *>(ip); // 无法直接将int *转换为char *，此时只能通过reinterpret_cast来转换
+                                             // 然而pc所指的真实对象仍然是一个int型对象，如果将pc当做普通的字符指针
+                                             // 来使用就可能在运行时发生错误
+    ```
+
+1. **建议：尽量避免使用强制类型转换。在有重载函数的上下文中使用const_cast无可厚非，但是其他情况下使用const_cast也就意味着程序存在某种设计缺陷。其他强制类型转换，比如static_cast和dynamic_cast都不应该频繁使用。每次书写了一条强制类型转换语句，都应该反复斟酌能否以其他方式实现相同的目标。就算实在无法避免，也应该尽量限制类型转换值得作用域，并记录相关类型的所有假定，这样可以减少错误发生的机会。**
+
+1. 旧式的强制转换类型：
+   - type (expr); // 函数形式的强制类型转换
+   - (type) expr; // c语言风格的强制类型转换
+
+    ```c++
+    int a = 10;
+    int *ip = &a;
+    char *pc = (char*) ip; // 效果与reinterpret_cast一样
+    ```
+
+1. 旧式的强制类型转换从表现形式上来看并不清晰，容易被看漏，所以一旦转换过程出现问题，追踪起来也更加困难。
+
+1. c++运算符优先表：![c++运算符优先级表](operator_precedence.png)
