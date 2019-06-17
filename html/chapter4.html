@@ -61,6 +61,7 @@
 <p>对于没有指定执行顺序的运算符来说，<strong>如果表达式指向并修改了同一个对象</strong>，将会引发错误并产生未定义的行为。例如：</p>
 <pre><code class="language-c++"><div><span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
 <span class="hljs-built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">" "</span> &lt;&lt; i++ &lt;&lt; <span class="hljs-built_in">endl</span>; <span class="hljs-comment">// 未定义的</span>
+
 <span class="hljs-comment">// 因为程序可能先执行i++再执行i，也可能先执行i再求i++，因此结果产生了不可预知性</span>
 </div></code></pre>
 </li>
@@ -282,8 +283,8 @@ iter++;
 <p>因为递增运算符和递减运算符会改变运算对象的值，所以要提防在复合表达式中错用这两个运算符。</p>
 <pre><code class="language-c++"><div><span class="hljs-keyword">while</span>(beg != s.end() &amp;&amp; !<span class="hljs-built_in">isspace</span>(*beg))
     *beg = <span class="hljs-built_in">toupper</span>(*beg++); <span class="hljs-comment">// 错误，赋值运算符两端的运算对象都用到了beg，</span>
-                            <span class="hljs-comment">// 并且右侧的运算对象还改变了beg的值，此时无法知道先运算左边还是右边</span>
-                            <span class="hljs-comment">// 所以该赋值语句是未定义的。</span>
+                            <span class="hljs-comment">// 并且右侧的运算对象还改变了beg的值，</span>
+                            <span class="hljs-comment">// 此时无法知道先运算左边还是右边</span>
 
 <span class="hljs-keyword">if</span>(vec[i++] &lt;= vec[i]){
     <span class="hljs-comment">// 同样地，此时也不能明确左右哪边先运算，也会导致该赋值是未定义的</span>
@@ -308,10 +309,12 @@ iter++;
 <p>4.20例题，假设iter的类型是vector<string>::iterator,说明下面的表达式是否合法：</p>
 <pre><code class="language-c++"><div>*iter++; <span class="hljs-comment">// 解引用操作优先级小于++，所以先保存值再加加再返回原来的值，合法</span>
 (*iter)++; <span class="hljs-comment">// 先解引用为string类型，再++，string++无意义，不合法</span>
-*iter.empty(); <span class="hljs-comment">// 解引用操作优先级小于点操作，先对iter进行empty成员函数，指针无该成员函数，不合法</span>
+*iter.empty(); <span class="hljs-comment">// 解引用操作优先级小于点操作，先对iter进行empty成员函数，</span>
+               <span class="hljs-comment">// 指针无该成员函数，不合法</span>
 iter-&gt;empty(); <span class="hljs-comment">// 合法</span>
-++*iter; <span class="hljs-comment">// 先进行++，但++操作符操作于*iter解引用的string类型上，无意义，不合法</span>
-iter++-&gt;empty(); <span class="hljs-comment">// ++操作符优先级低于箭头操作符，先调用empty成员函数，再进行++，合法</span>
+++*iter; <span class="hljs-comment">// 先进行++，但++操作符操作于*iter解引用的string类型上，无意义</span>
+iter++-&gt;empty(); <span class="hljs-comment">// ++操作符优先级低于箭头操作符，先调用empty成员函数，</span>
+                 <span class="hljs-comment">// 再进行++，合法</span>
 </div></code></pre>
 </li>
 </ol>
@@ -690,16 +693,18 @@ ul1 || ul2; <span class="hljs-comment">// 1</span>
 <pre><code class="language-c++"><div><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *cp;
 <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">char</span> *&gt;(cp); <span class="hljs-comment">// 错误，static_cast不能换掉const性质</span>
 <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-built_in">string</span>&gt;(cp); <span class="hljs-comment">// 正确，字符串字面值换成string类型</span>
-<span class="hljs-keyword">const_cast</span>&lt;<span class="hljs-built_in">string</span>&gt;(cp); <span class="hljs-comment">// 错误，const_cast只能改变常量属性，不能改变一般表达式的类型</span>
+<span class="hljs-keyword">const_cast</span>&lt;<span class="hljs-built_in">string</span>&gt;(cp); <span class="hljs-comment">// 错误，const_cast只能改变常量属性，</span>
+                        <span class="hljs-comment">// 不能改变一般表达式的类型</span>
 </div></code></pre>
 </li>
 <li>
 <p>reinterpret_cast通常为运算对象的位模式提供较低层次上的重新解释。使用reinterpret_cast是非常危险的。该种转换本质上依赖机器。<strong>要想安全地使用reinterpret_cast必须对设计的类型和编译器实现转换的过程都非常了解。</strong></p>
 <pre><code class="language-c++"><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;
 <span class="hljs-keyword">int</span> *ip = &amp;a;
-<span class="hljs-keyword">char</span> *pc = <span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-keyword">char</span> *&gt;(ip); <span class="hljs-comment">// 没有定义如何将int *转换为char *，此时只能通过reinterpret_cast来转换</span>
-                                         <span class="hljs-comment">// 然而pc所指的真实对象仍然是一个int型对象，如果将pc当做普通的字符指针</span>
-                                         <span class="hljs-comment">// 来使用就可能在运行时发生错误</span>
+<span class="hljs-keyword">char</span> *pc = <span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-keyword">char</span> *&gt;(ip); 
+<span class="hljs-comment">// 没有定义如何将int *转换为char *，此时只能通过reinterpret_cast来转换</span>
+<span class="hljs-comment">// 然而pc所指的真实对象仍然是一个int型对象，如果将pc当做普通的字符指针</span>
+<span class="hljs-comment">// 来使用就可能在运行时发生错误</span>
 </div></code></pre>
 </li>
 <li>
