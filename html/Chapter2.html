@@ -2,8 +2,8 @@
     <html>
     <head>
         <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-        <title>Chapter2 变量和基本类型</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <title>Chapter 2 变量和基本类型</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
         <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
@@ -21,8 +21,8 @@
         <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
     </head>
     <body>
-        <h1 id="chapter2-%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B">Chapter2 变量和基本类型</h1>
-<h2 id="21-%E5%9F%BA%E6%9C%AC%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B">2.1 基本内置类型</h2>
+        <h1 id="Chapter-2-%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B">Chapter 2 变量和基本类型</h1>
+<h3 id="21-%E5%9F%BA%E6%9C%AC%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B">2.1 基本内置类型</h3>
 <ol>
 <li>
 <p>C++算数类型表：</p>
@@ -101,26 +101,16 @@
 <li>
 <p>字符类型：</p>
 <ul>
-<li>
-<p>一个char的空间应确保可以存放机器<strong>基本字符集</strong>中任意字符对应的数字值，也就是说一个char的大小刚好和一个机器字节一样（1 byte）</p>
-</li>
-<li>
-<p>wchar_t类型用于确保可以存放机器<strong>最大</strong>扩展字符集中的任意一个字符</p>
-</li>
-<li>
-<p>char16_t和char32_t为unicode字符集服务</p>
-</li>
+<li>一个char的空间应确保可以存放机器<strong>基本字符集</strong>中任意字符对应的数字值，也就是说一个char的大小刚好和一个机器字节一样（1 byte）</li>
+<li>wchar_t类型用于确保可以存放机器<strong>最大</strong>扩展字符集中的任意一个字符</li>
+<li>char16_t和char32_t为unicode字符集服务</li>
 </ul>
 </li>
 <li>
 <p>内置类型的机器实现</p>
 <ul>
-<li>
-<p>可寻址的最小内存块称为字节（byte），存储的基本单元称为字（Word）</p>
-</li>
-<li>
-<p>大多数机器的字节由8 bit组成，字则有32或者64 bit，也就是4或8字节</p>
-</li>
+<li>可寻址的最小内存块称为字节（byte），存储的基本单元称为字（Word）</li>
+<li>大多数机器的字节由8 bit组成，字则有32或者64 bit，也就是4或8字节</li>
 </ul>
 </li>
 <li>
@@ -129,45 +119,22 @@
 <li>
 <p>符号类型</p>
 <ul>
-<li>
-<p>带符号类型（signed）可以表示整数、负数或者0，无符号则只能表示大于等于0的数</p>
-</li>
-<li>
-<p>int、short、long和long long都是带符号的，前面加上unsigned就是无符号类型</p>
-</li>
-<li>
-<p><strong>unsigned int可以简写成unsigned</strong></p>
-</li>
-<li>
-<p>char也有char， unsigned char， signed char。但是此处<strong>signed char 和 char类型不一样</strong>，char实际上只有signed char和unsigned char，而char则由编译器决定表示两种中的哪一种</p>
-</li>
-<li>
-<p>无符号类型所有bit都用来存储值（首bit不是符号位）</p>
-</li>
-<li>
-<p>为保证正负值的表示范围平衡，8 bit的signed char虽然理论上可以表示-128 到 128，但实际上是-128 到 127（<strong>0算作正方向上的值从而使得正负范围平衡</strong>）</p>
-</li>
+<li>带符号类型（signed）可以表示整数、负数或者0，无符号则只能表示大于等于0的数</li>
+<li>int、short、long和long long都是带符号的，前面加上unsigned就是无符号类型</li>
+<li><strong>unsigned int可以简写成unsigned</strong></li>
+<li>char也有char， unsigned char， signed char。但是此处<strong>signed char 和 char类型不一样</strong>，char实际上只有signed char和unsigned char，而char则由编译器决定表示两种中的哪一种</li>
+<li>无符号类型所有bit都用来存储值（首bit不是符号位）</li>
+<li>为保证正负值的表示范围平衡，8 bit的signed char虽然理论上可以表示-128 到 128，但实际上是-128 到 127（<strong>0算作正方向上的值从而使得正负范围平衡</strong>）</li>
 </ul>
 </li>
 <li>
 <p>类型选择的建议：</p>
 <ul>
-<li>
-<p>当明确知道数值不为负，选用unsigned</p>
-</li>
-<li>
-<p>优先使用int。short太短，long长度往往和int相同，过长数据则选用long long</p>
-</li>
-<li>
-<p>算术表达式中不要选择char或者bool（因为char在不同的机器上可能表现signed或者
-unsigned，如果不得不使用，明确是signed char还是unsigned char）</p>
-</li>
-<li>
-<p>浮点运算优先使用double，float常常精度不够，两者计算代价相差不大，某些机器double更快</p>
-</li>
-<li>
-<p>往往不需要long double精度，而且运行消耗比较大</p>
-</li>
+<li>当明确知道数值不为负，选用unsigned</li>
+<li>优先使用int。short太短，long长度往往和int相同，过长数据则选用long long</li>
+<li>算术表达式中不要选择char或者bool（因为char在不同的机器上可能表现signed或者 unsigned，如果不得不使用，明确是signed char还是unsigned char）</li>
+<li>浮点运算优先使用double，float常常精度不够，两者计算代价相差不大，某些机器double更快</li>
+<li>往往不需要long double精度，而且运行消耗比较大</li>
 </ul>
 </li>
 <li>
@@ -186,17 +153,17 @@ unsigned，如果不得不使用，明确是signed char还是unsigned char）</p
 <p>unsigned char表示0-256，如果赋值超出范围，比如-1，那么我们表示的数与256取模获得的余数为255（关于什么是取模，如何计算出255，看第8条）</p>
 </li>
 <li>
-<p>如果我们赋值给signer char超出范围，那么结果是undefined（未定义的）</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">bool</span> b = <span class="hljs-number">42</span>; <span class="hljs-comment">// b为真</span>
-<span class="hljs-keyword">int</span> i = b; <span class="hljs-comment">// i为1</span>
-i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</span>
-<span class="hljs-keyword">double</span> pi = i; <span class="hljs-comment">// pi为3.0</span>
-<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> c = <span class="hljs-number">-1</span>; <span class="hljs-comment">// 假设char占8bit，那么c为255</span>
-<span class="hljs-keyword">signed</span> <span class="hljs-keyword">char</span> c2 = <span class="hljs-number">256</span>; <span class="hljs-comment">//假设char占8bit，那么c2为未定义的</span>
+<p>如果我们赋值给signed char超出范围，那么结果是undefined（未定义的）</p>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">bool</span> b = <span class="hljs-number">42</span>; <span class="hljs-comment">// b为真</span>
+ <span class="hljs-keyword">int</span> i = b; <span class="hljs-comment">// i为1</span>
+ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</span>
+ <span class="hljs-keyword">double</span> pi = i; <span class="hljs-comment">// pi为3.0</span>
+ <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> c = <span class="hljs-number">-1</span>; <span class="hljs-comment">// 假设char占8bit，那么c为255</span>
+ <span class="hljs-keyword">signed</span> <span class="hljs-keyword">char</span> c2 = <span class="hljs-number">256</span>; <span class="hljs-comment">//假设char占8bit，那么c2为未定义的</span>
 
-<span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;
-<span class="hljs-keyword">if</span>(i)  <span class="hljs-comment">// 此时i会被编译器自动转换为true</span>
-    i = <span class="hljs-number">0</span>;
+ <span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;
+ <span class="hljs-keyword">if</span>(i)  <span class="hljs-comment">// 此时i会被编译器自动转换为true</span>
+     i = <span class="hljs-number">0</span>;
 </div></code></pre>
 </li>
 </ul>
@@ -204,15 +171,26 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 <li>
 <p>取模定义</p>
 <blockquote>
-<p>对于整数a，b来说，取模运算或者求余运算的方法要分如下两步：<br/>1.求整数商：c=a/b<br/>2.计算模或者余数：r=a-(c*b)<br/>求模运算和求余运算在第一步不同<br/>取余运算在计算商值向0方向舍弃小数位<br/>取模运算在计算商值向负无穷方向舍弃小数位<br/>例如：4/(-3)约等于-1.3<br/>在取余运算时候商值向0方向舍弃小数位为-1<br/>在取模运算时商值向负无穷方向舍弃小数位为-2<br/>所以<br/>4rem(-3)=1<br/>4mod(-3)=-2</p>
+<p>对于整数a，b来说，取模运算或者求余运算的方法要分如下两步：<br>
+1.求整数商：c=a/b<br>
+2.计算模或者余数：r=a-(c*b)<br>
+求模运算和求余运算在第一步不同<br>
+取余运算在计算商值向0方向舍弃小数位<br>
+取模运算在计算商值向负无穷方向舍弃小数位<br>
+例如：4/(-3)约等于-1.3<br>
+在取余运算时候商值向0方向舍弃小数位为-1<br>
+在取模运算时商值向负无穷方向舍弃小数位为-2<br>
+所以<br>
+4rem(-3)=1<br>
+4mod(-3)=-2</p>
 </blockquote>
 <ul>
-<li>根据上方定义，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mo>−</mo><mn>1</mn><mo>)</mo><mi>m</mi><mi>o</mi><mi>d</mi><mn>256</mn></mrow><annotation encoding="application/x-tex">(-1) mod 256</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">)</span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span></span></span></span> 第一步计算商为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mo>−</mo><mn>1</mn></mrow><mn>256</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{-1}{256}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">5</span><span class="mord mtight">6</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>，取模向负无穷舍弃小数位则为-1，所以此时取模的值就等于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mn>1</mn><mo>−</mo><mo>(</mo><mo>−</mo><mn>1</mn><mo>)</mo><mo>∗</mo><mn>256</mn><mo>=</mo><mn>255</mn></mrow><annotation encoding="application/x-tex">-1 - (-1) * 256 = 255</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">5</span></span></span></span>。</li>
+<li>根据上方定义，<span class="katex-error" title="ParseError: KaTeX parse error: Can&#x27;t use function &#x27;\(&#x27; in math mode at position 1: \̲(̲-1\) mod 256" style="color:#cc0000">\(-1\) mod 256</span> 第一步计算商为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mo>−</mo><mn>1</mn></mrow><mn>256</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{-1}{256}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">5</span><span class="mord mtight">6</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>，取模向负无穷舍弃小数位则为-1，所以此时取模的值就等于<span class="katex-error" title="ParseError: KaTeX parse error: Can&#x27;t use function &#x27;\(&#x27; in math mode at position 6: -1 - \̲(̲-1\) \* 256 = 2…" style="color:#cc0000">-1 - \(-1\) \* 256 = 255</span>。</li>
 </ul>
 </li>
 <li>
 <p>当一个算术表达式中既有无符号数又有int值的时候，int值会被自动转换成无符号数。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">unsigned</span> u = <span class="hljs-number">10</span>;
+<pre><code class="language-cpp"><div><span class="hljs-keyword">unsigned</span> u = <span class="hljs-number">10</span>;
 <span class="hljs-keyword">int</span> i = <span class="hljs-number">-42</span>;
 <span class="hljs-built_in">cout</span> &lt;&lt; i + i &lt;&lt;<span class="hljs-built_in">endl</span>; <span class="hljs-comment">// 输出-84</span>
 <span class="hljs-built_in">cout</span> &lt;&lt;u + i &lt;&lt;<span class="hljs-built_in">endl</span>; <span class="hljs-comment">// 如果int占32bit，输出4294967264</span>
@@ -224,19 +202,21 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 </li>
 <li>
 <p>当把unsigned值应用于for循环时:</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">for</span>(<span class="hljs-keyword">unsigned</span> u = <span class="hljs-number">10</span>; u &gt;= <span class="hljs-number">0</span>; --u){
-  <span class="hljs-built_in">cout</span> &lt;&lt; u &lt;&lt; <span class="hljs-built_in">endl</span>; <span class="hljs-comment">// 此时u永远不会小于0，因为当u=0后再减一，会获得求模后的正数</span>
-}
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">for</span>(<span class="hljs-keyword">unsigned</span> u = <span class="hljs-number">10</span>; u &gt;= <span class="hljs-number">0</span>; --u){
+   <span class="hljs-built_in">cout</span> &lt;&lt; u &lt;&lt; <span class="hljs-built_in">endl</span>; <span class="hljs-comment">// 此时u永远不会小于0，因为当u=0后再减一，会获得求模后的正数</span>
+ }
 </div></code></pre>
 <ul>
-<li>要避免这种情况一般用while代替for循环，同时将判断语句设置为u大于1</li>
-</ul>
-<pre><code class="language-c++"><div><span class="hljs-keyword">unsigned</span> u = <span class="hljs-number">11</span>;
+<li>
+<p>要避免这种情况一般用while代替for循环，同时将判断语句设置为u大于1</p>
+<pre><code class="language-cpp"><div><span class="hljs-keyword">unsigned</span> u = <span class="hljs-number">11</span>;
 <span class="hljs-keyword">while</span>( u &gt; <span class="hljs-number">1</span>){
-  --u;
-  <span class="hljs-built_in">cout</span> &lt;&lt; u &lt;&lt; <span class="hljs-built_in">endl</span>; 
+--u;
+<span class="hljs-built_in">cout</span> &lt;&lt; u &lt;&lt; <span class="hljs-built_in">endl</span>; 
 }
 </div></code></pre>
+</li>
+</ul>
 </li>
 <li>
 <p>字面值常量：</p>
@@ -255,92 +235,94 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 <table>
 <thead>
 <tr>
-<th>前缀</th>
-<th>含义</th>
-<th>类型</th>
+<th style="text-align:left">前缀</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">类型</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>u</td>
-<td>Unicode16字符</td>
-<td>char16_t</td>
+<td style="text-align:left">u</td>
+<td style="text-align:left">Unicode16字符</td>
+<td style="text-align:left">char16_t</td>
 </tr>
 <tr>
-<td>U</td>
-<td>Unicode32字符</td>
-<td>char32_t</td>
+<td style="text-align:left">U</td>
+<td style="text-align:left">Unicode32字符</td>
+<td style="text-align:left">char32_t</td>
 </tr>
 <tr>
-<td>L</td>
-<td>宽字符</td>
-<td>wchar_t</td>
+<td style="text-align:left">L</td>
+<td style="text-align:left">宽字符</td>
+<td style="text-align:left">wchar_t</td>
 </tr>
 <tr>
-<td>u8</td>
-<td>UTF-8</td>
-<td>char</td>
+<td style="text-align:left">u8</td>
+<td style="text-align:left">UTF-8</td>
+<td style="text-align:left">char</td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li>后缀（尽量使用L来代替小写的l，因为小写的l像数字1）</li>
-</ul>
+<li>
+<p>后缀（尽量使用L来代替小写的l，因为小写的l像数字1）</p>
 <table>
 <thead>
 <tr>
-<th>后缀整型</th>
-<th>最小匹配类型</th>
+<th style="text-align:left">后缀整型</th>
+<th style="text-align:left">最小匹配类型</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>u or U</td>
-<td>unsigned</td>
+<td style="text-align:left">u or U</td>
+<td style="text-align:left">unsigned</td>
 </tr>
 <tr>
-<td>l or L</td>
-<td>long</td>
+<td style="text-align:left">l or L</td>
+<td style="text-align:left">long</td>
 </tr>
 <tr>
-<td>ll or LL</td>
-<td>long long</td>
+<td style="text-align:left">ll or LL</td>
+<td style="text-align:left">long long</td>
 </tr>
 </tbody>
 </table>
 <table>
 <thead>
 <tr>
-<th>后缀浮点型</th>
-<th>类型</th>
+<th style="text-align:left">后缀浮点型</th>
+<th style="text-align:left">类型</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>f or F</td>
-<td>float</td>
+<td style="text-align:left">f or F</td>
+<td style="text-align:left">float</td>
 </tr>
 <tr>
-<td>l or L</td>
-<td>long double</td>
+<td style="text-align:left">l or L</td>
+<td style="text-align:left">long double</td>
 </tr>
 </tbody>
 </table>
 </li>
+</ul>
+</li>
 <li>
 <p>例子：</p>
-<pre><code class="language-c++"><div>L'a'; <span class="hljs-comment">// 宽字符字面值，类型是wchar_t</span>
-<span class="hljs-string">u8"Hi"</span>; <span class="hljs-comment">// utf-8字符串字面值</span>
-<span class="hljs-number">42U</span>LL; <span class="hljs-comment">// 无符号整型字面值，后缀，所以是unsigned long long</span>
-<span class="hljs-number">1E-3</span>F; <span class="hljs-comment">// 单精度浮点数字面值，float</span>
-<span class="hljs-number">3.14159L</span>; <span class="hljs-comment">// 扩展精度浮点型字面值，类型是long double</span>
+<pre><code class="language-cpp"><div> L'a'; <span class="hljs-comment">// 宽字符字面值，类型是wchar_t</span>
+ <span class="hljs-string">u8"Hi"</span>; <span class="hljs-comment">// utf-8字符串字面值</span>
+ <span class="hljs-number">42U</span>LL; <span class="hljs-comment">// 无符号整型字面值，后缀，所以是unsigned long long</span>
+ <span class="hljs-number">1E-3</span>F; <span class="hljs-comment">// 单精度浮点数字面值，float</span>
+ <span class="hljs-number">3.14159L</span>; <span class="hljs-comment">// 扩展精度浮点型字面值，类型是long double</span>
 </div></code></pre>
 </li>
 <li>
 <p>true和false是布尔类型字面值，nullptr是指针字面值</p>
 </li>
 </ol>
-<h2 id="22-%E5%8F%98%E9%87%8F">2.2 变量</h2>
+<h3 id="22-%E5%8F%98%E9%87%8F">2.2 变量</h3>
 <ol>
 <li>
 <p>初始化和赋值都使用“=”，然而初始化不是赋值，初始化的含义是创建变量的同时赋予一个初始值，而赋值的含义是把对象的当前值擦除，而以一个新值来替代。</p>
@@ -350,13 +332,13 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 </li>
 <li>
 <p>当使用列表初始化且初始值存在丢失信息的风险，编译器会报错。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">long</span> <span class="hljs-keyword">double</span> ld = <span class="hljs-number">3.1415123</span>;
-<span class="hljs-keyword">int</span> a{ld}, b{ld}; <span class="hljs-comment">// 报错，会导致信息损失</span>
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">c</span><span class="hljs-params">(ld)</span>, <span class="hljs-title">d</span><span class="hljs-params">(ld)</span></span>; <span class="hljs-comment">// 通过，忽略已发生的信息损失</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">long</span> <span class="hljs-keyword">double</span> ld = <span class="hljs-number">3.1415123</span>;
+ <span class="hljs-keyword">int</span> a{ld}, b{ld}; <span class="hljs-comment">// int转换成double，报错，会导致信息损失</span>
+ <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">c</span><span class="hljs-params">(ld)</span>, <span class="hljs-title">d</span><span class="hljs-params">(ld)</span></span>; <span class="hljs-comment">// 通过，忽略已发生的信息损失</span>
 </div></code></pre>
 </li>
 <li>
-<p>当定义变量时没有定义初值，那么变量会被默认初始化。如果内置变量未被初始化，且其在任何函数体之外，变量会被初始化为0。例外是，定义在函数体内部的内置类型变量将不被初始化，而该值就是未被定义的（undefined），此时拷贝或引用将发生错误。<strong>建议初始化每一个内置类型的变量</strong>。</p>
+<p>当定义变量时没有定义初值，那么变量会被默认初始化。如果<strong>内置变量</strong>未被初始化，且其在任何函数体之外，变量会被初始化为0。例外是，定义在函数体内部的<strong>内置类型变量</strong>将不被初始化，而该值就是未被定义的（undefined），此时拷贝或引用将发生错误。<strong>建议初始化每一个内置类型的变量</strong>。</p>
 </li>
 <li>
 <p>每个类各自决定其初始化对象的方式，由它自己决定初始化的值到底是什么。例如string类如果没有初始化那么将指定初始值为一个空串。</p>
@@ -364,16 +346,26 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 <li>
 <p>c++是分离式编译机制，允许将程序分割成若干文件且各自可以独立编译，此时就需要文件间共享代码。于是c++将变量声明（declaration）和定义（definition）分离开来：</p>
 <ul>
-<li>声明使得名字为程序所知，即如果想使用别处定义的名字则必须在该文件中包含对其的声明</li>
-<li>定义则负责创建与名字关联的实体</li>
-<li>变量规定类型和名字，定义在此之上还申请了内存空间，也可能直接为变量赋值</li>
-<li>如果只想声明，需在名字前加上<strong>extern</strong>关键字，如果此时初始化了则成为定义</li>
-<li>函数内部如果初始化一个<strong>extern</strong>关键字标记的变量将引发错误（<strong>不能再函数体内使用extern</strong>）</li>
-</ul>
-<pre><code class="language-c++"><div><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i; <span class="hljs-comment">// 仅声明变量i</span>
+<li>
+<p>声明使得名字为程序所知，即如果想使用别处定义的名字则必须在该文件中包含对其的声明</p>
+</li>
+<li>
+<p>定义则负责创建与名字关联的实体</p>
+</li>
+<li>
+<p>变量规定类型和名字，定义在此之上还申请了内存空间，也可能直接为变量赋值</p>
+</li>
+<li>
+<p>如果只想声明，需在名字前加上<strong>extern</strong>关键字，如果此时初始化了则成为定义</p>
+</li>
+<li>
+<p>函数内部如果初始化一个<strong>extern</strong>关键字标记的变量将引发错误（<strong>不能在函数体内使用extern</strong>）</p>
+<pre><code class="language-cpp"><div><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i; <span class="hljs-comment">// 仅声明变量i</span>
 <span class="hljs-keyword">int</span> j;  <span class="hljs-comment">// 声明并定义j</span>
 <span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> p = <span class="hljs-number">10</span>; <span class="hljs-comment">// 定义p</span>
 </div></code></pre>
+</li>
+</ul>
 </li>
 <li>
 <p><strong>变量只能被定义一次，但可以多次声明。当变量在多个文件中被同时使用时，需要在一个文件中定义，其他的都将只能且必须声明</strong></p>
@@ -402,7 +394,7 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 </li>
 <li>
 <p>如果全局变量和函数内局部变量命名冲突，则在函数内未定义局部变量前使用全局，定义同名局部变量后优先使用局部变量（不建议定义同名变量）</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;
+<pre><code class="language-cpp"><div><span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
     <span class="hljs-keyword">int</span> i = <span class="hljs-number">100</span>;
     <span class="hljs-keyword">int</span> j = i; <span class="hljs-comment">// j = 100;</span>
@@ -414,7 +406,7 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 <p>一般来说，在对象第一次使用的地方附近定义它是一种好的选择，这样做有助于我们更容易找到他们。</p>
 </li>
 </ol>
-<h2 id="23-%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B">2.3 复合类型</h2>
+<h3 id="23-%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B">2.3 复合类型</h3>
 <ol>
 <li>
 <p>引用就是为对象起了另一个名字。<strong>引用不是对象，没有实际地址</strong>，为引用赋值就是把值赋给引用绑定的对象，获取引用的值实际上是获取引用的对象的值。</p>
@@ -424,9 +416,9 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 </li>
 <li>
 <p>大部分情况下所有引用类型都必须和与之绑定的对象严格匹配，<strong>引用只能绑定在对象上，而不能与字面值或某个表达式的计算结果绑定在一起。</strong></p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> &amp;r = <span class="hljs-number">10</span>; <span class="hljs-comment">// 错误，引用类型初始值必须是一个对象</span>
-<span class="hljs-keyword">double</span> dd = <span class="hljs-number">3.14</span>;
-<span class="hljs-keyword">int</span> &amp;rr = dd; <span class="hljs-comment">// 错误，对象类型不匹配</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> &amp;r = <span class="hljs-number">10</span>; <span class="hljs-comment">// 错误，引用类型初始值必须是一个对象</span>
+ <span class="hljs-keyword">double</span> dd = <span class="hljs-number">3.14</span>;
+ <span class="hljs-keyword">int</span> &amp;rr = dd; <span class="hljs-comment">// 错误，对象类型不匹配</span>
 </div></code></pre>
 </li>
 <li>
@@ -458,27 +450,24 @@ i = <span class="hljs-number">3.15</span>; <span class="hljs-comment">// i为3</
 <p>解引用操作（操作符*）仅适用于那些确实指向了某个对象的有效指针。</p>
 </li>
 <li>
-<p>空指针用nullptr来初始化指针。另一种方法是通过字面值0来初始化指针。</p>
+<p>空指针用nullptr来初始化指针。另一种方法是通过字面值0来初始化指针。注意：直接为指针赋值int型变量0是错误的。</p>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> zero = <span class="hljs-number">0</span>；
+ ptr = zero; <span class="hljs-comment">// 错误，不能把int变量直接赋值给指针</span>
+</div></code></pre>
 </li>
 <li>
 <p>过去我们会用NULL这样一个预处理变量来给指针赋值，其值就是0。预处理器是运行于编译过程之前的一段程序。我们可以直接使用预处理变量而不需加上std::。预处理变量会被预处理器自动转换成实际值。</p>
 </li>
 <li>
-<p>注意：直接为指针赋值int型变量0是错误的。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> zero = <span class="hljs-number">0</span>；
-ptr = zero; <span class="hljs-comment">// 错误，不能把int变量直接赋值给指针</span>
-</div></code></pre>
-</li>
-<li>
 <p><strong>建议初始化所有指针，以避免访问未初始化的指针时出错。</strong></p>
 </li>
 <li>
-<p>为指针赋值0可以让指针指向空。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">int</span> *pi = &amp;i;
-<span class="hljs-keyword">int</span> *pi2; <span class="hljs-comment">// 此时如果pi2在块内，则其值无法确认，不推荐。</span>
-pi2 = pi; <span class="hljs-comment">// pi2也指向i</span>
-pi = <span class="hljs-number">0</span>; <span class="hljs-comment">// pi不再指向任何对象</span>
+<p>为指针赋值0也可以让指针指向空。</p>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;
+ <span class="hljs-keyword">int</span> *pi = &amp;i;
+ <span class="hljs-keyword">int</span> *pi2; <span class="hljs-comment">// 此时如果pi2在块内，则其值无法确认，不推荐。</span>
+ pi2 = pi; <span class="hljs-comment">// pi2也指向i</span>
+ pi = <span class="hljs-number">0</span>; <span class="hljs-comment">// pi不再指向任何对象</span>
 </div></code></pre>
 </li>
 <li>
@@ -492,97 +481,97 @@ pi = <span class="hljs-number">0</span>; <span class="hljs-comment">// pi不再�
 </li>
 <li>
 <p>指针是对象，所以存在对指针的引用</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;
-<span class="hljs-keyword">int</span> *p;
-<span class="hljs-keyword">int</span> *&amp;r = p; <span class="hljs-comment">// r是一个对指针p的引用</span>
-r = &amp;i; <span class="hljs-comment">// r引用了了一个指针，因此赋值给r一个i的地址也就是令p指向i</span>
-*r = <span class="hljs-number">0</span>; <span class="hljs-comment">// 解引用r得到i，也就是p指向的对象将i的值变为0</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;
+ <span class="hljs-keyword">int</span> *p;
+ <span class="hljs-keyword">int</span> *&amp;r = p; <span class="hljs-comment">// r是一个对指针p的引用</span>
+ r = &amp;i; <span class="hljs-comment">// r引用了了一个指针，因此赋值给r一个i的地址也就是令p指向i</span>
+ *r = <span class="hljs-number">0</span>; <span class="hljs-comment">// 解引用r得到i，也就是p指向的对象将i的值变为0</span>
 </div></code></pre>
 </li>
 </ol>
-<h2 id="24-const%E9%99%90%E5%AE%9A%E7%AC%A6">2.4 const限定符</h2>
+<h3 id="24-const%E9%99%90%E5%AE%9A%E7%AC%A6">2.4 const限定符</h3>
 <ol>
 <li>
 <p>因为const对象一旦创建后就无法改变，所以<strong>一定要进行初始化</strong>（类似于引用的初始化性质）</p>
 </li>
 <li>
 <p>如果用一个对象<strong>去初始化另一个对象</strong>，则他们<strong>是不是const都无关紧要</strong>：</p>
-<pre><code class="language-C++"><div><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> k; <span class="hljs-comment">// 不合法，const必须初始化</span>
-<span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = i; <span class="hljs-comment">// 合法</span>
-<span class="hljs-keyword">int</span> j = ci; <span class="hljs-comment">// 合法</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> k; <span class="hljs-comment">// 不合法，const必须初始化</span>
+ <span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = i; <span class="hljs-comment">// 合法</span>
+ <span class="hljs-keyword">int</span> j = ci; <span class="hljs-comment">// 合法</span>
 </div></code></pre>
 </li>
 <li>
 <p>如果想在多个文件之间共享const对象，则必须在变量的定义之前添加extern关键字</p>
-<pre><code class="language-c++"><div><span class="hljs-comment">// 在file.cc中定义并初始化一个常量，该常量能被其他文件访问</span>
-<span class="hljs-keyword">extern</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>；
-<span class="hljs-comment">// 在另一个文件file.h中声明该变量，表明该变量于cc文件里的i是同一个变量</span>
-<span class="hljs-keyword">extern</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i;
+<pre><code class="language-cpp"><div> <span class="hljs-comment">// 在file.cc中定义并初始化一个常量，该常量能被其他文件访问</span>
+ <span class="hljs-keyword">extern</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>；
+ <span class="hljs-comment">// 在另一个文件file.h中声明该变量，表明该变量于cc文件里的i是同一个变量</span>
+ <span class="hljs-keyword">extern</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i;
 </div></code></pre>
 </li>
 <li>
 <p>常量对象只能用常量引用来引用它,而不能使用一般引用</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = i;
-r = <span class="hljs-number">20</span>; <span class="hljs-comment">// 错误，常量引用无法修改值</span>
-<span class="hljs-keyword">int</span> &amp;r2 = i; <span class="hljs-comment">// 错误，无法用非常量引用来引用一个常量值</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = i;
+ r = <span class="hljs-number">20</span>; <span class="hljs-comment">// 错误，常量引用无法修改值</span>
+ <span class="hljs-keyword">int</span> &amp;r2 = i; <span class="hljs-comment">// 错误，无法用非常量引用来引用一个常量值</span>
 </div></code></pre>
 </li>
 <li>
-<p>相反的，允许常量引用绑定一个非常量的对象或字面值。<strong>常量引用可以引用一个字面值。</strong></p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>;
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r1 = i; <span class="hljs-comment">// 正确，常量引用可以绑定非常量</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r2 = <span class="hljs-number">1</span>; <span class="hljs-comment">// 正确，常量引用可以引用一个字面值，如果去除const则不正确</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r3 = r1 * <span class="hljs-number">2</span>;
-<span class="hljs-keyword">int</span> &amp;r4 = r1 * <span class="hljs-number">2</span>; <span class="hljs-comment">// 错误，非常量引用无法绑定常量</span>
+<p>相反的，允许常量引用绑定一个非常量的对象或字面值。<strong>常量引用可以引用一个字面值，或是一般表达式。</strong></p>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>;
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r1 = i; <span class="hljs-comment">// 正确，常量引用可以绑定非常量</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r2 = <span class="hljs-number">1</span>; <span class="hljs-comment">// 正确，常量引用可以引用一个字面值，如果去除const则不正确</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r3 = r1 * <span class="hljs-number">2</span>; <span class="hljs-comment">// 正确，常量引用可以引用一般表达式</span>
+ <span class="hljs-keyword">int</span> &amp;r4 = r1 * <span class="hljs-number">2</span>; <span class="hljs-comment">// 错误，非常量引用无法绑定一个表达式的计算结果</span>
 </div></code></pre>
 </li>
 <li>
 <p>临时量（temporary）:所谓临时量对象就是当编译器需要一个空间来暂存表达式的求值结果时临时创建的一个未命名的对象。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">double</span> v1 = <span class="hljs-number">3.14</span>;
-<span class="hljs-comment">// const引用可以用任意表达式作为初始值，只要该表达式的结果可以转换成引用类型</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = v1;
-<span class="hljs-comment">/*
-* 原因在于此处应该r无法修改所引用的内容，相对来说仍然是安全的，但如果r不是const的，
-* 那么就会导致r可以修改内容，但是所引用的内容是double，而引用本身却是int，
-* 此时就会产生错误。
-*/</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">double</span> v1 = <span class="hljs-number">3.14</span>;
+ <span class="hljs-comment">// const引用可以用任意表达式作为初始值，只要该表达式的结果可以转换成引用类型</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = v1;
+ <span class="hljs-comment">/*
+ * 原因在于此处应该r无法修改所引用的内容，相对来说仍然是安全的，但如果r不是const的，
+ * 那么就会导致r可以修改内容，但是所引用的内容是double，而引用本身却是int，
+ * 此时就会产生错误。
+ */</span>
 
-<span class="hljs-comment">// 上述相当于下式</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> temp = v1; <span class="hljs-comment">// 此处temp为临时量</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = temp;
+ <span class="hljs-comment">// 上述相当于下式</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> temp = v1; <span class="hljs-comment">// 此处temp为临时量</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = temp;
 </div></code></pre>
 </li>
 <li>
-<p>同样的，常量的地址只能被指向常量的指针（pointer to const， 将const放在类型前面，例如const int *ptr）存储，但<strong>指向常量的指针也可以指向一个非常量对象</strong>，只是该指针不能修改其内容。</p>
+<p>同样的，常量的地址只能被指向常量的指针（pointer to const， 将const放在类型前面，例如const int _ptr）存储，但*指向常量的指针也可以指向一个非常量对象，只是该指针不能修改其内容。指向常量的指针可以不进行初始化。</p>
 </li>
 <li>
 <p>被指向常量的指针或是常量引用绑定的非常量对象，虽然无法通过指针或者引用改变值，但可以通过其他方式改变值。</p>
 </li>
 <li>
-<p>常量指针（将const放在*的后边，例如int *const ptr）<strong>必须初始化</strong>，而且一旦初始化完成它所存储的地址值就无法改变了。然而在该地址上存储的值却是依赖于其类型，如果该值不是const类型，也可以改变，只是改变的结果依然存储在该地址，所以此时常量指针所存储的值也就是该值的地址没有发生改变。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> cp; <span class="hljs-comment">// 不合法，常量指针必须初始化</span>
+<p>常量指针（将const放在_的后边，例如int_ const ptr）<strong>必须初始化</strong>，而且一旦初始化完成它所存储的地址值就无法改变了。然而在该地址上存储的值却是依赖于其类型，如果该值不是const类型，也可以改变，只是改变的结果依然存储在该地址，所以此时常量指针所存储的值也就是该值的地址没有发生改变。</p>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> cp; <span class="hljs-comment">// 不合法，常量指针必须初始化</span>
 </div></code></pre>
 </li>
 <li>
 <p>例题2.28</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> i, *<span class="hljs-keyword">const</span> cp;       <span class="hljs-comment">// 不合法, const 指针必须初始化</span>
-<span class="hljs-keyword">int</span> *p1, *<span class="hljs-keyword">const</span> p2;     <span class="hljs-comment">// 不合法, const 指针必须初始化</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ic, &amp;r = ic;  <span class="hljs-comment">// 不合法, const int 必须初始化</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> p3;    <span class="hljs-comment">// 不合法, const 指针必须初始化</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *p;           <span class="hljs-comment">// 合法. 一个指针，指向 const int</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> i, *<span class="hljs-keyword">const</span> cp;       <span class="hljs-comment">// 不合法, const 指针必须初始化</span>
+ <span class="hljs-keyword">int</span> *p1, *<span class="hljs-keyword">const</span> p2;     <span class="hljs-comment">// 不合法, const 指针必须初始化</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ic, &amp;r = ic;  <span class="hljs-comment">// 不合法, const int 必须初始化</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> p3;    <span class="hljs-comment">// 不合法, const 指针必须初始化</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *p;           <span class="hljs-comment">// 合法. 一个指针，指向 const int。指向常量的指针可以不初始化</span>
 </div></code></pre>
 </li>
 <li>
 <p>例题2.29</p>
-<pre><code class="language-c++"><div><span class="hljs-comment">//假设已有上一个练习中定义的那些变量，则下面的哪些语句是合法的？请说明原因。</span>
-i = ic;     <span class="hljs-comment">// 合法, 常量赋值给普通变量</span>
-p1 = p3;    <span class="hljs-comment">// 不合法, p3 是const指针不能赋值给普通指针</span>
-p1 = &amp;ic;   <span class="hljs-comment">// 不合法, 普通指针不能指向常量</span>
-p3 = &amp;ic;   <span class="hljs-comment">// 合法, p3 是常量指针且指向常量</span>
-p2 = p1;    <span class="hljs-comment">// 合法, 可以将普通指针赋值给常量指针</span>
-ic = *p3;   <span class="hljs-comment">// 不合法, ic是const int，初始化后不能再改变其值</span>
+<pre><code class="language-cpp"><div> <span class="hljs-comment">//假设已有上一个练习中定义的那些变量，则下面的哪些语句是合法的？请说明原因。</span>
+ i = ic;     <span class="hljs-comment">// 合法, 常量赋值给普通变量</span>
+ p1 = p3;    <span class="hljs-comment">// 不合法, p3 是const指针不能赋值给普通指针</span>
+ p1 = &amp;ic;   <span class="hljs-comment">// 不合法, 普通指针不能指向常量</span>
+ p3 = &amp;ic;   <span class="hljs-comment">// 合法, p3 是常量指针且指向常量</span>
+ p2 = p1;    <span class="hljs-comment">// 合法, 可以将普通指针赋值给常量指针</span>
+ ic = *p3;   <span class="hljs-comment">// 不合法, ic是const int，初始化后不能再改变其值</span>
 </div></code></pre>
 </li>
 <li>
@@ -592,53 +581,54 @@ ic = *p3;   <span class="hljs-comment">// 不合法, ic是const int，初始化�
 <p>指针类型既可以是顶层const，也可以是底层const。<strong>用于声明引用（&amp;）的const都是底层const</strong>。</p>
 </li>
 <li>
-<p>执行拷贝操作并不会改变被拷贝对象的值，所以考入和考出的对象对于顶层const是否是常量都没什么影响。然而对于底层const，考入考出的拷贝对象必须具有相同的底层const</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
-<span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> p1 = &amp;i; <span class="hljs-comment">// 不能改变p1的值，这是顶层const</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = <span class="hljs-number">42</span>; <span class="hljs-comment">// 不能改变ci的值，这是顶层const</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *p2 = &amp;ci; <span class="hljs-comment">// 允许改变p2的值，这是一个底层const</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> p3 = p2; <span class="hljs-comment">// 靠右的const是顶层const，靠左的是底层const</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = ci; <span class="hljs-comment">// 用于声明引用的const都是底层const</span>
+<p>执行拷贝操作并不会改变被拷贝对象的值，所以考入和考出的对象对于顶层const是否是常量都没什么影响。然而对于底层const，考入考出的拷贝对象<strong>必须具有相同的底层const，或者两个对象之间必须能够转换</strong>（一般来说，非常量可以转换成常量，反之则不行）：</p>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+ <span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> p1 = &amp;i; <span class="hljs-comment">// 不能改变p1的值，这是顶层const</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = <span class="hljs-number">42</span>; <span class="hljs-comment">// 不能改变ci的值，这是顶层const</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *p2 = &amp;ci; <span class="hljs-comment">// 允许改变p2的值，这是一个底层const</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> p3 = p2; <span class="hljs-comment">// 靠右的const是顶层const，靠左的是底层const</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = ci; <span class="hljs-comment">// 用于声明引用的const都是底层const</span>
 
-i = ci; <span class="hljs-comment">// 正确：拷贝ci的值，ci是一个顶层const，操作无影响</span>
-p2 = p3; <span class="hljs-comment">// 正确：p2和p3指向的对象类型相同，p3顶层const部分不受影响</span>
-<span class="hljs-keyword">int</span> *p = p3; <span class="hljs-comment">// 错误：p3包含底层const，p没有，不能用const指针为非const初始化</span>
-p2 = &amp;i; <span class="hljs-comment">// 正确：此时int*被转换成const int*</span>
-<span class="hljs-keyword">int</span> &amp;r2 = ci; <span class="hljs-comment">// 错误：普通引用无法绑定const值 </span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r3 = i; <span class="hljs-comment">// 正确</span>
+ i = ci; <span class="hljs-comment">// 正确：拷贝ci的值，ci是一个顶层const，操作无影响</span>
+ p2 = p3; <span class="hljs-comment">// 正确：p2和p3指向的对象类型相同，p3顶层const部分不受影响</span>
+ <span class="hljs-keyword">int</span> *p = p3; <span class="hljs-comment">// 错误：p3包含底层const，p没有，不能用const指针为非const初始化</span>
+ p2 = &amp;i; <span class="hljs-comment">// 正确：此时int*被转换成const int*</span>
+ <span class="hljs-keyword">int</span> &amp;r2 = ci; <span class="hljs-comment">// 错误：普通引用无法绑定const值 </span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r3 = i; <span class="hljs-comment">// 正确</span>
 </div></code></pre>
 </li>
 <li>
 <p>习题2.30</p>
-<pre><code class="language-c++"><div><span class="hljs-comment">//对于下面的这些语句，请说明对象被声明成了顶层const还是底层const？</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> v2 = <span class="hljs-number">0</span>; <span class="hljs-keyword">int</span> v1 = v2;
-<span class="hljs-keyword">int</span> *p1 = &amp;v1, &amp;r1 = v1;
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *p2 = &amp;v2, *<span class="hljs-keyword">const</span> p3 = &amp;i, &amp;r2 = v2;
-<span class="hljs-comment">//v2 是顶层const，p2 是底层const，p3 既是顶层const又是底层const，r2 是底层const。</span>
+<pre><code class="language-cpp"><div> <span class="hljs-comment">//对于下面的这些语句，请说明对象被声明成了顶层const还是底层const？</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> v2 = <span class="hljs-number">0</span>; <span class="hljs-keyword">int</span> v1 = v2;
+ <span class="hljs-keyword">int</span> *p1 = &amp;v1, &amp;r1 = v1;
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *p2 = &amp;v2, *<span class="hljs-keyword">const</span> p3 = &amp;i, &amp;r2 = v2;
+ <span class="hljs-comment">//v2 是顶层const，p2 是底层const，p3 既是顶层const又是底层const，r2 是底层const。</span>
 </div></code></pre>
 </li>
 <li>
 <p>习题2.31</p>
-<pre><code class="language-c++"><div>r1 = v2; <span class="hljs-comment">// 合法, 顶层const在拷贝时不受影响</span>
-p1 = p2; <span class="hljs-comment">// 不合法, p2 是底层const，如果要拷贝必须要求 p1 也是底层const</span>
-p2 = p1; <span class="hljs-comment">// 合法, int* 可以转换成const int*</span>
-p1 = p3; <span class="hljs-comment">// 不合法, p3 是一个底层const，p1 不是</span>
-p2 = p3; <span class="hljs-comment">// 合法, p2 和 p3 都是底层const，拷贝时忽略掉顶层const</span>
+<pre><code class="language-cpp"><div> r1 = v2; <span class="hljs-comment">// 合法, 顶层const在拷贝时不受影响。</span>
+          <span class="hljs-comment">// 注意此处不是为r1赋值，而是将v2的值拷贝给r1引用的对象</span>
+ p1 = p2; <span class="hljs-comment">// 不合法, p2 是底层const，如果要拷贝必须要求 p1 也是底层const</span>
+ p2 = p1; <span class="hljs-comment">// 合法, int* 可以转换成const int*</span>
+ p1 = p3; <span class="hljs-comment">// 不合法, p3 是一个底层const，p1 不是</span>
+ p2 = p3; <span class="hljs-comment">// 合法, p2 和 p3 都是底层const，拷贝时忽略掉顶层const</span>
 </div></code></pre>
 </li>
 <li>
 <p>常量表达式：<strong>在编译过程就能获得计算结果的表达式。</strong></p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> max = <span class="hljs-number">20</span>; <span class="hljs-comment">// 常量表达式</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> limit = max + <span class="hljs-number">10</span>; <span class="hljs-comment">// 常量表达式</span>
-<span class="hljs-keyword">int</span> staff = <span class="hljs-number">10</span>; <span class="hljs-comment">// 非常量表达式，staff只是普通int，后续程序可能会改变它的值</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> sz = get_size(); <span class="hljs-comment">// 非常量表达式，只有运行getsize方法是才知道他的值</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> max = <span class="hljs-number">20</span>; <span class="hljs-comment">// 常量表达式</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> limit = max + <span class="hljs-number">10</span>; <span class="hljs-comment">// 常量表达式</span>
+ <span class="hljs-keyword">int</span> staff = <span class="hljs-number">10</span>; <span class="hljs-comment">// 非常量表达式，staff只是普通int，后续程序可能会改变它的值</span>
+ <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> sz = get_size(); <span class="hljs-comment">// 非常量表达式，只有运行getsize方法是才知道他的值</span>
 </div></code></pre>
 </li>
 <li>
 <p>c++11允许将变量声明为constexpr类型以便由编译器来验证变量的值是否是一个常量表达式。<strong>声明为constexpr的变量一定是一个常量，且必须用常量表达式初始化</strong>。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> mf = <span class="hljs-number">20</span>; <span class="hljs-comment">// 20是常量表达式</span>
-<span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> limit = mf + <span class="hljs-number">10</span>; <span class="hljs-comment">// mf+10是常量表达式</span>
-<span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> sz = get_size(); <span class="hljs-comment">// 只有当get_size是一个constexpr函数时此条正确</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> mf = <span class="hljs-number">20</span>; <span class="hljs-comment">// 20是常量表达式</span>
+ <span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> limit = mf + <span class="hljs-number">10</span>; <span class="hljs-comment">// mf+10是常量表达式</span>
+ <span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> sz = get_size(); <span class="hljs-comment">// 只有当get_size是一个constexpr函数时此条正确</span>
 </div></code></pre>
 </li>
 <li>
@@ -656,37 +646,37 @@ p2 = p3; <span class="hljs-comment">// 合法, p2 和 p3 都是底层const，拷
 </li>
 <li>
 <p><strong>constexpr只能将指针声明成const，而对该指针指向的对象无影响</strong>。(也就是说constexpr是定义一个顶层const)，此时constexpr指针既可以指向常量又可以指向非常量。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *ptr = <span class="hljs-literal">nullptr</span>; <span class="hljs-comment">// 指向常量的指针</span>
-<span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> *ptr2 = <span class="hljs-literal">nullptr</span>; <span class="hljs-comment">// 常量指针，指针本身是常量</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *ptr = <span class="hljs-literal">nullptr</span>; <span class="hljs-comment">// 指向常量的指针</span>
+ <span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> *ptr2 = <span class="hljs-literal">nullptr</span>; <span class="hljs-comment">// 常量指针，指针本身是常量</span>
 </div></code></pre>
 </li>
 </ol>
-<h2 id="25-%E5%A4%84%E7%90%86%E7%B1%BB%E5%9E%8B">2.5 处理类型</h2>
+<h3 id="25-%E5%A4%84%E7%90%86%E7%B1%BB%E5%9E%8B">2.5 处理类型</h3>
 <ol>
 <li>
 <p>类型别名：类型别名和名字等价。只要类型名字出现的地方别名就可以替代。</p>
 <ul>
 <li>
 <p>传统方法：typedef</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">double</span> wages; <span class="hljs-comment">// wages是double的同义词</span>
-<span class="hljs-keyword">typedef</span> wages base, *p; <span class="hljs-comment">// base是double的同义词，p是double*的同义词</span>
+<pre><code class="language-cpp"><div>   <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">double</span> wages; <span class="hljs-comment">// wages是double的同义词</span>
+   <span class="hljs-keyword">typedef</span> wages base, *p; <span class="hljs-comment">// base是double的同义词，p是double*的同义词</span>
 </div></code></pre>
 </li>
 <li>
 <p>c++11新方法：using（推荐使用using）</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">using</span> SI = Sales_item; <span class="hljs-comment">// SI是Sales_item的同义词</span>
+<pre><code class="language-cpp"><div>   <span class="hljs-keyword">using</span> SI = Sales_item; <span class="hljs-comment">// SI是Sales_item的同义词</span>
 </div></code></pre>
 </li>
 </ul>
 </li>
 <li>
 <p>当类型别名指代复合类型或常量时（<strong>此处要特别注意</strong>）：</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">char</span> *pstr;
-<span class="hljs-keyword">const</span> pstr cstr = <span class="hljs-number">0</span>; <span class="hljs-comment">// cstr是指向char的常量指针</span>
-<span class="hljs-keyword">const</span> pstr *ps; <span class="hljs-comment">// ps是一个指针，他的对象是指向char的常量指针</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">char</span> *pstr;
+ <span class="hljs-keyword">const</span> pstr cstr = <span class="hljs-number">0</span>; <span class="hljs-comment">// cstr是指向char的常量指针</span>
+ <span class="hljs-keyword">const</span> pstr *ps; <span class="hljs-comment">// ps是一个指针，他的对象是指向char的常量指针</span>
 </div></code></pre>
 <ul>
-<li>pstr实际上是指向char的指针，因此const pstr就是指向char的<strong>常量指针</strong>，而非<strong>指向常量字符的指针</strong>。</li>
+<li>pstr实际上是指向char的指针，因此const pstr就是指向char的<strong>常量指针</strong>，此处const修饰pstr这个指针，而非<strong>指向常量字符的指针</strong>。</li>
 </ul>
 </li>
 <li>
@@ -694,8 +684,8 @@ p2 = p3; <span class="hljs-comment">// 合法, p2 和 p3 都是底层const，拷
 </li>
 <li>
 <p>auto在一条语句中声明多个变量，这些变量<strong>只能有一个基本数据类型</strong>。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">auto</span> i = <span class="hljs-number">0</span>, *p = &amp;i; <span class="hljs-comment">// 正确，i和指针p的基本类型都是int</span>
-<span class="hljs-keyword">auto</span> sz = <span class="hljs-number">0</span>, pi = <span class="hljs-number">3.14</span>; <span class="hljs-comment">// 错误，sz和pi基本类型不同</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">auto</span> i = <span class="hljs-number">0</span>, *p = &amp;i; <span class="hljs-comment">// 正确，i和指针p的基本类型都是int</span>
+ <span class="hljs-keyword">auto</span> sz = <span class="hljs-number">0</span>, pi = <span class="hljs-number">3.14</span>; <span class="hljs-comment">// 错误，sz和pi基本类型不同</span>
 </div></code></pre>
 </li>
 <li>
@@ -703,53 +693,53 @@ p2 = p3; <span class="hljs-comment">// 合法, p2 和 p3 都是底层const，拷
 <ul>
 <li>
 <p>使用引用实际是初始化引用对象的值，因此编译器会以引用对象的类型作为auto类型：</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, &amp;r = i;
-<span class="hljs-keyword">auto</span> a = r; <span class="hljs-comment">// 此时a的类型为int</span>
+<pre><code class="language-cpp"><div>   <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, &amp;r = i;
+   <span class="hljs-keyword">auto</span> a = r; <span class="hljs-comment">// 此时a的类型为int</span>
 </div></code></pre>
 </li>
 <li>
 <p>auto会忽略掉顶层const，同时底层const则会保留下来，比如当初始值是一个指向常量的指针时。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = i, &amp;cr = ci;
-<span class="hljs-keyword">auto</span> b = ci; <span class="hljs-comment">// 此时b为int型（顶层const被忽略）</span>
-<span class="hljs-keyword">auto</span> c = cr; <span class="hljs-comment">// 此时c也为int型</span>
-<span class="hljs-keyword">auto</span> d = &amp;i; <span class="hljs-comment">// d是一个整型指针</span>
-<span class="hljs-keyword">auto</span> e = &amp;ci; <span class="hljs-comment">// e也是一个指向整型常量的指针（对常量取地址是一种底层const）</span>
+<pre><code class="language-cpp"><div>   <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = i, &amp;cr = ci;
+   <span class="hljs-keyword">auto</span> b = ci; <span class="hljs-comment">// 此时b为int型（顶层const被忽略）</span>
+   <span class="hljs-keyword">auto</span> c = cr; <span class="hljs-comment">// 此时c也为int型</span>
+   <span class="hljs-keyword">auto</span> d = &amp;i; <span class="hljs-comment">// d是一个整型指针</span>
+   <span class="hljs-keyword">auto</span> e = &amp;ci; <span class="hljs-comment">// e也是一个指向整型常量的指针（对常量取地址是一种底层const）</span>
 </div></code></pre>
 </li>
 <li>
 <p>如果希望推断出的auto类型是一个顶层const，必须在前面加上const（const auto）</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> f = ci; <span class="hljs-comment">// ci的推演类型是int，f是const int</span>
+<pre><code class="language-cpp"><div>   <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> f = ci; <span class="hljs-comment">// ci的推演类型是int，f是const int</span>
 </div></code></pre>
 </li>
 <li>
 <p>还可以<strong>将引用的类型设置为auto，此时原来的初始化规则仍然使用</strong></p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">auto</span> &amp;g = ci; <span class="hljs-comment">// 正确，g为int&amp;</span>
-<span class="hljs-keyword">auto</span> &amp;h = <span class="hljs-number">42</span>; <span class="hljs-comment">// 错误，不能为非常量引用绑定字面值</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> &amp;j = <span class="hljs-number">42</span>; <span class="hljs-comment">// 正确：可以为常量引用绑定字面值</span>
+<pre><code class="language-cpp"><div>   <span class="hljs-keyword">auto</span> &amp;g = ci; <span class="hljs-comment">// 正确，g为int&amp;</span>
+   <span class="hljs-keyword">auto</span> &amp;h = <span class="hljs-number">42</span>; <span class="hljs-comment">// 错误，不能为非常量引用绑定字面值</span>
+   <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> &amp;j = <span class="hljs-number">42</span>; <span class="hljs-comment">// 正确：可以为常量引用绑定字面值</span>
 </div></code></pre>
 </li>
 </ul>
 </li>
 <li>
 <p>decltype:选择并返回操作数的数据类型。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">decltype</span>(f()) sum = x; <span class="hljs-comment">// sum的类型就是函数f的返回类型</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">decltype</span>(f()) sum = x; <span class="hljs-comment">// sum的类型就是函数f的返回类型</span>
 </div></code></pre>
 </li>
 <li>
 <p>decltype处理顶层const和引用的方式与auto不同，decltype会返回变量的类型包括顶层const和引用在内：</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = <span class="hljs-number">0</span>, &amp;cj = ci;
-<span class="hljs-keyword">decltype</span>(ci) x = <span class="hljs-number">0</span>; <span class="hljs-comment">// x为const int，此处decltype并没有忽略顶层const</span>
-<span class="hljs-keyword">decltype</span>(cj) y = x; <span class="hljs-comment">// y为 const int&amp;</span>
-<span class="hljs-keyword">decltype</span>(cj) z; <span class="hljs-comment">// 错误，z是一个引用，必须初始化</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = <span class="hljs-number">0</span>, &amp;cj = ci;
+ <span class="hljs-keyword">decltype</span>(ci) x = <span class="hljs-number">0</span>; <span class="hljs-comment">// x为const int，此处decltype并没有忽略顶层const</span>
+ <span class="hljs-keyword">decltype</span>(cj) y = x; <span class="hljs-comment">// y为 const int&amp;</span>
+ <span class="hljs-keyword">decltype</span>(cj) z; <span class="hljs-comment">// 错误，z是一个引用，必须初始化</span>
 </div></code></pre>
 </li>
 <li>
 <p>decltype使用的表达式如果不是一个变量，那么decltype则会返回表达式结果对应的类型</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>, *p = &amp;i, &amp;r = i;
-<span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>, e = <span class="hljs-number">3</span>;
-<span class="hljs-keyword">decltype</span>(r + <span class="hljs-number">0</span>) b; <span class="hljs-comment">// b为int，r+0返回int型</span>
-<span class="hljs-keyword">decltype</span>(*p) c; <span class="hljs-comment">// c为int&amp;，此处错误，必须初始化。*p是解引用操作，也就是返回引用</span>
-<span class="hljs-keyword">decltype</span>(a = e) d; <span class="hljs-comment">// d为int&amp;，赋值操作是一种引用类型。此处错误，未初始化</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>, *p = &amp;i, &amp;r = i;
+ <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>, e = <span class="hljs-number">3</span>;
+ <span class="hljs-keyword">decltype</span>(r + <span class="hljs-number">0</span>) b; <span class="hljs-comment">// b为int，r+0返回int型</span>
+ <span class="hljs-keyword">decltype</span>(*p) c; <span class="hljs-comment">// c为int&amp;，此处错误，必须初始化。*p是解引用操作，也就是返回引用</span>
+ <span class="hljs-keyword">decltype</span>(a = e) d; <span class="hljs-comment">// d为int&amp;，赋值操作是一种引用类型。此处错误，未初始化</span>
 </div></code></pre>
 </li>
 <li>
@@ -760,22 +750,22 @@ p2 = p3; <span class="hljs-comment">// 合法, p2 和 p3 都是底层const，拷
 </li>
 <li>
 <p>decltype直接跟上变量则直接返回变量类型，如果decltype加上一或多层括号则会将该变量视为表达式（<strong>decltype的双括号结果永远视为引用</strong>）</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">decltype</span>((i)) d; <span class="hljs-comment">// 双括号，类型为int&amp;</span>
-<span class="hljs-keyword">decltype</span>(i) e; <span class="hljs-comment">// 类型为int</span>
+<pre><code class="language-cpp"><div>  <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">decltype</span>((i)) d; <span class="hljs-comment">// 双括号，类型为int&amp;</span>
+  <span class="hljs-keyword">decltype</span>(i) e; <span class="hljs-comment">// 类型为int</span>
 </div></code></pre>
 </li>
 </ul>
 </li>
 </ol>
-<h2 id="26-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">2.6 自定义数据结构</h2>
+<h3 id="26-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">2.6 自定义数据结构</h3>
 <ol>
 <li>
 <p>类体右侧的表示结束的花括号必须写一个分号，这是因为类体后面可以紧跟变量名以示对该类型对象的定义，所以分号<strong>必不可少</strong>：</p>
-<pre><code class="language-c++"><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Sales_data</span>{</span>   } accum, trans, *salesptr; <span class="hljs-comment">// 后面直接跟要声明的对象名</span>
-<span class="hljs-comment">//下方代码与上一条语句等价，但更好一点</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Sales_data</span>{</span>   };
-Sales_data accum, trans, *salesptr;
+<pre><code class="language-cpp"><div> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Sales_data</span>{</span>   } accum, trans, *salesptr; <span class="hljs-comment">// 后面直接跟要声明的对象名</span>
+ <span class="hljs-comment">//下方代码与上一条语句等价，但更好一点</span>
+ <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Sales_data</span>{</span>   };
+ Sales_data accum, trans, *salesptr;
 </div></code></pre>
 </li>
 <li>
@@ -790,25 +780,25 @@ Sales_data accum, trans, *salesptr;
 <li>
 <p>预处理器：确保头文件多次包含仍能安全工作。由c++从c语言继承而来。</p>
 <ul>
-<li>#include：当预处理器看到#include标记时就会用指定的头文件的内容代替#include</li>
+<li><strong>include：当预处理器看到#include标记时就会用指定的头文件的内容代替#include</strong></li>
 </ul>
 </li>
 <li>
 <p>头文件保护符（header guard）依赖于预处理变量。预处理变量有两种状态：已定义和未定义。#define指令把一个名字设定为预处理变量。#ifdef当且仅当预处理变量已定义时为真。#ifndef当且仅当预处理变量未定义时为真。一旦检查结果为真，则执行后续操作直至遇到#endif指令为止。否则跳过。</p>
-<pre><code class="language-c++"><div><span class="hljs-comment">// 判断SALES_DATA_H是否定义，如果已定义则跳过直到#endif符号，否则执行到#endif</span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> SALES_DATA_H</span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SALES_DATA_H <span class="hljs-comment">// 将SALES_DATA_H设置为预处理变量</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Sales_data</span>{</span>
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> bookNo;
-    <span class="hljs-keyword">unsigned</span> units_sold = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">double</span> revenue = <span class="hljs-number">0.0</span>;
-}
-<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">// !SALES_DATA_H</span></span>
+<pre><code class="language-cpp"><div> <span class="hljs-comment">// 判断SALES_DATA_H是否定义，如果已定义则跳过直到#endif符号，否则执行到#endif</span>
+ <span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> SALES_DATA_H</span>
+ <span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SALES_DATA_H <span class="hljs-comment">// 将SALES_DATA_H设置为预处理变量</span></span>
+ <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
+ <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Sales_data</span>{</span>
+     <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> bookNo;
+     <span class="hljs-keyword">unsigned</span> units_sold = <span class="hljs-number">0</span>;
+     <span class="hljs-keyword">double</span> revenue = <span class="hljs-number">0.0</span>;
+ }
+ <span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">// !SALES_DATA_H</span></span>
 </div></code></pre>
 </li>
 <li>
-<p>整个程序中的预处理变量包括头文件保护符必须唯一。通常做法是基于头文件中类的名字来构建保护符的名字，以确保其唯一性。<strong>一般把预处理变量的名字全部大写</strong>。如上述代码中的SALES_DATA_H。<!-- pagebreak --></p>
+<p>整个程序中的预处理变量包括头文件保护符必须唯一。通常做法是基于头文件中类的名字来构建保护符的名字，以确保其唯一性。<strong>一般把预处理变量的名字全部大写</strong>。如上述代码中的SALES_DATA_H。</p>
 </li>
 </ol>
 
