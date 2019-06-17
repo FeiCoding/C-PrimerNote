@@ -480,7 +480,7 @@
 
 1. 指针也可以转换成布尔类型，如果指针的值为0，则转换结果为false，否则为true。
 
-1. 允许将指向非常亮类型的指针转换成相应的常量类型的指针。对于引用也是这样。也就是说，如果T是一种类型，那么我们就能将指向T的指针或引用分别转换成指向const T的指针或引用。相反则不存在，因为他们尝试在删除底层const。
+1. 允许将指向非常量类型的指针转换成相应的常量类型的指针。对于引用也是这样。也就是说，如果T是一种类型，那么我们就能将指向T的指针或引用分别转换成指向const T的指针或const 引用。相反则不存在，因为他们尝试在删除底层const。
 
     ```c++
     int i;
@@ -489,12 +489,12 @@
     int &r = j, *q = p; // 错误，不允许const转换成非常量
     ```
 
-1. 类类型定义的转换：
+1. 类类型定义的转换由编译器自动执行的转换，不过编译器每次只能执行一种类类型的转换，如果同时提出多个转换请求，这些请求将被拒绝：
 
     ```c++
     string s, t = "a value"; // 字符串字面值转换成string类型
     while(cin >> s){ // while的条件部分把cin转换成布尔值
-
+        // code block
     }
     ```
 
@@ -523,7 +523,7 @@
    double d = 1.2321;
    void* p = &d; // 任何非常量对象的地址都能存入void\*
    double *dp = static_cast<double *>(p); // 将void\*转换回初始的指针类型
-   int* dp3 = static_cast<int *>(d); // 未定义的
+   int* dp3 = static_cast<int *>(d); // 危险的操作，此时结果是未定义的
    ```
 
 1. const_cast只能改变运算对象底层const
@@ -539,9 +539,9 @@
 
     ```c++
     const char *cp;
-    static_cast<char *>(cp); // 错误static_cast不能换掉const性质
+    static_cast<char *>(cp); // 错误，static_cast不能换掉const性质
     static_cast<string>(cp); // 正确，字符串字面值换成string类型
-    const_cast<string>(cp); // 错误，const_cast只能改变常量属性
+    const_cast<string>(cp); // 错误，const_cast只能改变常量属性，不能改变一般表达式的类型
     ```
 
 1. reinterpret_cast通常为运算对象的位模式提供较低层次上的重新解释。使用reinterpret_cast是非常危险的。该种转换本质上依赖机器。**要想安全地使用reinterpret_cast必须对设计的类型和编译器实现转换的过程都非常了解。**
@@ -549,7 +549,7 @@
     ```c++
     int a = 10;
     int *ip = &a;
-    char *pc = reinterpret_cast<char *>(ip); // 无法直接将int *转换为char *，此时只能通过reinterpret_cast来转换
+    char *pc = reinterpret_cast<char *>(ip); // 没有定义如何将int *转换为char *，此时只能通过reinterpret_cast来转换
                                              // 然而pc所指的真实对象仍然是一个int型对象，如果将pc当做普通的字符指针
                                              // 来使用就可能在运行时发生错误
     ```
