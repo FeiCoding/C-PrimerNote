@@ -267,7 +267,8 @@
 </li>
 <li>
 <p>使用下标进行迭代：</p>
-<pre><code class="language-cpp"><div> <span class="hljs-keyword">for</span>(<span class="hljs-keyword">decltype</span>(s.size()) index = <span class="hljs-number">0</span>; index != s.size() &amp;&amp; !<span class="hljs-built_in">isspace</span>(s[index]); index++){
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">for</span>(<span class="hljs-keyword">decltype</span>(s.size()) index = <span class="hljs-number">0</span>; index != s.size() 
+                        &amp;&amp; !<span class="hljs-built_in">isspace</span>(s[index]); index++){
      s[index] = <span class="hljs-built_in">toupper</span>(s[index]);
  }
 </div></code></pre>
@@ -366,7 +367,8 @@
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v4{<span class="hljs-number">10</span>, <span class="hljs-number">1</span>}; <span class="hljs-comment">// v4有两个元素分别是10， 1</span>
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; v5{<span class="hljs-string">"hi"</span>}; <span class="hljs-comment">// v5有一个元素是 hi</span>
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; v6(<span class="hljs-string">"hi"</span>); <span class="hljs-comment">// 错误，不能用字符串字面值构建vector对象</span>
-<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; v7{<span class="hljs-number">10</span>}; <span class="hljs-comment">// 10是int型，不能用来初始化值，所以v7有十个默认初始化为空的字符串</span>
+<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; v7{<span class="hljs-number">10</span>}; <span class="hljs-comment">// 10是int型，不能用来初始化值，</span>
+                       <span class="hljs-comment">// 所以v7有十个默认初始化为空的字符串</span>
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; v8{<span class="hljs-number">10</span>, <span class="hljs-string">"hi"</span>}; <span class="hljs-comment">// v8有10个值为"hi"的元素</span>
 </div></code></pre>
 </li>
@@ -642,9 +644,12 @@
 <p>理解复杂的数组声明：最好是从数组的名字开始由内而外的顺序阅读</p>
 <pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> *ptr[<span class="hljs-number">10</span>]; <span class="hljs-comment">// ptr是一个存放了10个int型指针的数组</span>
  <span class="hljs-keyword">int</span> &amp;ref[<span class="hljs-number">10</span>] = a; <span class="hljs-comment">// 错误，不存在引用的数组</span>
- <span class="hljs-keyword">int</span> (*Parray)[<span class="hljs-number">10</span>] = &amp;arr; <span class="hljs-comment">// 由内而外理解，Parray是一个指针，指向一个存了10个int型整数的数组arr</span>
- <span class="hljs-keyword">int</span> (&amp;arrReff)[<span class="hljs-number">10</span>] = arr; <span class="hljs-comment">// 同样的，arrReff是一个引用，引用了一个存了10个int型整数的数组arr</span>
- <span class="hljs-keyword">int</span> *(&amp;arry)[<span class="hljs-number">10</span>] = ptr; <span class="hljs-comment">// arry是一个引用，引用了一个存了10个int型指针的数组</span>
+ <span class="hljs-keyword">int</span> (*Parray)[<span class="hljs-number">10</span>] = &amp;arr; <span class="hljs-comment">// 由内而外理解，Parray是一个指针，</span>
+                           <span class="hljs-comment">// 指向一个存了10个int型整数的数组arr</span>
+ <span class="hljs-keyword">int</span> (&amp;arrReff)[<span class="hljs-number">10</span>] = arr; <span class="hljs-comment">// 同样的，arrReff是一个引用，</span>
+                           <span class="hljs-comment">// 引用了一个存了10个int型整数的数组arr</span>
+ <span class="hljs-keyword">int</span> *(&amp;arry)[<span class="hljs-number">10</span>] = ptr; <span class="hljs-comment">// arry是一个引用，</span>
+                         <span class="hljs-comment">// 引用了一个存了10个int型指针的数组</span>
 </div></code></pre>
 </li>
 <li>
@@ -711,7 +716,8 @@
  <span class="hljs-keyword">int</span> b[<span class="hljs-number">2</span>][<span class="hljs-number">3</span>] = {
      {<span class="hljs-number">0</span>},
      {<span class="hljs-number">1</span>}
- }; <span class="hljs-comment">// 并非所有元素的值都必须包含在初始化列表之内，如果仅仅想初始化每一行第一个元素也是可以的</span>
+ }; <span class="hljs-comment">// 并非所有元素的值都必须包含在初始化列表之内，</span>
+    <span class="hljs-comment">// 如果仅仅想初始化每一行第一个元素也是可以的</span>
 </div></code></pre>
 </li>
 <li>
