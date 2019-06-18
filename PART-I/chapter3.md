@@ -207,6 +207,7 @@
    ```cpp
    vector<int> v1(10); // v1有十个元素，每个都是0
    vector<int> v2{10}; // v2有一个元素，为10
+
    vector<int> v3(10, 1); // v3有十个重复的元素1
    vector<int> v4{10, 1}; // v4有两个元素分别是10， 1
    vector<string> v5{"hi"}; // v5有一个元素是 hi
@@ -389,7 +390,7 @@
     int arr[10]; // 含有10个整数的数组
     int *ptr[sz]; // 含有42个整型指针的数组
     string bad[cnt]; // 错误，cnt不是常量表达式
-    stirng strs[get_size()]; // 当get_size()是const_expr时正确，否则错误
+    string strs[get_size()]; // 当get_size()是const_expr时正确，否则错误
    ```
 
 4. 数组默认情况下元素被默认初始化，如果在函数内部定义了某种内置类型的数组，那么默认初始化会令数组含有未定义的值。

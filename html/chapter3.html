@@ -363,6 +363,7 @@
 </ul>
 <pre><code class="language-cpp"><div><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v1(<span class="hljs-number">10</span>); <span class="hljs-comment">// v1有十个元素，每个都是0</span>
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v2{<span class="hljs-number">10</span>}; <span class="hljs-comment">// v2有一个元素，为10</span>
+
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v3(<span class="hljs-number">10</span>, <span class="hljs-number">1</span>); <span class="hljs-comment">// v3有十个重复的元素1</span>
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v4{<span class="hljs-number">10</span>, <span class="hljs-number">1</span>}; <span class="hljs-comment">// v4有两个元素分别是10， 1</span>
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; v5{<span class="hljs-string">"hi"</span>}; <span class="hljs-comment">// v5有一个元素是 hi</span>
@@ -613,7 +614,7 @@
  <span class="hljs-keyword">int</span> arr[<span class="hljs-number">10</span>]; <span class="hljs-comment">// 含有10个整数的数组</span>
  <span class="hljs-keyword">int</span> *ptr[sz]; <span class="hljs-comment">// 含有42个整型指针的数组</span>
  <span class="hljs-built_in">string</span> bad[cnt]; <span class="hljs-comment">// 错误，cnt不是常量表达式</span>
- stirng strs[get_size()]; <span class="hljs-comment">// 当get_size()是const_expr时正确，否则错误</span>
+ <span class="hljs-built_in">string</span> strs[get_size()]; <span class="hljs-comment">// 当get_size()是const_expr时正确，否则错误</span>
 </div></code></pre>
 </li>
 <li>
