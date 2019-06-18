@@ -2,11 +2,11 @@
     <html>
     <head>
         <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-        <title>Chapter3 字符串、向量和数组</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <title>Chapter 3 字符串、向量和数组</title>
+        
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        
         <style>
 .task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
@@ -18,28 +18,22 @@
             }
         </style>
         
-        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        
     </head>
     <body>
-        <h1 id="chapter3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%90%91%E9%87%8F%E5%92%8C%E6%95%B0%E7%BB%84">Chapter3 字符串、向量和数组</h1>
+        <h1 id="Chapter-3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%90%91%E9%87%8F%E5%92%8C%E6%95%B0%E7%BB%84">Chapter 3 字符串、向量和数组</h1>
 <h2 id="31-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84using%E5%A3%B0%E6%98%8E">3.1 命名空间的using声明</h2>
 <ol>
-<li>
-<p>作用域操作符（::）：编译器应从操作符左侧的名字所示的作用域中寻找右侧那个名字。因此，std::cin的意思就是要使用命名空间std中的名字cin。</p>
-</li>
-<li>
-<p>使用using就可以声明就无需专门的前缀::也能使用所需的名字。</p>
-</li>
-<li>
-<p>头文件一般不应包含using声明，因为头文件的内容会拷贝到所有引用它的文件中去，由此可能产生始料未及的名字冲突。</p>
-</li>
+<li>作用域操作符（::）：编译器应从操作符左侧的名字所示的作用域中寻找右侧那个名字。因此，std::cin的意思就是要使用命名空间std中的名字cin。</li>
+<li>使用using就可以声明就无需专门的前缀::也能使用所需的名字。</li>
+<li>头文件一般不应包含using声明，因为头文件的内容会拷贝到所有引用它的文件中去，由此可能产生始料未及的名字冲突。</li>
 </ol>
 <h2 id="32-%E6%A0%87%E5%87%86%E5%BA%93%E7%B1%BB%E5%9E%8Bstring">3.2 标准库类型string</h2>
 <ol>
 <li>
 <p>作为标准库的一部分，string定义在命名空间std中。所以当我们直接使用string的时候，需要包含</p>
-<pre><code class="language-c++"><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>; <span class="hljs-comment">// 注意不要忽略后面这个分号</span>
+<pre><code class="language-cpp"><div> <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
+ <span class="hljs-keyword">using</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>; <span class="hljs-comment">// 注意不要忽略后面这个分号</span>
 </div></code></pre>
 </li>
 <li>
@@ -47,34 +41,34 @@
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>string s1</td>
-<td>默认初始化，s1是空串</td>
+<td style="text-align:left">string s1</td>
+<td style="text-align:left">默认初始化，s1是空串</td>
 </tr>
 <tr>
-<td>string s2(s1)</td>
-<td>s2是s1的副本</td>
+<td style="text-align:left">string s2(s1)</td>
+<td style="text-align:left">s2是s1的副本</td>
 </tr>
 <tr>
-<td>string s2 = s1</td>
-<td>等价于上一条，s2是s1的副本</td>
+<td style="text-align:left">string s2 = s1</td>
+<td style="text-align:left">等价于上一条，s2是s1的副本</td>
 </tr>
 <tr>
-<td>string s3(&quot;value&quot;)</td>
-<td>s3是字面值“value”的副本，除了字面值最后那个空字符外</td>
+<td style="text-align:left">string s3(&quot;value&quot;)</td>
+<td style="text-align:left">s3是字面值“value”的副本，除了字面值最后那个空字符外</td>
 </tr>
 <tr>
-<td>string s3 = &quot;value&quot;</td>
-<td>等价于上一条，s3使字面值“value”的副本</td>
+<td style="text-align:left">string s3 = &quot;value&quot;</td>
+<td style="text-align:left">等价于上一条，s3是字面值“value”的副本</td>
 </tr>
 <tr>
-<td>string s4(n, 'c')</td>
-<td>把s4初始化为连续n个字符</td>
+<td style="text-align:left">string s4(n, 'c')</td>
+<td style="text-align:left">把s4初始化为连续n个字符</td>
 </tr>
 </tbody>
 </table>
@@ -82,43 +76,47 @@
 <li>
 <p>拷贝初始化与直接初始化：</p>
 <ul>
-<li>拷贝初始化：使用‘=’来初始化</li>
-<li>不使用‘=’则是直接初始化</li>
-</ul>
-<pre><code class="language-c++"><div><span class="hljs-built_in">string</span> s5 = <span class="hljs-string">"haha"</span>; <span class="hljs-comment">// 拷贝初始化</span>
+<li>
+<p>拷贝初始化：使用‘=’来初始化</p>
+</li>
+<li>
+<p>不使用‘=’则是直接初始化</p>
+<pre><code class="language-cpp"><div><span class="hljs-built_in">string</span> s5 = <span class="hljs-string">"haha"</span>; <span class="hljs-comment">// 拷贝初始化</span>
 <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">s6</span><span class="hljs-params">(<span class="hljs-string">"haha"</span>)</span></span>; <span class="hljs-comment">// 直接初始化</span>
 <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">s7</span><span class="hljs-params">(<span class="hljs-number">10</span>, <span class="hljs-string">'c'</span>)</span></span>; <span class="hljs-comment">// 直接初始化，s7内容是cccccccccc</span>
 </div></code></pre>
+</li>
+</ul>
 </li>
 <li>
 <p>需要注意的string操作</p>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>s.size()</td>
-<td>返回s中的字符数</td>
+<td style="text-align:left">s.size()</td>
+<td style="text-align:left">返回s中的字符数</td>
 </tr>
 <tr>
-<td>s1+s2</td>
-<td>返回s1和s2连接后的结果</td>
+<td style="text-align:left">s1+s2</td>
+<td style="text-align:left">返回s1和s2连接后的结果</td>
 </tr>
 <tr>
-<td>s1==s2</td>
-<td>如果s1和s2中所含的字符完全一样，则他们相等，string对象对相等性判断对字母的大小写敏感</td>
+<td style="text-align:left">s1==s2</td>
+<td style="text-align:left">如果s1和s2中所含的字符完全一样，则他们相等，string对象对相等性判断对字母的大小写敏感</td>
 </tr>
 <tr>
-<td>s2!=s2</td>
-<td>同上</td>
+<td style="text-align:left">s2!=s2</td>
+<td style="text-align:left">同上</td>
 </tr>
 <tr>
-<td>&lt;,&gt;=,&lt;=,&gt;</td>
-<td>利用字符在字典中的顺序进行比较</td>
+<td style="text-align:left">&lt;,&gt;=,&lt;=,&gt;</td>
+<td style="text-align:left">利用字符在字典中的顺序进行比较</td>
 </tr>
 </tbody>
 </table>
@@ -131,15 +129,15 @@
 </li>
 <li>
 <p>c++11新标准中auto或者decltype可以推断size_type的类型：</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">auto</span> len = line.size() <span class="hljs-comment">// len的类型是string::size_type</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">auto</span> len = line.size() <span class="hljs-comment">// len的类型是string::size_type</span>
 </div></code></pre>
 </li>
 <li>
 <p>由于size函数返回的是一个无符号整型数，所以此时如果混用带符号的类型数可能会产生意想不到的后果。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> n = <span class="hljs-number">-20</span>;
-<span class="hljs-keyword">if</span>(s.size() &lt; n){ <span class="hljs-comment">// 此处n会被转成unsigned类型的求模数，此条件永远为true</span>
-    <span class="hljs-comment">// code_block</span>
-}
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> n = <span class="hljs-number">-20</span>;
+ <span class="hljs-keyword">if</span>(s.size() &lt; n){ <span class="hljs-comment">// 此处n会被转成unsigned类型的求模数</span>
+     <span class="hljs-comment">// code_block</span>
+ }
 </div></code></pre>
 </li>
 <li>
@@ -151,117 +149,117 @@
 </li>
 <li>
 <p>当把string对象和字符字面值及字符串字面值混用在一条语句中使用时，必须确保每个加法运算符（+）的两侧的运算对象至少有一个是string</p>
-<pre><code class="language-c++"><div><span class="hljs-built_in">string</span> s4 = s1 + <span class="hljs-string">", "</span>; <span class="hljs-comment">// 正确：把一个string对象和一个字面值相加</span>
-<span class="hljs-built_in">string</span> s5 = <span class="hljs-string">"Hello"</span> + <span class="hljs-string">", "</span>; <span class="hljs-comment">// 错误，两个运算对象都不是string</span>
-<span class="hljs-built_in">string</span> s6 = s1 + <span class="hljs-string">","</span> + <span class="hljs-string">"world"</span>;
-<span class="hljs-built_in">string</span> s7 = <span class="hljs-string">"Hello"</span> + <span class="hljs-string">", "</span> + s2; <span class="hljs-comment">// 错误，不能把字面值直接相加</span>
-<span class="hljs-comment">// string7的编译过程如下：</span>
-<span class="hljs-built_in">string</span> s7 = (<span class="hljs-string">"Hello"</span> + <span class="hljs-string">", "</span>) + s2;
-<span class="hljs-comment">// 然而("Hello" + ", ")这个过程编译器无法做到，所以是错的</span>
+<pre><code class="language-cpp"><div> <span class="hljs-built_in">string</span> s4 = s1 + <span class="hljs-string">", "</span>; <span class="hljs-comment">// 正确：把一个string对象和一个字面值相加</span>
+ <span class="hljs-built_in">string</span> s5 = <span class="hljs-string">"Hello"</span> + <span class="hljs-string">", "</span>; <span class="hljs-comment">// 错误，两个运算对象都不是string</span>
+ <span class="hljs-built_in">string</span> s6 = s1 + <span class="hljs-string">","</span> + <span class="hljs-string">"world"</span>;
+ <span class="hljs-built_in">string</span> s7 = <span class="hljs-string">"Hello"</span> + <span class="hljs-string">", "</span> + s2; <span class="hljs-comment">// 错误，不能把字面值直接相加</span>
+ <span class="hljs-comment">// string7的编译过程如下：</span>
+ <span class="hljs-built_in">string</span> s7 = (<span class="hljs-string">"Hello"</span> + <span class="hljs-string">", "</span>) + s2;
+ <span class="hljs-comment">// 然而("Hello" + ", ")这个过程编译器无法做到，所以是错的</span>
 </div></code></pre>
 </li>
 <li>
-<p>为了与c兼容，c++语言中的<strong>字符串字面值不是标准库类型的string对象</strong>。而是字符串数组</p>
+<p>为了与c兼容，c++语言中的<strong>字符串字面值不是标准库类型的string对象</strong>。而是字符串数组。</p>
 </li>
 <li>
 <p>cctype头文件中的函数：</p>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>usalnum(c)</td>
-<td>当c是字母或数字时为真</td>
+<td style="text-align:left">isalnum(c)</td>
+<td style="text-align:left">当c是字母或数字时为真</td>
 </tr>
 <tr>
-<td>isalpha(c)</td>
-<td>当c是字母时为真</td>
+<td style="text-align:left">isalpha(c)</td>
+<td style="text-align:left">当c是字母时为真</td>
 </tr>
 <tr>
-<td>iscntrl(c)</td>
-<td>当c是控制字符时为真</td>
+<td style="text-align:left">iscntrl(c)</td>
+<td style="text-align:left">当c是控制字符时为真</td>
 </tr>
 <tr>
-<td>isdigit(c)</td>
-<td>当c是数字时为真</td>
+<td style="text-align:left">isdigit(c)</td>
+<td style="text-align:left">当c是数字时为真</td>
 </tr>
 <tr>
-<td>isgraph(c)</td>
-<td>当c不是空格但可以打印时为真</td>
+<td style="text-align:left">isgraph(c)</td>
+<td style="text-align:left">当c不是空格但可以打印时为真</td>
 </tr>
 <tr>
-<td>islower(c)</td>
-<td>当c是小写字母时为真</td>
+<td style="text-align:left">islower(c)</td>
+<td style="text-align:left">当c是小写字母时为真</td>
 </tr>
 <tr>
-<td>isprint(c)</td>
-<td>当c是可打印字符时为真（即c是空格或c具有可视形式）</td>
+<td style="text-align:left">isprint(c)</td>
+<td style="text-align:left">当c是可打印字符时为真（即c是空格或c具有可视形式）</td>
 </tr>
 <tr>
-<td>ispunct(c)</td>
-<td>当c是标点符号时为真</td>
+<td style="text-align:left">ispunct(c)</td>
+<td style="text-align:left">当c是标点符号时为真</td>
 </tr>
 <tr>
-<td>isspace(c)</td>
-<td>当c为空白时为真</td>
+<td style="text-align:left">isspace(c)</td>
+<td style="text-align:left">当c为空白时为真</td>
 </tr>
 <tr>
-<td>isupper(c)</td>
-<td>当c为大写字母时为真</td>
+<td style="text-align:left">isupper(c)</td>
+<td style="text-align:left">当c为大写字母时为真</td>
 </tr>
 <tr>
-<td>isxdigit(c)</td>
-<td>当c为十六进制数字时为真</td>
+<td style="text-align:left">isxdigit(c)</td>
+<td style="text-align:left">当c为十六进制数字时为真</td>
 </tr>
 <tr>
-<td>tolower(c)</td>
-<td>转换成小写字母</td>
+<td style="text-align:left">tolower(c)</td>
+<td style="text-align:left">转换成小写字母</td>
 </tr>
 <tr>
-<td>toupper(c)</td>
-<td>转换成大写字母</td>
+<td style="text-align:left">toupper(c)</td>
+<td style="text-align:left">转换成大写字母</td>
 </tr>
 </tbody>
 </table>
 </li>
 <li>
-<p>cctype是c语言中的ctype.h标准库，只不过cctype命名规范上符合c++对标准库的文件名的要求（不包含.h）。所以去掉.h同时在开头加上c，表示这个=是一个属于c语言标准的头文件。</p>
+<p>cctype是c语言中的ctype.h标准库，只不过cctype命名规范上符合c++对标准库的文件名的要求（不包含.h）。所以去掉.h同时在开头加上c，表示这个库是一个属于c语言标准的头文件。</p>
 </li>
 <li>
 <p>range for语句：其中expression是一个对象，用于表示一个序列。declaration负责定义一个变量，该变量将被用于访问序列中的基础元素。每次迭代，declaration部分的变量会被初始化为expression部分的一个元素值。</p>
-<pre><code class="language-c++"><div><span class="hljs-comment">/*
- * for (declaration: expression){
- *    statement;
- * }
- */</span>
-<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">str</span><span class="hljs-params">(<span class="hljs-string">"Hello World"</span>)</span></span>;
-<span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> c: str)
-    <span class="hljs-built_in">cout</span> &lt;&lt; c &lt;&lt; <span class="hljs-built_in">endl</span>;
+<pre><code class="language-cpp"><div> <span class="hljs-comment">/*
+  * for (declaration: expression){
+  *    statement;
+  * }
+  */</span>
+ <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">str</span><span class="hljs-params">(<span class="hljs-string">"Hello World"</span>)</span></span>;
+ <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> c: str)
+     <span class="hljs-built_in">cout</span> &lt;&lt; c &lt;&lt; <span class="hljs-built_in">endl</span>;
 </div></code></pre>
 </li>
 <li>
 <p>一个更复杂的例子：</p>
-<pre><code class="language-c++"><div><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">str</span><span class="hljs-params">(<span class="hljs-string">"Hello World!!!!"</span>)</span></span>;
-<span class="hljs-keyword">decltype</span> (str.size()) count = <span class="hljs-number">0</span>;
-<span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> c: str){
-    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">ispunct</span>(c)){
-        count++;
-    }
-}
-<span class="hljs-built_in">cout</span> &lt;&lt; count &lt;&lt; <span class="hljs-string">"punctuation characters in "</span> &lt;&lt; str &lt;&lt; <span class="hljs-built_in">endl</span>; <span class="hljs-comment">// count is 4</span>
+<pre><code class="language-cpp"><div> <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">str</span><span class="hljs-params">(<span class="hljs-string">"Hello World!!!!"</span>)</span></span>;
+ <span class="hljs-keyword">decltype</span> (str.size()) count = <span class="hljs-number">0</span>;
+ <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> c: str){
+     <span class="hljs-keyword">if</span>(<span class="hljs-built_in">ispunct</span>(c)){
+         count++;
+     }
+ }
+ <span class="hljs-built_in">cout</span> &lt;&lt; count &lt;&lt; <span class="hljs-string">"punctuation characters in "</span> &lt;&lt; str &lt;&lt; <span class="hljs-built_in">endl</span>; <span class="hljs-comment">// count is 4</span>
 </div></code></pre>
 </li>
 <li>
 <p>如果想要改变string对象中字符的值，则<strong>必须把循环变量定义成引用类型</strong>。</p>
-<pre><code class="language-c++"><div><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">str</span><span class="hljs-params">(<span class="hljs-string">"Hello World!!!!"</span>)</span></span>;
-<span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> &amp;s: str){
-    s = <span class="hljs-built_in">toupper</span>(s);
-}
-<span class="hljs-built_in">cout</span> &lt;&lt; str &lt;&lt; <span class="hljs-built_in">endl</span>;
+<pre><code class="language-cpp"><div> <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">str</span><span class="hljs-params">(<span class="hljs-string">"Hello World!!!!"</span>)</span></span>;
+ <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> &amp;s: str){
+     s = <span class="hljs-built_in">toupper</span>(s);
+ }
+ <span class="hljs-built_in">cout</span> &lt;&lt; str &lt;&lt; <span class="hljs-built_in">endl</span>;
 </div></code></pre>
 </li>
 <li>
@@ -269,9 +267,9 @@
 </li>
 <li>
 <p>使用下标进行迭代：</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">for</span>(<span class="hljs-keyword">decltype</span>(s.size()) index = <span class="hljs-number">0</span>; index != s.size() &amp;&amp; !<span class="hljs-built_in">isspace</span>(s[index]); index++){
-    s[index] = <span class="hljs-built_in">toupper</span>(s[index]);
-}
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">for</span>(<span class="hljs-keyword">decltype</span>(s.size()) index = <span class="hljs-number">0</span>; index != s.size() &amp;&amp; !<span class="hljs-built_in">isspace</span>(s[index]); index++){
+     s[index] = <span class="hljs-built_in">toupper</span>(s[index]);
+ }
 </div></code></pre>
 </li>
 <li>
@@ -284,41 +282,43 @@
 <p>vector是一个类模板。根据模板创建类或函数的过程称为实例化（instantiation）。vecotr能容纳绝大多数类型的对象作为其元素，但是因为引用不是对象，<strong>所以不存在包含引用的vector</strong>。</p>
 </li>
 <li>
-<p>在早期的c++标准中，vector的定义必须在外层右尖括号和其元素之间添加一个空格，应该写成vector&lt;vector<int> &gt;。某些编译器仍然需要用这种方式来声明处理。</p>
+<p>在早期的c++标准中，vector的定义必须在外层右尖括号和其元素之间添加一个空格。某些编译器仍然需要用这种方式来声明处理。</p>
+<pre><code class="language-c++"><div><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &gt; vs;
+</div></code></pre>
 </li>
 <li>
 <p>初始化vector的对象的集中方式：</p>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>vector<T> v1</td>
-<td>v1是一个空vector</td>
+<td style="text-align:left">vector v1</td>
+<td style="text-align:left">v1是一个空vector</td>
 </tr>
 <tr>
-<td>vecotr<T> v2(v1)</td>
-<td>v2包含所有v1元素的副本</td>
+<td style="text-align:left">vecotr v2(v1)</td>
+<td style="text-align:left">v2包含所有v1元素的副本</td>
 </tr>
 <tr>
-<td>vector<T> v3(n, val)</td>
-<td>包含了n个重复的val</td>
+<td style="text-align:left">vector v3(n, val)</td>
+<td style="text-align:left">包含了n个重复的val</td>
 </tr>
 <tr>
-<td>vector<T> v4(n)</td>
-<td>包含了n个重复地执行了值初始化的对象</td>
+<td style="text-align:left">vector v4(n)</td>
+<td style="text-align:left">包含了n个重复地执行了值初始化的对象</td>
 </tr>
 <tr>
-<td>vector<T> v5{a, b, c...}</td>
-<td>列表初始化，v5包含了a b c几个元素并被赋予相应的初始值</td>
+<td style="text-align:left">vector v5{a, b, c...}</td>
+<td style="text-align:left">列表初始化，v5包含了a b c几个元素并被赋予相应的初始值</td>
 </tr>
 <tr>
-<td>vector<T> v6 = {a, b, c...}</td>
-<td>列表初始化，等价于上句</td>
+<td style="text-align:left">vector v6 = {a, b, c...}</td>
+<td style="text-align:left">列表初始化，等价于上句</td>
 </tr>
 </tbody>
 </table>
@@ -326,24 +326,31 @@
 <li>
 <p>初始化需要注意的三种情况：</p>
 <ul>
-<li>使用拷贝初始化时（=）只能提供一个初始值（string str = &quot;Hello World&quot;）</li>
-<li>如果提供的是一个类内初始值，则只能使用拷贝初始化或使用花括号的形式初始化</li>
-<li>如果提供的是初始元素值的列表，则只能把初始值都放在花括号里进行列表初始化，而不能放在圆括号里</li>
-</ul>
-<pre><code class="language-c++"><div><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; v1{<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>}; <span class="hljs-comment">// 列表初始化</span>
+<li>
+<p>使用拷贝初始化时（=）只能提供一个初始值（string str = &quot;Hello World&quot;）</p>
+</li>
+<li>
+<p>如果提供的是一个类内初始值，则只能使用拷贝初始化或使用花括号的形式初始化</p>
+</li>
+<li>
+<p>如果提供的是初始元素值的列表，则只能把初始值都放在花括号里进行列表初始化，而不能放在圆括号里</p>
+<pre><code class="language-cpp"><div><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; v1{<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>}; <span class="hljs-comment">// 列表初始化</span>
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; v2(<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>); <span class="hljs-comment">// 错误</span>
 </div></code></pre>
 </li>
+</ul>
+</li>
 <li>
 <p>值初始化（value-initialized）：只提供vector对象容纳的元素数量而略去初始值，此时库会自动创建一个值初始化的元素初值，并把它赋给容器中的所有元素。如果vector对象的元素是内置类型，比如int，则元素初始值自动设为0。如果元素是某种类类型，比如string，则元素由类默认初始化。</p>
-<pre><code class="language-c++"><div><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vec(<span class="hljs-number">10</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment">// 创建一个包含10个初始值为-1的vector</span>
-<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ivec(<span class="hljs-number">10</span>); <span class="hljs-comment">// 10个都初始化为0的元素</span>
-<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; svec(<span class="hljs-number">10</span>); <span class="hljs-comment">// 10个空的string元素</span>
+<pre><code class="language-cpp"><div> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vec(<span class="hljs-number">10</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment">// 创建一个包含10个初始值为-1的vector</span>
+ <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ivec(<span class="hljs-number">10</span>); <span class="hljs-comment">// 10个都初始化为0的元素</span>
+ <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; svec(<span class="hljs-number">10</span>); <span class="hljs-comment">// 10个空的string元素</span>
 </div></code></pre>
 </li>
 <li>
 <p>有些类型要求必须明确地提供初始值，那么就无法默认初始化该类的对象。另外，<strong>如果只提供了元素的数量而没有设定初始值，只能使用直接初始化</strong>：</p>
-<pre><code class="language-c++"><div><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vi = <span class="hljs-number">10</span>; <span class="hljs-comment">// 错误，必须使用直接初始化的形式指定向量大小</span>
+<pre><code class="language-cpp"><div> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vi = <span class="hljs-number">10</span>; <span class="hljs-comment">// 错误，必须使用直接初始化的形式指定向量大小</span>
+ <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vi(<span class="hljs-number">10</span>); <span class="hljs-comment">// 正确</span>
 </div></code></pre>
 </li>
 <li>
@@ -353,7 +360,7 @@
 <li>如果用的是花括号，可以表述称我们想列表初始化该vector对象。初始化过程会尽可能的把花括号内的值当成元素初始值的列表来处理，只有在无法执行列表初始化时才会考虑其他初始化方式。</li>
 <li>如果初始化时使用了花括号的形式但是提供的值又不能用来列表初始化，就要考虑用这样的值来构造vector对象。</li>
 </ul>
-<pre><code class="language-c++"><div><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v1(<span class="hljs-number">10</span>); <span class="hljs-comment">// v1有十个元素，每个都是0</span>
+<pre><code class="language-cpp"><div><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v1(<span class="hljs-number">10</span>); <span class="hljs-comment">// v1有十个元素，每个都是0</span>
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v2{<span class="hljs-number">10</span>}; <span class="hljs-comment">// v2有一个元素，为10</span>
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v3(<span class="hljs-number">10</span>, <span class="hljs-number">1</span>); <span class="hljs-comment">// v3有十个重复的元素1</span>
 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v4{<span class="hljs-number">10</span>, <span class="hljs-number">1</span>}; <span class="hljs-comment">// v4有两个元素分别是10， 1</span>
@@ -365,11 +372,11 @@
 </li>
 <li>
 <p>从标准输入中读取单词，将其作为vector对象的元素存储</p>
-<pre><code class="language-c++"><div><span class="hljs-built_in">string</span> word;
-<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; text; <span class="hljs-comment">// 空vector对象</span>
-<span class="hljs-keyword">while</span> (<span class="hljs-built_in">cin</span> &gt;&gt; word){
-    text.push_back(word); <span class="hljs-comment">// 把word添加到text后面</span>
-}
+<pre><code class="language-cpp"><div> <span class="hljs-built_in">string</span> word;
+ <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; text; <span class="hljs-comment">// 空vector对象</span>
+ <span class="hljs-keyword">while</span> (<span class="hljs-built_in">cin</span> &gt;&gt; word){
+     text.push_back(word); <span class="hljs-comment">// 把word添加到text后面</span>
+ }
 </div></code></pre>
 </li>
 <li>
@@ -383,85 +390,85 @@
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>v.empty()</td>
-<td>如果v不含有任何元素，返回真；否则返回假</td>
+<td style="text-align:left">v.empty()</td>
+<td style="text-align:left">如果v不含有任何元素，返回真；否则返回假</td>
 </tr>
 <tr>
-<td>v.size()</td>
-<td>返回v中元素的个数</td>
+<td style="text-align:left">v.size()</td>
+<td style="text-align:left">返回v中元素的个数</td>
 </tr>
 <tr>
-<td>v.push_back(t)</td>
-<td>向v的尾端天假一个值为t的元素</td>
+<td style="text-align:left">v.push_back(t)</td>
+<td style="text-align:left">向v的尾端天假一个值为t的元素</td>
 </tr>
 <tr>
-<td>v[n]</td>
-<td>返回第n个位置上的元素</td>
+<td style="text-align:left">v[n]</td>
+<td style="text-align:left">返回第n个位置上的元素</td>
 </tr>
 <tr>
-<td>v1 = v2</td>
-<td>用v2中元素的拷贝替换v1的元素</td>
+<td style="text-align:left">v1 = v2</td>
+<td style="text-align:left">用v2中元素的拷贝替换v1的元素</td>
 </tr>
 <tr>
-<td>v1 = {a, b, c...}</td>
-<td>用列表中元素的拷贝替换v1的元素</td>
+<td style="text-align:left">v1 = {a, b, c...}</td>
+<td style="text-align:left">用列表中元素的拷贝替换v1的元素</td>
 </tr>
 <tr>
-<td>v1 == v2</td>
-<td>v1和v2相等当且仅当他们的元素数量相同且对应位置的元素值都相同</td>
+<td style="text-align:left">v1 == v2</td>
+<td style="text-align:left">v1和v2相等当且仅当他们的元素数量相同且对应位置的元素值都相同</td>
 </tr>
 <tr>
-<td>v1 != v2</td>
-<td>同上</td>
+<td style="text-align:left">v1 != v2</td>
+<td style="text-align:left">同上</td>
 </tr>
 <tr>
-<td>&lt;, &lt;=, &gt;, &gt;=</td>
-<td>以字典顺序进行比较</td>
+<td style="text-align:left">&lt;, &lt;=, &gt;, &gt;=</td>
+<td style="text-align:left">以字典顺序进行比较</td>
 </tr>
 </tbody>
 </table>
 </li>
 <li>
 <p>访问以及改变vector中的值</p>
-<pre><code class="language-c++"><div><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};
-<span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> &amp;i : v){
-    i *= i;
-}
-<span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> i : v){
-    <span class="hljs-built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="hljs-built_in">endl</span>;
-}
+<pre><code class="language-cpp"><div> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};
+ <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> &amp;i : v){
+     i *= i;
+ }
+ <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> i : v){
+     <span class="hljs-built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="hljs-built_in">endl</span>;
+ }
 </div></code></pre>
 </li>
 <li>
-<p>empty和size两个成员函数返回的是vector<int>::size_type，注意不要忽略此处的<int>以及区分string::size_type</p>
+<p>empty和size两个成员函数返回的是vector::size_type，注意不要忽略此处的::以及区分string::size_type</p>
 </li>
 <li>
 <p>两个vector对象相等，则必须个数、成员位置、成员的值都必须同时相等。比较大小时，如果较小vector的所有元素和较大者完全相同，那么返回是size大小的比较结果，如果元素值不同，那么比较第一个不同元素之间的大小。（由此可见vector里包含的元素必须支持相等性的判断和关系运算符等 操作）</p>
 </li>
 <li>
 <p>vector的一个实例：</p>
-<pre><code class="language-c++"><div><span class="hljs-comment">// 以10分为一个分数段统计成绩的数量：0-9,10-19，。。。，90-99,100</span>
-<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">unsigned</span>&gt; scores(<span class="hljs-number">11</span>, <span class="hljs-number">0</span>);
-<span class="hljs-keyword">unsigned</span> grade;
-<span class="hljs-keyword">while</span>(<span class="hljs-built_in">cin</span> &gt;&gt;grade){
-    <span class="hljs-keyword">if</span> (grade &lt;= <span class="hljs-number">100</span>){
-        ++score[grade/<span class="hljs-number">10</span>];
-    }
-}
+<pre><code class="language-cpp"><div> <span class="hljs-comment">// 以10分为一个分数段统计成绩的数量：0-9,10-19，。。。，90-99,100</span>
+ <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">unsigned</span>&gt; scores(<span class="hljs-number">11</span>, <span class="hljs-number">0</span>);
+ <span class="hljs-keyword">unsigned</span> grade;
+ <span class="hljs-keyword">while</span>(<span class="hljs-built_in">cin</span> &gt;&gt;grade){
+     <span class="hljs-keyword">if</span> (grade &lt;= <span class="hljs-number">100</span>){
+         ++score[grade/<span class="hljs-number">10</span>];
+     }
+ }
 </div></code></pre>
 </li>
 <li>
 <p><strong>vector不支持以下标的形式增加元素</strong></p>
-<pre><code class="language-c++"><div><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ivec;
-<span class="hljs-keyword">for</span>(<span class="hljs-keyword">decltype</span>(ivec.size())) ix = <span class="hljs-number">0</span>; ix != <span class="hljs-number">10</span>; ++ix){
-    ivec[ix] = ix; <span class="hljs-comment">// 严重错误，ivec不包含任何元素</span>
-}
+<pre><code class="language-cpp"><div> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ivec;
+ <span class="hljs-keyword">for</span>(<span class="hljs-keyword">decltype</span>(ivec.size())) ix = <span class="hljs-number">0</span>; ix != <span class="hljs-number">10</span>; ++ix){
+     ivec[ix] = ix; <span class="hljs-comment">// 严重错误，ivec不包含任何元素</span>
+ }
 </div></code></pre>
 </li>
 <li>
@@ -478,7 +485,7 @@
 </li>
 <li>
 <p><strong>如果容器为空，begin和end返回的是同一个迭代器，都是尾后迭代器。</strong></p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">auto</span> b = v.begin(), e = v.end();
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">auto</span> b = v.begin(), e = v.end();
 </div></code></pre>
 </li>
 <li>
@@ -486,45 +493,45 @@
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>*iter</td>
-<td>返回迭代器iter所指示的元素</td>
+<td style="text-align:left">*iter</td>
+<td style="text-align:left">返回迭代器iter所指示的元素</td>
 </tr>
 <tr>
-<td>iter-&gt;mem</td>
-<td>解引用iter并获取该元素的名为mem的成员，等价于(*iter).mem</td>
+<td style="text-align:left">iter-&gt;mem</td>
+<td style="text-align:left">解引用iter并获取该元素的名为mem的成员，等价于(*iter).mem</td>
 </tr>
 <tr>
-<td>++iter</td>
-<td>指示下一个元素</td>
+<td style="text-align:left">++iter</td>
+<td style="text-align:left">指示下一个元素</td>
 </tr>
 <tr>
-<td>--iter</td>
-<td>指示上一个元素</td>
+<td style="text-align:left">--iter</td>
+<td style="text-align:left">指示上一个元素</td>
 </tr>
 <tr>
-<td>iter1 == iter2</td>
-<td>如果两元素指示同一个元素或容器尾后迭代器，则相等，否则不等</td>
+<td style="text-align:left">iter1 == iter2</td>
+<td style="text-align:left">如果两元素指示同一个元素或容器尾后迭代器，则相等，否则不等</td>
 </tr>
 <tr>
-<td>iter1 != iter2</td>
-<td></td>
+<td style="text-align:left">iter1 != iter2</td>
+<td style="text-align:left"></td>
 </tr>
 </tbody>
 </table>
 </li>
 <li>
 <p>可以直接使用迭代器来获取它所指示的元素，<strong>执行解引用的迭代器必须有合法并确实指示着某个元素</strong>。</p>
-<pre><code class="language-c++"><div><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">s</span><span class="hljs-params">(<span class="hljs-string">"some string"</span>)</span></span>;
-<span class="hljs-keyword">if</span>(s.begin() != s.end()){ <span class="hljs-comment">//确保s非空</span>
-    <span class="hljs-keyword">auto</span> it = s.begin();
-    *it = <span class="hljs-built_in">toupper</span>(*it);
-}
+<pre><code class="language-cpp"><div> <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">s</span><span class="hljs-params">(<span class="hljs-string">"some string"</span>)</span></span>;
+ <span class="hljs-keyword">if</span>(s.begin() != s.end()){ <span class="hljs-comment">//确保s非空</span>
+     <span class="hljs-keyword">auto</span> it = s.begin();
+     *it = <span class="hljs-built_in">toupper</span>(*it);
+ }
 </div></code></pre>
 </li>
 <li>
@@ -541,7 +548,7 @@
 </li>
 <li>
 <p>为了得到const_iterator类型的返回值，c++11标准引入了两个新函数，分别是cbegin和cend，不论对象是否是const，这两个函数返回的都是const_iterator</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">auto</span> ite = v.cbegin() <span class="hljs-comment">// it3是const_vector类型</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">auto</span> ite = v.cbegin() <span class="hljs-comment">// it3是const_vector类型</span>
 </div></code></pre>
 </li>
 <li>
@@ -549,25 +556,25 @@
 </li>
 <li>
 <p>练习：使用迭代器将所有vector中的元素都变为原来的两倍</p>
-<pre><code class="language-c++"><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<pre><code class="language-cpp"><div> <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+ <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+ <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
-</span>{
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ve{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>};
-    <span class="hljs-keyword">auto</span> vi = ve.begin();
-    <span class="hljs-keyword">for</span> (; vi != ve.end(); vi++)
-    {
-        *vi = *vi * <span class="hljs-number">2</span>;
-    }
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> i : ve)
-    {
-        <span class="hljs-built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">" "</span>;
-    }
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-}
+ <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+ </span>{
+     <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ve{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>};
+     <span class="hljs-keyword">auto</span> vi = ve.begin();
+     <span class="hljs-keyword">for</span> (; vi != ve.end(); vi++)
+     {
+         *vi = *vi * <span class="hljs-number">2</span>;
+     }
+     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> i : ve)
+     {
+         <span class="hljs-built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">" "</span>;
+     }
+     <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+ }
 </div></code></pre>
 </li>
 <li>
@@ -575,17 +582,17 @@
 </li>
 <li>
 <p>使用迭代器可以进行二分搜索：</p>
-<pre><code class="language-c++"><div><span class="hljs-comment">// text必须有序</span>
-<span class="hljs-comment">// beg和end是我们的搜索范围</span>
-<span class="hljs-keyword">auto</span> beg = text.begin(), end = text.end();
-<span class="hljs-keyword">auto</span> mid = text.begin() + (end - beg) / <span class="hljs-number">2</span>; <span class="hljs-comment">// 初始状态中间点</span>
-<span class="hljs-keyword">while</span>(mid != end &amp;&amp; *mid != sought){
-    <span class="hljs-keyword">if</span>(sought &lt; *mid)
-        end = mid; <span class="hljs-comment">// 搜索点在前半部分</span>
-    <span class="hljs-keyword">else</span>
-        beg = mid + <span class="hljs-number">1</span>; <span class="hljs-comment">// 搜索点在后半部分</span>
-    mid = beg + (end - beg) / <span class="hljs-number">2</span>;
-}
+<pre><code class="language-cpp"><div> <span class="hljs-comment">// text必须有序</span>
+ <span class="hljs-comment">// beg和end是我们的搜索范围</span>
+ <span class="hljs-keyword">auto</span> beg = text.begin(), end = text.end();
+ <span class="hljs-keyword">auto</span> mid = text.begin() + (end - beg) / <span class="hljs-number">2</span>; <span class="hljs-comment">// 初始状态中间点</span>
+ <span class="hljs-keyword">while</span>(mid != end &amp;&amp; *mid != sought){
+     <span class="hljs-keyword">if</span>(sought &lt; *mid)
+         end = mid; <span class="hljs-comment">// 搜索点在前半部分</span>
+     <span class="hljs-keyword">else</span>
+         beg = mid + <span class="hljs-number">1</span>; <span class="hljs-comment">// 搜索点在后半部分</span>
+     mid = beg + (end - beg) / <span class="hljs-number">2</span>;
+ }
 </div></code></pre>
 </li>
 </ol>
@@ -599,12 +606,12 @@
 </li>
 <li>
 <p>数组维度说明了数组中元素的个数，因此必须大于0，数组元素的个数也属于数组类型的一部分，编译的时候维度应该是一致的，也就是说，维度必须是一个常量表达式：</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">unsigned</span> cnt = <span class="hljs-number">42</span>; <span class="hljs-comment">// 非常量</span>
-<span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">unsigned</span> sz = <span class="hljs-number">42</span>; <span class="hljs-comment">// 常量表达式</span>
-<span class="hljs-keyword">int</span> arr[<span class="hljs-number">10</span>]; <span class="hljs-comment">// 含有10个整数的数组</span>
-<span class="hljs-keyword">int</span> *ptr[sz]; <span class="hljs-comment">// 含有42个整型指针的数组</span>
-<span class="hljs-built_in">string</span> bad[cnt]; <span class="hljs-comment">// 错误，cnt不是常量表达式</span>
-stirng strs[get_size()]; <span class="hljs-comment">// 当get_size()是const_expr时正确，否则错误</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">unsigned</span> cnt = <span class="hljs-number">42</span>; <span class="hljs-comment">// 非常量</span>
+ <span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">unsigned</span> sz = <span class="hljs-number">42</span>; <span class="hljs-comment">// 常量表达式</span>
+ <span class="hljs-keyword">int</span> arr[<span class="hljs-number">10</span>]; <span class="hljs-comment">// 含有10个整数的数组</span>
+ <span class="hljs-keyword">int</span> *ptr[sz]; <span class="hljs-comment">// 含有42个整型指针的数组</span>
+ <span class="hljs-built_in">string</span> bad[cnt]; <span class="hljs-comment">// 错误，cnt不是常量表达式</span>
+ stirng strs[get_size()]; <span class="hljs-comment">// 当get_size()是const_expr时正确，否则错误</span>
 </div></code></pre>
 </li>
 <li>
@@ -617,35 +624,35 @@ stirng strs[get_size()]; <span class="hljs-comment">// 当get_size()是const_exp
 <p>进行列表初始化则允许忽略数组的维度，编译器会根据初始值的个数来推测维度。如果指明维度，那么初始值的总量不应超出指定的大小，如果维度比提供的初始值数量大，则用提供的初始值来初始化靠前的元素，剩下的元素被初始化成默认值。</p>
 </li>
 <li>
-<p>字符数组的特殊性：使用字符串字面值来初始化字符数组时，一定要注意字符串字面值的结尾处还有一个空字符。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">char</span> a1[] = {<span class="hljs-string">'c'</span>, <span class="hljs-string">'+'</span>, <span class="hljs-string">'+'</span>}; <span class="hljs-comment">// 列表初始化，没有空字符</span>
-<span class="hljs-keyword">char</span> a2[] = {<span class="hljs-string">'c'</span>, <span class="hljs-string">'+'</span>, <span class="hljs-string">'+'</span>, <span class="hljs-string">'\0'</span>}; <span class="hljs-comment">// 列表初始化，含有显示的空字符</span>
-<span class="hljs-keyword">char</span> a3[] = <span class="hljs-string">"c++"</span>; <span class="hljs-comment">// 自动添加字符串结束的空字符</span>
-<span class="hljs-keyword">char</span> a4[<span class="hljs-number">5</span>] = <span class="hljs-string">"Hello"</span>; <span class="hljs-comment">// 错误，应当设置维度为6来存放额外的‘\0’</span>
+<p>字符数组的特殊性：使用<strong>字符串字面值</strong>来初始化字符数组时，一定要注意字符串字面值的结尾处还有一个空字符。</p>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">char</span> a1[] = {<span class="hljs-string">'c'</span>, <span class="hljs-string">'+'</span>, <span class="hljs-string">'+'</span>}; <span class="hljs-comment">// 列表初始化，没有空字符</span>
+ <span class="hljs-keyword">char</span> a2[] = {<span class="hljs-string">'c'</span>, <span class="hljs-string">'+'</span>, <span class="hljs-string">'+'</span>, <span class="hljs-string">'\0'</span>}; <span class="hljs-comment">// 列表初始化，含有显示的空字符</span>
+ <span class="hljs-keyword">char</span> a3[] = <span class="hljs-string">"c++"</span>; <span class="hljs-comment">// 自动添加字符串结束的空字符</span>
+ <span class="hljs-keyword">char</span> a4[<span class="hljs-number">5</span>] = <span class="hljs-string">"Hello"</span>; <span class="hljs-comment">// 错误，应当设置维度为6来存放额外的‘\0’</span>
 </div></code></pre>
 </li>
 <li>
 <p><strong>不能将数组的内容拷贝给其他数组作为初始值，也不能用数组为其他数组赋值</strong></p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> a[] = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>};
-<span class="hljs-keyword">int</span> b[] = a; <span class="hljs-comment">// 错误，不允许用一个数组初始化另一个数组</span>
-b = a; <span class="hljs-comment">// 错误，不允许把一个数组直接赋值给另一个数组</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> a[] = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>};
+ <span class="hljs-keyword">int</span> b[] = a; <span class="hljs-comment">// 错误，不允许用一个数组初始化另一个数组</span>
+ b = a; <span class="hljs-comment">// 错误，不允许把一个数组直接赋值给另一个数组</span>
 </div></code></pre>
 </li>
 <li>
 <p>理解复杂的数组声明：最好是从数组的名字开始由内而外的顺序阅读</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> *ptr[<span class="hljs-number">10</span>]; <span class="hljs-comment">// ptr是一个存放了10个int型指针的数组</span>
-<span class="hljs-keyword">int</span> &amp;ref[<span class="hljs-number">10</span>] = a; <span class="hljs-comment">// 错误，不存在引用的数组</span>
-<span class="hljs-keyword">int</span> (*Parray)[<span class="hljs-number">10</span>] = &amp;arr; <span class="hljs-comment">// 由内而外理解，Parray是一个指针，指向一个存了10个int型整数的数组arr</span>
-<span class="hljs-keyword">int</span> (&amp;arrReff)[<span class="hljs-number">10</span>] = arr; <span class="hljs-comment">// 同样的，arrReff是一个引用，引用了一个存了10个int型整数的数组arr</span>
-<span class="hljs-keyword">int</span> *(&amp;arry)[<span class="hljs-number">10</span>] = ptr; <span class="hljs-comment">// arry是一个引用，引用了一个存了10个int型指针的数组</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> *ptr[<span class="hljs-number">10</span>]; <span class="hljs-comment">// ptr是一个存放了10个int型指针的数组</span>
+ <span class="hljs-keyword">int</span> &amp;ref[<span class="hljs-number">10</span>] = a; <span class="hljs-comment">// 错误，不存在引用的数组</span>
+ <span class="hljs-keyword">int</span> (*Parray)[<span class="hljs-number">10</span>] = &amp;arr; <span class="hljs-comment">// 由内而外理解，Parray是一个指针，指向一个存了10个int型整数的数组arr</span>
+ <span class="hljs-keyword">int</span> (&amp;arrReff)[<span class="hljs-number">10</span>] = arr; <span class="hljs-comment">// 同样的，arrReff是一个引用，引用了一个存了10个int型整数的数组arr</span>
+ <span class="hljs-keyword">int</span> *(&amp;arry)[<span class="hljs-number">10</span>] = ptr; <span class="hljs-comment">// arry是一个引用，引用了一个存了10个int型指针的数组</span>
 </div></code></pre>
 </li>
 <li>
 <p>使用数组的时候，编译器一般会把它转换成指针。当使用数组作为一个auto变量的初始值时，推断得到的类型是指针而非数组。</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> a[] = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>}; 
-<span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">b</span><span class="hljs-params">(a)</span></span>; <span class="hljs-comment">// auto推断b是一个整型指针，指向a的第一个元素，实际上</span>
-           <span class="hljs-comment">// 编译器执行的是auto b(&amp;a[0])</span>
-b = <span class="hljs-number">42</span>; <span class="hljs-comment">// 错误，b是一个指针，不能直接赋值int型</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> a[] = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>}; 
+ <span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">b</span><span class="hljs-params">(a)</span></span>; <span class="hljs-comment">// auto推断b是一个整型指针，指向a的第一个元素，实际上</span>
+            <span class="hljs-comment">// 编译器执行的是auto b(&amp;a[0])</span>
+ b = <span class="hljs-number">42</span>; <span class="hljs-comment">// 错误，b是一个指针，不能直接赋值int型</span>
 </div></code></pre>
 </li>
 <li>
@@ -653,9 +660,9 @@ b = <span class="hljs-number">42</span>; <span class="hljs-comment">// 错误，
 </li>
 <li>
 <p>指向数组元素的指针其实和vector或者string的迭代器类似，允许++或--来移动指针。c++11新标准引入了两个名为begin和end的函数，用于数组指针获取首元素和尾后元素，<strong>这两个函数定义在iterator的头文件中。不过数组不是类类型，所以这两个函数不是成员函数，数组必须作为参数</strong>：</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> ia[] = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>};
-<span class="hljs-keyword">int</span> *beg = begin(ia); <span class="hljs-comment">// 指向ia首元素的指针</span>
-<span class="hljs-keyword">int</span> *end = end(ia); <span class="hljs-comment">// 指向ia尾元素的下一位置的指针</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> ia[] = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>};
+ <span class="hljs-keyword">int</span> *beg = begin(ia); <span class="hljs-comment">// 指向ia首元素的指针</span>
+ <span class="hljs-keyword">int</span> *end = end(ia); <span class="hljs-comment">// 指向ia尾元素的下一位置的指针</span>
 </div></code></pre>
 </li>
 <li>
@@ -669,11 +676,11 @@ b = <span class="hljs-number">42</span>; <span class="hljs-comment">// 错误，
 </li>
 <li>
 <p>如果两个指针指向同一个数组的元素，或者指向该数组的为元素的下一位置，就能使用关系运算符对其进行比较。<strong>如果指向不相关对象，则不能比较。</strong></p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> *b = arr, *e = arr + sz;
-<span class="hljs-keyword">while</span>(b &lt; e){
-    <span class="hljs-comment">// code block</span>
-    b++;
-}
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> *b = arr, *e = arr + sz;
+ <span class="hljs-keyword">while</span>(b &lt; e){
+     <span class="hljs-comment">// code block</span>
+     b++;
+ }
 </div></code></pre>
 </li>
 <li>
@@ -696,66 +703,66 @@ b = <span class="hljs-number">42</span>; <span class="hljs-comment">// 错误，
 </li>
 <li>
 <p>多维数组的初始化：</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> a[<span class="hljs-number">2</span>][<span class="hljs-number">3</span>] = {
-    {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>},
-    {<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>}
-}; <span class="hljs-comment">// 内层的花括号并未是必须的，也可以直接写成{1, 2, 3, 4, 5, 6}</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> a[<span class="hljs-number">2</span>][<span class="hljs-number">3</span>] = {
+     {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>},
+     {<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>}
+ }; <span class="hljs-comment">// 内层的花括号并未是必须的，也可以直接写成{1, 2, 3, 4, 5, 6}</span>
 
-<span class="hljs-keyword">int</span> b[<span class="hljs-number">2</span>][<span class="hljs-number">3</span>] = {
-    {<span class="hljs-number">0</span>},
-    {<span class="hljs-number">1</span>}
-}; <span class="hljs-comment">// 并非所有元素的值都必须包含在初始化列表之内，如果仅仅想初始化每一行第一个元素也是可以的</span>
+ <span class="hljs-keyword">int</span> b[<span class="hljs-number">2</span>][<span class="hljs-number">3</span>] = {
+     {<span class="hljs-number">0</span>},
+     {<span class="hljs-number">1</span>}
+ }; <span class="hljs-comment">// 并非所有元素的值都必须包含在初始化列表之内，如果仅仅想初始化每一行第一个元素也是可以的</span>
 </div></code></pre>
 </li>
 <li>
 <p>多维数组的下标引用：</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">int</span> arr[<span class="hljs-number">2</span>][<span class="hljs-number">2</span>][<span class="hljs-number">2</span>] = <span class="hljs-number">0</span>;
-a[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>] = arr[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">3</span>]; <span class="hljs-comment">// 此处引用的是数组arr中某个具体的值</span>
-<span class="hljs-keyword">int</span> (&amp;row)[<span class="hljs-number">3</span>] = a[<span class="hljs-number">1</span>]; <span class="hljs-comment">// row绑定到数组a的第二个3元素数组上</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">int</span> arr[<span class="hljs-number">2</span>][<span class="hljs-number">2</span>][<span class="hljs-number">2</span>] = <span class="hljs-number">0</span>;
+ a[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>] = arr[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>][<span class="hljs-number">3</span>]; <span class="hljs-comment">// 此处引用的是数组arr中某个具体的值</span>
+ <span class="hljs-keyword">int</span> (&amp;row)[<span class="hljs-number">3</span>] = a[<span class="hljs-number">1</span>]; <span class="hljs-comment">// row绑定到数组a的第二个3元素数组上</span>
 </div></code></pre>
 </li>
 <li>
 <p>可以使用范围for语句来遍历多维数组：</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">size_t</span> cnt = <span class="hljs-number">0</span>;
-<span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> &amp;row: ia){
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> &amp;col: row){
-        col = cnt;
-        ++cnt;
-    }
-}
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">size_t</span> cnt = <span class="hljs-number">0</span>;
+ <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> &amp;row: ia){
+     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> &amp;col: row){
+         col = cnt;
+         ++cnt;
+     }
+ }
 </div></code></pre>
 </li>
 <li>
 <p>注意，当使用范围for语句时，无论我们是否需要修改数组内的值，<strong>我们必须将外层for循环的控制变量声明成引用类型，因为直接使用auto将会把该数组自动转换成指针</strong>：</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> row: ia){
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> colo: row){
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> row: ia){
+     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> colo: row){
 
-    }
-}<span class="hljs-comment">// 该程序会报错，因为外部row被转换成指向第一个元素的指针（int*），</span>
- <span class="hljs-comment">// 而内部for中的row将无法使用范围for</span>
+     }
+ }<span class="hljs-comment">// 该程序会报错，因为外部row被转换成指向第一个元素的指针（int*），</span>
+  <span class="hljs-comment">// 而内部for中的row将无法使用范围for</span>
 </div></code></pre>
 </li>
 <li>
 <p>多维数组名指向的是第一个内层数组的指针。使用auto或者decltype以及标准库函数begin和end可以使数组的遍历变得简洁</p>
-<pre><code class="language-c++"><div><span class="hljs-comment">// p指向多维数组ia中的第一个数组</span>
-<span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> p = begin(ia); p != end(ia); p++){
-    <span class="hljs-comment">// *p是一个含有若干整数的数组，q指向该数组的首元素</span>
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> q = begin(*p); q != end(*p); q++){
-        <span class="hljs-comment">// code block</span>
-    }
-}
+<pre><code class="language-cpp"><div> <span class="hljs-comment">// p指向多维数组ia中的第一个数组</span>
+ <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> p = begin(ia); p != end(ia); p++){
+     <span class="hljs-comment">// *p是一个含有若干整数的数组，q指向该数组的首元素</span>
+     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> q = begin(*p); q != end(*p); q++){
+         <span class="hljs-comment">// code block</span>
+     }
+ }
 </div></code></pre>
 </li>
 <li>
 <p>使用类型别名来简化多维数组的指针</p>
-<pre><code class="language-c++"><div><span class="hljs-keyword">using</span> int_array = <span class="hljs-keyword">int</span> [<span class="hljs-number">4</span>]; <span class="hljs-comment">// 新标准下类型别名的声明</span>
-<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> int_array[<span class="hljs-number">4</span>]; <span class="hljs-comment">// 等价的typedef声明</span>
+<pre><code class="language-cpp"><div> <span class="hljs-keyword">using</span> int_array = <span class="hljs-keyword">int</span> [<span class="hljs-number">4</span>]; <span class="hljs-comment">// 新标准下类型别名的声明</span>
+ <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> int_array[<span class="hljs-number">4</span>]; <span class="hljs-comment">// 等价的typedef声明</span>
 
-<span class="hljs-keyword">for</span>(int_array *p = ia; p != ia + <span class="hljs-number">2</span>; ++p){
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> *q = *p; q != *p + <span class="hljs-number">3</span>; ++q){
-        <span class="hljs-comment">// code block</span>
-    }
-}
+ <span class="hljs-keyword">for</span>(int_array *p = ia; p != ia + <span class="hljs-number">2</span>; ++p){
+     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> *q = *p; q != *p + <span class="hljs-number">3</span>; ++q){
+         <span class="hljs-comment">// code block</span>
+     }
+ }
 </div></code></pre>
 </li>
 </ol>

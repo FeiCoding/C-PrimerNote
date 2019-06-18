@@ -144,7 +144,8 @@
 18. 使用下标进行迭代：
 
     ```cpp
-     for(decltype(s.size()) index = 0; index != s.size() && !isspace(s[index]); index++){
+     for(decltype(s.size()) index = 0; index != s.size() 
+                            && !isspace(s[index]); index++){
          s[index] = toupper(s[index]);
      }
     ```
@@ -210,7 +211,8 @@
    vector<int> v4{10, 1}; // v4有两个元素分别是10， 1
    vector<string> v5{"hi"}; // v5有一个元素是 hi
    vector<string> v6("hi"); // 错误，不能用字符串字面值构建vector对象
-   vector<string> v7{10}; // 10是int型，不能用来初始化值，所以v7有十个默认初始化为空的字符串
+   vector<string> v7{10}; // 10是int型，不能用来初始化值，
+                          // 所以v7有十个默认初始化为空的字符串
    vector<string> v8{10, "hi"}; // v8有10个值为"hi"的元素
    ```
 
@@ -418,9 +420,12 @@
    ```cpp
     int *ptr[10]; // ptr是一个存放了10个int型指针的数组
     int &ref[10] = a; // 错误，不存在引用的数组
-    int (*Parray)[10] = &arr; // 由内而外理解，Parray是一个指针，指向一个存了10个int型整数的数组arr
-    int (&arrReff)[10] = arr; // 同样的，arrReff是一个引用，引用了一个存了10个int型整数的数组arr
-    int *(&arry)[10] = ptr; // arry是一个引用，引用了一个存了10个int型指针的数组
+    int (*Parray)[10] = &arr; // 由内而外理解，Parray是一个指针，
+                              // 指向一个存了10个int型整数的数组arr
+    int (&arrReff)[10] = arr; // 同样的，arrReff是一个引用，
+                              // 引用了一个存了10个int型整数的数组arr
+    int *(&arry)[10] = ptr; // arry是一个引用，
+                            // 引用了一个存了10个int型指针的数组
    ```
 
 10. 使用数组的时候，编译器一般会把它转换成指针。当使用数组作为一个auto变量的初始值时，推断得到的类型是指针而非数组。
@@ -481,7 +486,8 @@
     int b[2][3] = {
         {0},
         {1}
-    }; // 并非所有元素的值都必须包含在初始化列表之内，如果仅仅想初始化每一行第一个元素也是可以的
+    }; // 并非所有元素的值都必须包含在初始化列表之内，
+       // 如果仅仅想初始化每一行第一个元素也是可以的
    ```
 
 3. 多维数组的下标引用：
