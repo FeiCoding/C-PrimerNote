@@ -17,5 +17,13 @@ int main() {
                 break;
         }
     }
+
+    int b = 4;
+    switch(b){
+        case 3:
+            cout << "b is 3" << endl;
+            break;
+        default: ; // default 必须以空语句结尾
+    }
     return 0;
 }

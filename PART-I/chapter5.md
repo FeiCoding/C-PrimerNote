@@ -108,4 +108,14 @@
 
 1. 标签不应该孤零零的出现，它后面必须跟上一条语句或者另外一个case标签。如果switch结构以一个空的default标签作为结束，则该default标签背后必须跟上一条空语句或者空块。
 
+    ```c++
+        int b = 4;
+        switch(b){
+            case 3:
+                cout << "b is 3" << endl;
+                break;
+            default: ; // default 必须以空语句结尾
+        }
+    ```
+
 1. 
