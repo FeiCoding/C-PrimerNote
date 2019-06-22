@@ -118,4 +118,19 @@
         }
     ```
 
+1. swtich的执行过程有可能会跳过某些case标签，也就导致作用域内的变量定义被直接跳过了，c++规定，如果在某处一个带有初值的变量位于作用域之外，在另一处该变量位于作用域之内，则从前一处跳转到后一处的行为是非法行为。
+
+    ```c++
+    case true:
+        string file_name; // 错误，控制流绕过一个隐式初始化的变量
+        int ival = 0; // 错误，控制流绕过一个显式初始化的变量
+        int jval; // 正确，jval没有初始化
+
+    case false:
+        jval = next_num(); // 正确：给jval赋值
+        if(file_name.empty()){ // file_name在作用域内，但是没有被初始化
+            // code_block
+        }
+    ```
+
 1. 
