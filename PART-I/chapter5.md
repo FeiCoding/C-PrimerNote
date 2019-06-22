@@ -133,4 +133,17 @@
         }
     ```
 
+1. 上述代码形式容易产生误解或错误，所以我们应当尽量将变量的声明和定义放在花括号里（块），这样就能确保所有case标签都在变量的作用域之外。
+
+    ```c++
+    case true:
+    {
+        string file_name = get_file_name();
+    }
+    break;
+
+    case false:
+        if(file_name.empty()) // 错误：file_name不在作用域内
+    ```
+
 1. 
