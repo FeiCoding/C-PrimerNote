@@ -9,7 +9,7 @@
 * [Chapter 3 字符串、向量和数组](PART-I/chapter3.md)
 * [chapter 4 表达式](PART-I/chapter4.md)
 * [chapter 5 语句](PART-I/chapter5.md)
-  
+* [chapter 6 函数](PART-I/chapter6.md)
 
 ## 第二部分：C++标准库
 
@@ -22,4 +22,3 @@
 ## 第四部分：高级主题
 
 * [Untitled](PART-IV/untitled.md)
-
