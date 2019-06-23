@@ -31,5 +31,22 @@ int main() {
             break;
         default: ; // default 必须以空语句结尾
     }
+
+    bool flag = false;
+    int i = 5;
+    while(i < 10){
+        switch(flag){
+            case true:
+                cout << "TRUE" << endl;
+                flag = false;
+                ++i;
+                break;
+            case false:
+                ++i;
+                flag = true;
+                continue; 
+                //嵌套在while语句里的switch可以使用continue
+        }
+    }
     return 0;
 }
