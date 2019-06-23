@@ -8,6 +8,8 @@
 * [Chapter 2 变量和基本类型](PART-I/chapter2.md)
 * [Chapter 3 字符串、向量和数组](PART-I/chapter3.md)
 * [chapter 4 表达式](PART-I/chapter4.md)
+* [chapter 5 语句](PART-I/chapter5.md)
+  
 
 ## 第二部分：C++标准库
 
