@@ -122,7 +122,7 @@
 
     ```c++
     string::size_type find_char(string &s, char c, string::size_type &occurs){
-        \\ string &s是一个不良设计，因为此时find_char（“Hello World", 'o', ctr)将会报错
+        // string &s是一个不良设计，因为此时find_char（“Hello World", 'o', ctr)将会报错
     }
     ```
 
