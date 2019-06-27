@@ -126,4 +126,110 @@
     }
     ```
 
+1. 另一种情况是当函数嵌套时，外部函数接收了一个常量参数，而内部函数却只能接收一般参数，那么就会导致无法使用内部函数处理参数。
+
+    ```c++
+    void find(string &s){
+        // code block
+    }
+    void countUpper(const string &s){
+        find(s); // 出错，find无法处理s，此时可以重新定义
+                 // 一个s的一般拷贝来处理
+    }
+    ```
+
+1. 数组形参，数组的两个特殊性质限制了我们对数组的参数传递：
+   - 不允许直接拷贝数组
+   - 数组在使用时自动转换成指针
+
+1. 由此我们无法传递数组，因为当我们传递时，实际上传递的是指向数组首元素的指针。
+
+1. 我们不能以值传递的方式传递数组，但可以把形参写成类似数组的形式：
+
+    ```c++
+    void print(const int*);
+    void print(const int[]); // 表明传递数组的意图
+    void print(const int[10]); //实际并不一定要10个元素的数组传递
+    ```
+
+1. 以上三种函数都是等价的，每个函数的唯一形参都是const int*类型的，当编译器处理对print函数的调用时，只检查传入的参数是否是const int\*。
+
+1. 三种常用的指针形参的管理办法：
+   - 使用标记指定数组长度（例如c风格字符串的末尾后面跟着一个空字符作为结束标记）
+   - 使用标准库规范，定义一个begin指针和一个指向尾元素后方的end指针，传参时使用相应的标准库方法
+
+        ```c++
+        void print(const int *beg, const int *end){
+            // code_block
+        }
+
+        int j[2] = {1, 2};
+        print(begin(j), end(j));
+        ```
+
+   - 显式传递一个表示数组大小的形参
+
+        ```c++
+        void print(const int* p, size_t st){
+            // code_block
+        }
+
+        int j[] = {1,2};
+        print(j, end(j) - begin(j))
+        ```
+
+1. 当不需要对数组元素进行修改的时候，数组形参应该是const的指针。
+
+1. 可以使用数组的引用形参来传递，但是需要注意不要忽略对引用的名称加上括号。
+
+    ```c++
+    void print(int (&arr)[10]){ //不加括号则错误，意为引用的数组（不存在）
+        //code_block
+    }
+    ```
+
+1. 二维数组实际是一个数组的数组。数组第二维的大小都是数组类型的一部分，不能省略。有两种参数定义方法：
+
+    ```c++
+    void print(int (*matrix)[10], int row_size); // 注意不要忽略括号，同上
+    void print(int matrix[][10], int row_size); // 注意不要忽略第二个维度10
+    ```
+
+1. main函数传递参数，第二个形参argv是一个数组，它的元素是指向c风格的字符串数组，第一个形参argc表示的是**数组（切记，是数组中的）**中字符串的数量，因为第二个形参是数组，所以main函数也可以定义成下方代码中的第二种：
+
+    ```c++
+    int main(int argc, char *argv[]){...}
+    int main(int argc, char argv[][]){...}
+    ```
+
+1. argv的第一个参数指向程序的名字，或者一个空字符串，接下来的元素依次为传递命令行提供的实参，最后一个指针之后的元素保证为0。
+
+1. 如果函数的实参数量未知但是全部实参的类型都相同，我们可以使用initializer_list类型的形参。initializer_list是一种标准库类型，用于表示某种特定类型的值的数组，定义在同名的头文件中。
+
+1. initializer_list中的元素永远是const，我们无法改变这些元素的值。使用方法：
+
+    ```c++
+    void eror_msg(initilizer_list<string> il){
+        for(auto beg = il.begin(); beg != il.end(); ++beg){
+            cout << *beg << " ";
+        }// 和vector类似，我们也可以使用begin和end方法获取对应指针
+    }
+
+    if(expected != actual){ // expected和actual都是string
+        error_msg({"functionX", expected, acutal});
+    }
+    else{
+        error_msg({"functionX", "ok"}); // 注意，和上述方法传递参数个数不同
+    }
+    ```
+
+1. 省略符形参是为了便于C++程序访问某些特殊的C代码而设置的，这些代码使用了varargs的C标准库功能。省略符形参应该仅仅用于C和C++通用的类型，大多数类类型的对象在传递给省略符时都无法正常拷贝。
+
+    ```c++
+    // 对于parm_list会执行正常的类型检查。省略符对应的实参则无须类型检查
+    void foo(parm_list, ...); 
+
+    void foo(...)
+    ```
+
 1. 
