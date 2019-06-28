@@ -287,4 +287,32 @@
 
 1. C++11 新标准规定，函数可以返回花括号包围的值的列表。类似于其他返回结果，此处的列表也用来对表示函数返回的临时量进行初始化。如果列表为空，临时量执行值初始化（如果 vector 对象的元素是内置类型，比如 int，则元素初始值自动设置为 0，如果元素是某种类类型，比如 string，则元素由类默认初始化），否则返回的值由函数的返回类型决定。
 
+   ```c++
+   vector<string> process(){
+       if(expected.empty())
+           return{}; // 返回一个空vector对象
+       else if(expected == actual)
+           return {"FunctionX", "okay"}; // 返回列表初始化的vector对象
+       else
+           return {"functionX:, expected, actual};
+   }
+   ```
+
+1. 如果函数返回的是内置类型，则花括号包围的列表最多包含一个值，而且该值所占空间不应该大于目标类型的空间。如果函数返回的是类类型，由类本身定义初始值如何使用。
+
+1. main 函数可以没有 return 语句直接结束，如果控制到达了 main 函数的结尾处而且没有 return 语句，编译器将隐式地插入一条返回 0 的 return 语句。
+
+1. cstdlib 头文件定义了两个预处理变量（所以既不需要在前面加上::，也不能在 using 声明中出现），我们可以使用这两个变量分别表示成功与失败：
+
+   ```c++
+   int main(){
+       if(some_failure)
+           return EXIT_FAILURE;  // 定义在cstdlib头文件中
+       else
+           return EXIT_SUCCESS; // 定义在cstdlib头文件中
+   }
+   ```
+
+1. main 函数不能调用他自己，其他函数调用自己时则称为递归函数
+
 1.
