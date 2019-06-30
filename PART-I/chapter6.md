@@ -363,3 +363,43 @@
         ```
 
 ## 6.4 函数重载
+
+1. 如果同意作用域内的几个函数名字相同但形参列表不同，我们称之为重载函数（overload）。这些函数接收的形参类型不同，但执行的操作非常类似。当调用这些函数时，编译器会根据传递的参数类型推断想要绑定的是哪个函数。
+
+1. main函数不能重载。
+
+1. 不允许两个函数除了返回类型外其他所有的要素都相同，假设有两个函数，它们的形参列表一样但是返回类型不同，则第二个函数的声明是错误的。
+
+    ```c++
+    Record lookup(const Account&);
+    bool lookup(const Account&); // 错误，与上一个函数除了返回类型以外相同
+
+    Record lookup(const Account&);
+    Record lookup(const Account& var); //错误，只是多了形参名
+
+    typedef Phone Telno；
+    Record lookup(const Phone&);
+    Record loopup(const Telno&); // Telno和Phone的类型相同
+    ```
+
+### 6.4.1 重载和const形参
+
+1. **顶层const不影响传入函数的对象。一个拥有顶层const的形参无法和另一个没有顶层const的形参区分开来。**
+
+    ```c++
+    Record lookup(Account);
+    Record lookup(const Account); // 重复声明
+    Record lookup(Account* p);
+    Record lookup(Account* const p); // 重复声明
+    ```
+
+1. 如果形参是某种类型的指针或者引用，则通过区分其指向的是常量对象还是费常量对象可以实现函数重载。**也就是底层const可以区分函数重载。**
+
+    ```c++
+    Record lookup(Account &);
+    Record lookup(const Account &); // 新函数
+    Record lookup(Account* p);
+    Record lookup(const Account* p); // 新函数
+    ```
+
+1. 
