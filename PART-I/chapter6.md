@@ -527,3 +527,30 @@
     ```
 
 1. 内联函数或constexpr函数可以多次定义。对于某个给定的内联函数或者constexpr函数来说，它的多个定义必须完全一致，基于这个原因，内联函数和constexpr函数通常定义在头文件中。
+
+1. 两种具有调试帮助的预处理功能，assert和NDEBUG：
+   - assert是一种预处理宏(preprocessor marco)。其实就是一个预处理变量，行为类似内联函数，表达式为assert(*expr*),如果表达式为假，assert输出信息并终止程序的执行。如果为真，则assert什么也不做。使用assert时不需要提供using声明。宏名字在程序内必须唯一，含有cassert头文件的程序不能定义assert变量。（即便没包含也最好不要定义该变量）assert应该仅用于验证那些确实不可能发生的事，我们不能用它代替真正的运行时逻辑检查，也不能替代程序本身应该包含的错误检查。
+   - NDEBUG是一种预处理变量的状态，如果定义了NDEBUG，则assert什么也不做，默认状态下是没有定义NDEBUG，此时assert将执行运行时检查。我们可以使用#define来定义NDEBUG从而关闭调试状态。我们也可以使用如下的命令行来定义DEBUG从而关闭调试。我们也可以利用NDEBUG自定义条件调试代码：
+
+        ```c++
+        command line: $ CC -D NDEBUG main.C #在命令行定义了NDEBUG来跳过调试
+
+        void print(const int ia[], size_t size){
+            #ifndef NDEBUG
+                cerr << _ _func_ _ << ":array size is" << size << endl;
+            #endif
+        }
+        ```
+
+1. 用于程序调试的名字：
+
+    | 名称       | 作用                           |
+    | ---------- | ------------------------------ |
+    | _ _FILE_ _ | 存放文件名的字符串字面值       |
+    | _ _LINE_ _ | 存放当前行号的整型字面值       |
+    | _ _TIME_ _ | 存放文件编译时间的字符串字面值 |
+    | _ _DATE_ _ | 存放文件编译日期的字符串字面值 |
+
+## 6.6 函数匹配
+
+1. 
