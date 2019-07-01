@@ -402,4 +402,50 @@
     Record lookup(const Account* p); // 新函数
     ```
 
+1. 底层const可以区分的原因：
+    - const不能转换成其他类型，所以我们只能把const对象或指向const的指针传递给const形参。
+    - 因为非常量可以转换成const，所以函数都能作用于非常量对象或者指向非常量对象的指针。
+    - 但是，当我们传递一个非常量对象或者指向非常量对象的指针时，编译器会优先选择非常量版本的函数。
+
+1. 使用const_cast可以使得某些非常量转换成常量来进行函数调用时的传参操作。
+
+    ```c++
+    const string &shortString(const string &s1, const string &s2){
+        return s1.size() < s2.size() ? s1 : s2;
+    }
+
+    string &shorterString(string &s1, string &s2){
+        auto &r = shorterString(const_cast<const string &>(s1), const_cast<const string &>(s2));
+        return const_string<string&>(r);
+    }
+    ```
+
+1. 函数匹配（function matching）是指一个过程，在这个过程中我们把函数调用与一组重载函数中的某一个关联起来，函数匹配也叫重载确定（overload resolution）。编译器首先将调用的实参与重载集合中每一个函数的形参进行比较，然后根据比较的结果决定到底调用哪个函数。
+
+1. 调用重载函数时有三种可能的结果：
+   - 编译器找到一个与实参最佳匹配的函数，并生成调用该函数的代码。
+   - 找不到任何一个函数与调用的实参匹配，此时编译器发出无匹配的错误信息。
+   - 有多于一个函数可以匹配，但是每一个都不是明显的最佳选择。此时也将发生错误，称为二义性调用（ambiguous call）
+
+1. 如果我们在内层作用域声明名字，它将隐藏外层作用域中声明的同名实体。在不同的作用域中无法重载函数名。
+
+    ```c++
+    string read();
+    void print(const string &);
+    void print(double);
+    void foobar(int ival);{
+        bool read = false; // 新作用域：隐藏外层的read
+        string s = read(); // 错误：read是一个布尔值，而非函数
+        // 在局部作用域中声明函数是一个不好的选择。
+        void print(int); // 新作用域，隐藏外层print函数
+        print("Value: "); // 错误，外层print被隐藏掉了
+        print(ival); // 正确，调用的是print(int)
+        print(3.14); //正确，调用的是print(int)
+    }
+    ```
+
+1. 当我们把上述代码中函数体里的print(int)放到外层是就会发生print函数重载。
+
+## 6.5 特殊用途语言特性
+
 1. 
