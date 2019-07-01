@@ -450,4 +450,80 @@
 
 ### 6.5.1 默认实参
 
-1. 某些函数有
+1. 某些函数有这样一种形参，在函数的很多次调用中它们都被富裕了一个相同的值，此时我们把这个反复出现的值称为默认实参(default argument)。调用含有默认实参的函数时，可以包含该实参，也可以省略该实参。
+
+    ```c++
+    typedef string::size_type sz;
+    string screen(sz ht = 24, sz wid = 80, char backgrnd = ' ')'
+    // 当我们使用screen方法时，我们只需忽略前面实参就可以了。
+
+    string window;
+    window = screen(); //等价于screen(24, 80, ' ')
+    window = screen(66); // 等价于screen(66, 80, ' ')
+    window = screen(66, 256); // 等价于screen(66, 256, ' ')
+    window = screen(66, 256, '#'); // 等价于screen(66, 256, '#')
+
+    window = screen(, , '?'); // 错误
+    window = screen('?'); // 实际是调用screen('?', 80, ' ')
+    ```
+
+1. **注意，一旦某个形参被赋予了默认值，它后面的所有形参都必须有默认值。因为如果前面有默认值而后面没有，那么编译器将无法知道值应该传递给哪一个形参。所以上述代码中如果一定要为backgrnd覆盖默认值，则必须为ht和wid提供实参。所以当设计含有默认实参的函数时，尽量让不怎么使用默认值的形参出现在前面，让那些经常使用默认值的形参出现在后面。**
+
+1. **在给定的作用域中，一个形参只能被赋值一次默认实参。在函数的多次声明中，函数的后续声明只能为之前那些没有默认值的形参添加默认实参，而且该形参右侧的所有形参必须都有默认值。**
+
+    ```c++
+    string screen(sz, sz, char = ' '); // 初次声明
+    // 错误，char已经被赋值了一次默认实参，不能重复声明
+    string screen(sz, sz, char = '*');
+    // 正确，为之前没有添加默认实参的形参添加默认实参
+    string screen(sz = 24, sz = 80, char);
+    ```
+
+1. 局部变量不能作为默认实参。同时，只要表达式的类型能转换成形参所需的的类型，该表达式就能作为默认实参。
+
+    ```c++
+    // ht、wd、def的声明必须出现在函数之外
+    // he的返回值必须类型了sz相同
+    string screen(sz = ht(), sz = wd, char = def);
+    ```
+
+### 6.5.2 内联函数和constexpr函数
+
+1. 函数调用一般比求等价表达式的值要慢一些，一次函数调用包含着一系列工作，需要耗费资源和时间。
+
+1. 将函数定义成内联函数(inline)，函数在编译过程中将直接展开从而消除函数的运行开销。
+
+    ```c++
+    const string &shortString(const string &s1, const string &s2){
+        return s1.size() < s2.size() ? s1 : s2;
+    }
+
+    cout << shortStirng(s1, s2) << endl;
+    // 如果将shortString()定义成inline,函数将展开成如下形式
+    cout << (s1.size() < s2.size() ? s1 : s2) << endl;
+    ```
+
+1. 内联说明只是向编译器发出的一个请求，编译器可以选择忽略这个请求，所以内联机制一般只用于优化规模较小、流程直接、频繁调用的函数。很多编译器都不支持内敛递归函数，而且一个75行的函数也不大可能在调用点内联地展开。
+
+1. **constexpr函数是指能用于常量表达式的函数。函数的返回类型及所有形参的类型都得是字面值类型，而且函数体重必须只有一条return语句。**
+
+    ```c++
+    constexpr int new_sz(){ return 42; }
+    constexpr int foo = new_sz(); // 正确，foo是一个常量表达式
+    ```
+
+1. **编译器把constexpr函数的调用替换成其结果值，为了能在编译过程中随时展开，constexpr函数被隐式的定义成内联函数。**
+
+1. **constexpr函数体内也可以包含其他语句，只要这些语句在运行时不执行任何操作就行，例如空语句、类型别名或者using声明。constexpr函数的返回值可以不是一个常量（或常量表达式）。**
+
+    ```c++
+    constexpr size_t scale(size_t cnt){
+        return new_sz() * cnt;
+    }
+
+    int arr[scale(2)]; // 正确，scale(2)是常量表达式
+    int i = 2;
+    int a2[scale(i)]; // 错误，scale(i)不是常量表达式
+    ```
+
+1. 内联函数或constexpr函数可以多次定义。对于某个给定的内联函数或者constexpr函数来说，它的多个定义必须完全一致，基于这个原因，内联函数和constexpr函数通常定义在头文件中。
