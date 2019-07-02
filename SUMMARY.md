@@ -10,6 +10,7 @@
 * [chapter 4 表达式](PART-I/chapter4.md)
 * [chapter 5 语句](PART-I/chapter5.md)
 * [chapter 6 函数](PART-I/chapter6.md)
+* [chapter 7 类](PART-I/chapter7.md)
 
 ## 第二部分：C++标准库
 
