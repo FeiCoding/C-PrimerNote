@@ -589,7 +589,7 @@
    1. 通过算术类型转换或指针转换实现的匹配
    1. 通过类类型转换实现的匹配（14 章介绍）
 
-1. 当有两个函数一个接受 int 一个接受 short，则当且只有当调用提供的是 short 类型的值时才会调用 short 版本的函数。大部分情况下小整型都会被提升为 int 型。
+1. 当有两个函数一个接受 int 一个接受 short，则当且只有当调用提供的是 short 类型的值时才会调用 short 版本的函数。大部分情况下小整型都会被提升为 int 型（char或者short都会先转成int）。
 
    ```c++
    void ff(int);
@@ -618,4 +618,107 @@
 
 ## 6.7 函数指针
 
-1. 
+1. 函数指针指向的是函数而非对象。和其他指针一样，函数指针指向某种个特定类型。函数的类型由它的返回类型和形参类型共同决定，与函数名无关。
+
+    ```c++
+    bool lengthCompare(const string &, const string &);
+    // 指向一个函数的指针，pf两侧的括号不能少，否则变成返回bool指针的函数
+    bool (*pf)(const string &, const string &);
+    ```
+
+1. 当我们把函数名作为一个值使用时，该函数自动转换成指针。
+
+    ```c++
+    pf = lengthCompare; // pf指向名为lengthCompare的指针
+    pf = &lengthCompare; // 等价赋值语句
+    ```
+
+1. 我们可以直接使用指向函数的指针调用该函数，无需再做解引用。
+
+    ```c++
+    bool b1 = pf("Hello", "good"); // 直接调用lengthCompare函数
+    bool b1 = (*pf)("Hello", "good"); // 等价调用，实际可以省略解引用操作
+    bool b1 = lengthCompare("Hello", "good"); //等价语句
+    ```
+
+1. 我们可以为函数指针赋值一个0或者nullptr来表示该指针没有指向任何函数。
+
+1. 重载函数的指针，其类型必须与重载函数的某一个精确匹配。
+
+    ```c++
+    void ff(int *);
+    void ff(unsigned int);
+
+    void (*pf1)(unsigned int) = ff; // pf1指向ff(unsigned int)
+    void (*pf2)(int) = ff; // 错误，无ff可与此指针匹配
+    double (*pf1)(unsigned int) = ff; // 错误，返回类型不同
+    ```
+
+1. **函数类型不可作为形参，但是我们可以使用函数指针来作为形参。此时形参看起来像是函数类型，但实际确实函数指针。**
+
+    ```c++
+    // 第三个参数是函数类型，但它会被自动转换成函数指针
+    void useBigger(const string &s, const string &s2, 
+                        bool pf(const string &, const string &));
+    // 等价声明，显示的定义函数指针
+    void useBigger(const string &s, const string &s2, 
+                        bool (*pf)(const string &, const string &));
+
+    // 实际调用时，可以直接传递一个函数名，它会自动被转换成函数指针
+    useBigger(s1, s2, lengthCompare);
+    ```
+
+1. 直接使用函数指针类型显得冗长而繁琐。类型别名和decltype能让我们简化使用了函数指针的代码。
+
+    ```c++
+    // Func和Func2都是函数类型
+    typedef bool Func(const string&, const string&);
+    typedef decltype(lengthCompare) Func2;  //等价的类型
+
+    // FuncP和FuncP2都是函数指针类型
+    typedef bool (*FuncP)(const string&, const string&);
+    typedef decltype(lengthCompare) *FuncP2;  //等价的类型
+    // 注意，此处decltype不会自动把lengthCompare转换成指针类型，
+    // 所以需要加上*来显示说明FuncP2是指针类型
+    ```
+
+1. 使用类型别名重新声明函数指针的形参将会变得十分简洁：
+
+    ```c++
+    // 第三个参数是函数类型，但它会被自动转换成函数指针
+    void useBigger(const string &s, const string &s2, Func);
+    // 等价声明，此时第三个参数是函数指针
+    void useBigger(const string &s, const string &s2, FuncP2);
+    ```
+
+1. 函数不能作为一个返回值，但是我们可以返回指向函数类型的指针。书写返回函数指针的函数时返回类型的声明将会十分冗长，最简单的方法仍然是使用类型别名。
+
+    ```c++
+    using F = int(int*, int); // F是函数类型
+    using PF = int (*)(int*, int); // PF是函数指针类型
+    ```
+
+1. **和函数类型的形参不同，返回类型为函数类型时不会自动转换成函数指针类型，所以我们必须显示的将返回类型定义成指针。**
+
+    ```c++
+    PF f1(int); // 正确，返回类型为函数指针
+    F f1(int); // 错误，F是函数类型，f1不能返回一个函数类型
+    F *f1(int); // 正确，F *是函数指针类型
+
+    // 我们也可以直接声明f1的返回值为函数指针
+    // 由内而外阅读，f1(int)是函数体，前面有*则是返回一个指针
+    // 该指针也有形参列表，为（*int，int），该函数返回类型为int
+    int (*f1(int))(int*, int);
+
+    // 尾置返回类型
+    auto f1(int) -> int(*)(int*, int);
+    ```
+
+1. 当我们明确知道要返回的函数是哪一个时，就能使用decltype简化书写函数指针返回类型的过程。**但是注意，decltype只能返回函数类型而非函数指针类型，因此我们需要显示的加上*以表明我们需要返回指针，而非函数本身。**
+
+    ```c++
+    string::size_type sumLength(const string&, const string&);
+    string::size_type largeLength(const string&, const string&);
+    // getFcn函数可以返回指向上面两个函数中任意一个的指针
+    decltype(sumLength) *getFcn(const string &);
+    ```
