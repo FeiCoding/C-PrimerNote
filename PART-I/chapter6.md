@@ -658,21 +658,21 @@
     double (*pf1)(unsigned int) = ff; // 错误，返回类型不同
     ```
 
-1. **函数类型不可作为形参，但是我们可以使用函数指针来作为形参。此时形参看起来像是函数类型，但实际确实函数指针。**
+1. **函数类型不可作为形参，但是我们可以使用函数指针来作为形参。此时形参看起来像是函数类型，但实际上是函数指针。**
 
     ```c++
     // 第三个参数是函数类型，但它会被自动转换成函数指针
-    void useBigger(const string &s, const string &s2, 
+    void useBigger(const string &s, const string &s2,
                         bool pf(const string &, const string &));
     // 等价声明，显示的定义函数指针
-    void useBigger(const string &s, const string &s2, 
+    void useBigger(const string &s, const string &s2,
                         bool (*pf)(const string &, const string &));
 
     // 实际调用时，可以直接传递一个函数名，它会自动被转换成函数指针
     useBigger(s1, s2, lengthCompare);
     ```
 
-1. 直接使用函数指针类型显得冗长而繁琐。类型别名和decltype能让我们简化使用了函数指针的代码。
+1. 直接使用函数指针类型显得冗长而繁琐。类型别名和decltype能让我们简化使用函数指针的代码。
 
     ```c++
     // Func和Func2都是函数类型
@@ -706,6 +706,7 @@
 
     ```c++
     PF f1(int); // 正确，返回类型为函数指针
+
     F f1(int); // 错误，F是函数类型，f1不能返回一个函数类型
     F *f1(int); // 正确，F *是函数指针类型
 
@@ -718,7 +719,7 @@
     auto f1(int) -> int(*)(int*, int);
     ```
 
-1. 当我们明确知道要返回的函数是哪一个时，就能使用decltype简化书写函数指针返回类型的过程。**但是注意，decltype只能返回函数类型而非函数指针类型，因此我们需要显示的加上*以表明我们需要返回指针，而非函数本身。**
+1. 当我们明确知道要返回的函数是哪一个时，就能使用decltype简化书写函数指针返回类型的过程。**但是注意，decltype只能返回函数类型而非函数指针类型，因此我们需要显示的加上*以表明我们需要返回的是函数指针。**
 
     ```c++
     string::size_type sumLength(const string&, const string&);
