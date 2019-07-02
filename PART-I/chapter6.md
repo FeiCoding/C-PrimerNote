@@ -323,128 +323,131 @@
 
 1. 因为数组不能拷贝，所以函数不能返回数组。但是函数可以返回数组的指针或引用。以下几种可以返回数组指针的引用或指针的方式：
 
-    1. 使用类型别名：
+   1. 使用类型别名：
 
-        ```c++
-        typedef int arrT[10]; // arrT是一个类型别名
-        using arrT[10] = int[10]; // arrT的等价声明
-        arrT* func(int i); // func返回一个指向含有10个整数的数组的指针
-        ```
+      ```c++
+      typedef int arrT[10]; // arrT是一个类型别名
+      using arrT[10] = int[10]; // arrT的等价声明
+      arrT* func(int i); // func返回一个指向含有10个整数的数组的指针
+      ```
 
-    2. 声明一个返回数组指针的函数( *Type (\*function(parameter_list) [dimention]*))：
+   2. 声明一个返回数组指针的函数( _Type (\*function(parameter_list) [dimention]_))：
 
-        ```c++
-        int (*func(int i))[10];
-        ```
+      ```c++
+      int (*func(int i))[10];
+      ```
 
-        上述代码的解释含义：
-        1. func(int i)表示调用func函数时需要一个int类型的实参
-        2. (*func(int i))意味着我们可以对函数调用的结果执行解引用操作
-        3. (*func(int i))[10]表示解引用func的调用将得到一个大小是10的数组
-        4. int (*func(int i))[10]表示数组中的元素是int类型的
+      上述代码的解释含义：
 
-    3. 使用尾置返回类型：
+      1. func(int i)表示调用 func 函数时需要一个 int 类型的实参
+      2. (\*func(int i))意味着我们可以对函数调用的结果执行解引用操作
+      3. (\*func(int i))[10]表示解引用 func 的调用将得到一个大小是 10 的数组
+      4. int (\*func(int i))[10]表示数组中的元素是 int 类型的
 
-        ```c++
-        // func接受一个int类型的实参，返回一个指针，该指针指向含有10个整数的数组
-        auto func(int i) -> int(*)[10]
-        ```
+   3. 使用尾置返回类型：
 
-    4. 使用decltype
+      ```c++
+      // func接受一个int类型的实参，返回一个指针，该指针指向含有10个整数的数组
+      auto func(int i) -> int(*)[10]
+      ```
 
-        ```c++
-        int odd[] = {1, 3, 5, 7, 9};
-        int even[] = {2, 4, 6, 8, 10};
+   4. 使用 decltype
 
-        // arrPtr返回一个指针，并且类型和odd一致
-        decltype(odd) *arrPtr(int i){
-            return (i % 2) ? &odd : &even; // 返回一个指向数组的指针
-        }
-        ```
+      ```c++
+      int odd[] = {1, 3, 5, 7, 9};
+      int even[] = {2, 4, 6, 8, 10};
+
+      // arrPtr返回一个指针，并且类型和odd一致
+      decltype(odd) *arrPtr(int i){
+          return (i % 2) ? &odd : &even; // 返回一个指向数组的指针
+      }
+      ```
 
 ## 6.4 函数重载
 
 1. 如果同意作用域内的几个函数名字相同但形参列表不同，我们称之为重载函数（overload）。这些函数接收的形参类型不同，但执行的操作非常类似。当调用这些函数时，编译器会根据传递的参数类型推断想要绑定的是哪个函数。
 
-1. main函数不能重载。
+1. main 函数不能重载。
 
 1. 不允许两个函数除了返回类型外其他所有的要素都相同，假设有两个函数，它们的形参列表一样但是返回类型不同，则第二个函数的声明是错误的。
 
-    ```c++
-    Record lookup(const Account&);
-    bool lookup(const Account&); // 错误，与上一个函数除了返回类型以外相同
+   ```c++
+   Record lookup(const Account&);
+   bool lookup(const Account&); // 错误，与上一个函数除了返回类型以外相同
 
-    Record lookup(const Account&);
-    Record lookup(const Account& var); //错误，只是多了形参名
+   Record lookup(const Account&);
+   Record lookup(const Account& var); //错误，只是多了形参名
 
-    typedef Phone Telno；
-    Record lookup(const Phone&);
-    Record loopup(const Telno&); // Telno和Phone的类型相同
-    ```
+   typedef Phone Telno；
+   Record lookup(const Phone&);
+   Record loopup(const Telno&); // Telno和Phone的类型相同
+   ```
 
-### 6.4.1 重载和const形参
+### 6.4.1 重载和 const 形参
 
-1. **顶层const不影响传入函数的对象。一个拥有顶层const的形参无法和另一个没有顶层const的形参区分开来。**
+1. **顶层 const 不影响传入函数的对象。一个拥有顶层 const 的形参无法和另一个没有顶层 const 的形参区分开来。**
 
-    ```c++
-    Record lookup(Account);
-    Record lookup(const Account); // 重复声明
-    Record lookup(Account* p);
-    Record lookup(Account* const p); // 重复声明
-    ```
+   ```c++
+   Record lookup(Account);
+   Record lookup(const Account); // 重复声明
+   Record lookup(Account* p);
+   Record lookup(Account* const p); // 重复声明
+   ```
 
-1. 如果形参是某种类型的指针或者引用，则通过区分其指向的是常量对象还是费常量对象可以实现函数重载。**也就是底层const可以区分函数重载。**
+1. 如果形参是某种类型的指针或者引用，则通过区分其指向的是常量对象还是费常量对象可以实现函数重载。**也就是底层 const 可以区分函数重载。**
 
-    ```c++
-    Record lookup(Account &);
-    Record lookup(const Account &); // 新函数
-    Record lookup(Account* p);
-    Record lookup(const Account* p); // 新函数
-    ```
+   ```c++
+   Record lookup(Account &);
+   Record lookup(const Account &); // 新函数
+   Record lookup(Account* p);
+   Record lookup(const Account* p); // 新函数
+   ```
 
-1. 底层const可以区分的原因：
-    - const不能转换成其他类型，所以我们只能把const对象或指向const的指针传递给const形参。
-    - 因为非常量可以转换成const，所以函数都能作用于非常量对象或者指向非常量对象的指针。
-    - 但是，当我们传递一个非常量对象或者指向非常量对象的指针时，编译器会优先选择非常量版本的函数。
+1. 底层 const 可以区分的原因：
 
-1. 使用const_cast可以使得某些非常量转换成常量来进行函数调用时的传参操作。
+   - const 不能转换成其他类型，所以我们只能把 const 对象或指向 const 的指针传递给 const 形参。
+   - 因为非常量可以转换成 const，所以函数都能作用于非常量对象或者指向非常量对象的指针。
+   - 但是，当我们传递一个非常量对象或者指向非常量对象的指针时，编译器会优先选择非常量版本的函数。
 
-    ```c++
-    const string &shortString(const string &s1, const string &s2){
-        return s1.size() < s2.size() ? s1 : s2;
-    }
+1. 使用 const_cast 可以使得某些非常量转换成常量来进行函数调用时的传参操作。
 
-    string &shorterString(string &s1, string &s2){
-        auto &r = shorterString(const_cast<const string &>(s1), const_cast<const string &>(s2));
-        return const_string<string&>(r);
-    }
-    ```
+   ```c++
+   const string &shortString(const string &s1, const string &s2){
+       return s1.size() < s2.size() ? s1 : s2;
+   }
+
+   string &shorterString(string &s1, string &s2){
+       auto &r = shorterString(const_cast<const string &>(s1), const_cast<const string &>(s2));
+       return const_string<string&>(r);
+   }
+   ```
 
 1. 函数匹配（function matching）是指一个过程，在这个过程中我们把函数调用与一组重载函数中的某一个关联起来，函数匹配也叫重载确定（overload resolution）。编译器首先将调用的实参与重载集合中每一个函数的形参进行比较，然后根据比较的结果决定到底调用哪个函数。
 
 1. 调用重载函数时有三种可能的结果：
+
    - 编译器找到一个与实参最佳匹配的函数，并生成调用该函数的代码。
    - 找不到任何一个函数与调用的实参匹配，此时编译器发出无匹配的错误信息。
    - 有多于一个函数可以匹配，但是每一个都不是明显的最佳选择。此时也将发生错误，称为二义性调用（ambiguous call）
 
 1. 如果我们在内层作用域声明名字，它将隐藏外层作用域中声明的同名实体。在不同的作用域中无法重载函数名。
 
-    ```c++
-    string read();
-    void print(const string &);
-    void print(double);
-    void foobar(int ival);{
-        bool read = false; // 新作用域：隐藏外层的read
-        string s = read(); // 错误：read是一个布尔值，而非函数
-        // 在局部作用域中声明函数是一个不好的选择。
-        void print(int); // 新作用域，隐藏外层print函数
-        print("Value: "); // 错误，外层print被隐藏掉了
-        print(ival); // 正确，调用的是print(int)
-        print(3.14); //正确，调用的是print(int)
-    }
-    ```
+   ```c++
+   string read();
+   void print(const string &);
+   void print(double);
+   void foobar(int ival);{
+       bool read = false; // 新作用域：隐藏外层的read
+       string s = read(); // 错误：read是一个布尔值，而非函数
+       // 在局部作用域中声明函数是一个不好的选择。
+       void print(int); // 新作用域，隐藏外层print函数
+       print("Value: "); // 错误，外层print被隐藏掉了
+       print(ival); // 正确，调用的是print(int)
+       print(3.14); //正确，调用的是print(int)
+   }
+   ```
 
-1. 当我们把上述代码中函数体里的print(int)放到外层是就会发生print函数重载。
+1. 当我们把上述代码中函数体里的 print(int)放到外层是就会发生 print 函数重载。
 
 ## 6.5 特殊用途语言特性
 
@@ -452,119 +455,167 @@
 
 1. 某些函数有这样一种形参，在函数的很多次调用中它们都被富裕了一个相同的值，此时我们把这个反复出现的值称为默认实参(default argument)。调用含有默认实参的函数时，可以包含该实参，也可以省略该实参。
 
-    ```c++
-    typedef string::size_type sz;
-    string screen(sz ht = 24, sz wid = 80, char backgrnd = ' ')'
-    // 当我们使用screen方法时，我们只需忽略前面实参就可以了。
+   ```c++
+   typedef string::size_type sz;
+   string screen(sz ht = 24, sz wid = 80, char backgrnd = ' ')'
+   // 当我们使用screen方法时，我们只需忽略前面实参就可以了。
 
-    string window;
-    window = screen(); //等价于screen(24, 80, ' ')
-    window = screen(66); // 等价于screen(66, 80, ' ')
-    window = screen(66, 256); // 等价于screen(66, 256, ' ')
-    window = screen(66, 256, '#'); // 等价于screen(66, 256, '#')
+   string window;
+   window = screen(); //等价于screen(24, 80, ' ')
+   window = screen(66); // 等价于screen(66, 80, ' ')
+   window = screen(66, 256); // 等价于screen(66, 256, ' ')
+   window = screen(66, 256, '#'); // 等价于screen(66, 256, '#')
 
-    window = screen(, , '?'); // 错误
-    window = screen('?'); // 实际是调用screen('?', 80, ' ')
-    ```
+   window = screen(, , '?'); // 错误
+   window = screen('?'); // 实际是调用screen('?', 80, ' ')
+   ```
 
-1. **注意，一旦某个形参被赋予了默认值，它后面的所有形参都必须有默认值。因为如果前面有默认值而后面没有，那么编译器将无法知道值应该传递给哪一个形参。所以上述代码中如果一定要为backgrnd覆盖默认值，则必须为ht和wid提供实参。所以当设计含有默认实参的函数时，尽量让不怎么使用默认值的形参出现在前面，让那些经常使用默认值的形参出现在后面。**
+1. **注意，一旦某个形参被赋予了默认值，它后面的所有形参都必须有默认值。因为如果前面有默认值而后面没有，那么编译器将无法知道值应该传递给哪一个形参。所以上述代码中如果一定要为 backgrnd 覆盖默认值，则必须为 ht 和 wid 提供实参。所以当设计含有默认实参的函数时，尽量让不怎么使用默认值的形参出现在前面，让那些经常使用默认值的形参出现在后面。**
 
 1. **在给定的作用域中，一个形参只能被赋值一次默认实参。在函数的多次声明中，函数的后续声明只能为之前那些没有默认值的形参添加默认实参，而且该形参右侧的所有形参必须都有默认值。**
 
-    ```c++
-    string screen(sz, sz, char = ' '); // 初次声明
-    // 错误，char已经被赋值了一次默认实参，不能重复声明
-    string screen(sz, sz, char = '*');
-    // 正确，为之前没有添加默认实参的形参添加默认实参
-    string screen(sz = 24, sz = 80, char);
-    ```
+   ```c++
+   string screen(sz, sz, char = ' '); // 初次声明
+   // 错误，char已经被赋值了一次默认实参，不能重复声明
+   string screen(sz, sz, char = '*');
+   // 正确，为之前没有添加默认实参的形参添加默认实参
+   string screen(sz = 24, sz = 80, char);
+   ```
 
 1. 局部变量不能作为默认实参。同时，只要表达式的类型能转换成形参所需的的类型，该表达式就能作为默认实参。
 
-    ```c++
-    // ht、wd、def的声明必须出现在函数之外
-    // he的返回值必须类型了sz相同
-    string screen(sz = ht(), sz = wd, char = def);
-    ```
+   ```c++
+   // ht、wd、def的声明必须出现在函数之外
+   // he的返回值必须类型了sz相同
+   string screen(sz = ht(), sz = wd, char = def);
+   ```
 
-### 6.5.2 内联函数和constexpr函数
+### 6.5.2 内联函数和 constexpr 函数
 
 1. 函数调用一般比求等价表达式的值要慢一些，一次函数调用包含着一系列工作，需要耗费资源和时间。
 
 1. 将函数定义成内联函数(inline)，函数在编译过程中将直接展开从而消除函数的运行开销。
 
-    ```c++
-    const string &shortString(const string &s1, const string &s2){
-        return s1.size() < s2.size() ? s1 : s2;
-    }
+   ```c++
+   const string &shortString(const string &s1, const string &s2){
+       return s1.size() < s2.size() ? s1 : s2;
+   }
 
-    cout << shortStirng(s1, s2) << endl;
-    // 如果将shortString()定义成inline,函数将展开成如下形式
-    cout << (s1.size() < s2.size() ? s1 : s2) << endl;
-    ```
+   cout << shortStirng(s1, s2) << endl;
+   // 如果将shortString()定义成inline,函数将展开成如下形式
+   cout << (s1.size() < s2.size() ? s1 : s2) << endl;
+   ```
 
-1. 内联说明只是向编译器发出的一个请求，编译器可以选择忽略这个请求，所以内联机制一般只用于优化规模较小、流程直接、频繁调用的函数。很多编译器都不支持内敛递归函数，而且一个75行的函数也不大可能在调用点内联地展开。
+1. **内联说明只是向编译器发出的一个请求，编译器可以选择忽略这个请求，所以内联机制一般只用于优化规模较小、流程直接、频繁调用的函数。**很多编译器都不支持内联递归函数，而且一个 75 行的函数也不大可能在调用点内联地展开。
 
-1. **constexpr函数是指能用于常量表达式的函数。函数的返回类型及所有形参的类型都得是字面值类型，而且函数体重必须只有一条return语句。**
+1. **constexpr 函数是指能用于常量表达式的函数。函数的返回类型及所有形参的类型都得是字面值类型，而且函数体重必须只有一条 return 语句。**
 
-    ```c++
-    constexpr int new_sz(){ return 42; }
-    constexpr int foo = new_sz(); // 正确，foo是一个常量表达式
-    ```
+   ```c++
+   constexpr int new_sz(){ return 42; }
+   constexpr int foo = new_sz(); // 正确，foo是一个常量表达式
+   ```
 
-1. **编译器把constexpr函数的调用替换成其结果值，为了能在编译过程中随时展开，constexpr函数被隐式的定义成内联函数。**
+1. **编译器把 constexpr 函数的调用替换成其结果值，为了能在编译过程中随时展开，constexpr 函数被隐式的定义成内联函数。**
 
-1. **constexpr函数体内也可以包含其他语句，只要这些语句在运行时不执行任何操作就行，例如空语句、类型别名或者using声明。constexpr函数的返回值可以不是一个常量（或常量表达式）。**
+1. **constexpr 函数体内也可以包含其他语句，只要这些语句在运行时不执行任何操作就行，例如空语句、类型别名或者 using 声明。constexpr 函数的返回值可以不是一个常量（或常量表达式）。**
 
-    ```c++
-    constexpr size_t scale(size_t cnt){
-        return new_sz() * cnt;
-    }
+   ```c++
+   constexpr size_t scale(size_t cnt){
+       return new_sz() * cnt;
+   }
 
-    int arr[scale(2)]; // 正确，scale(2)是常量表达式
-    int i = 2;
-    int a2[scale(i)]; // 错误，scale(i)不是常量表达式
-    ```
+   int arr[scale(2)]; // 正确，scale(2)是常量表达式
+   int i = 2;
+   int a2[scale(i)]; // 错误，scale(i)不是常量表达式
+   ```
 
-1. 内联函数或constexpr函数可以多次定义。对于某个给定的内联函数或者constexpr函数来说，它的多个定义必须完全一致，基于这个原因，内联函数和constexpr函数通常定义在头文件中。
+1. 内联函数或 constexpr 函数可以多次定义。对于某个给定的内联函数或者 constexpr 函数来说，它的多个定义必须完全一致，基于这个原因，内联函数和 constexpr 函数通常定义在头文件中。
 
-1. 两种具有调试帮助的预处理功能，assert和NDEBUG：
-   - assert是一种预处理宏(preprocessor marco)。其实就是一个预处理变量，行为类似内联函数，表达式为assert(*expr*),如果表达式为假，assert输出信息并终止程序的执行。如果为真，则assert什么也不做。使用assert时不需要提供using声明。宏名字在程序内必须唯一，含有cassert头文件的程序不能定义assert变量。（即便没包含也最好不要定义该变量）assert应该仅用于验证那些确实不可能发生的事，我们不能用它代替真正的运行时逻辑检查，也不能替代程序本身应该包含的错误检查。
-   - NDEBUG是一种预处理变量的状态，如果定义了NDEBUG，则assert什么也不做，默认状态下是没有定义NDEBUG，此时assert将执行运行时检查。我们可以使用#define来定义NDEBUG从而关闭调试状态。我们也可以使用如下的命令行来定义DEBUG从而关闭调试。我们也可以利用NDEBUG自定义条件调试代码：
+1. 两种具有调试帮助的预处理功能，assert 和 NDEBUG：
 
-        ```c++
-        command line: $ CC -D NDEBUG main.C #在命令行定义了NDEBUG来跳过调试
+   - assert 是一种预处理宏(preprocessor marco)。其实就是一个预处理变量，行为类似内联函数，表达式为 assert(_expr_),如果表达式为假，assert 输出信息并终止程序的执行。如果为真，则 assert 什么也不做。使用 assert 时不需要提供 using 声明。宏名字在程序内必须唯一，含有 cassert 头文件的程序不能定义 assert 变量。（即便没包含也最好不要定义该变量）assert 应该仅用于验证那些确实不可能发生的事，我们不能用它代替真正的运行时逻辑检查，也不能替代程序本身应该包含的错误检查。
+   - NDEBUG 是一种预处理变量的状态，如果定义了 NDEBUG，则 assert 什么也不做，默认状态下是没有定义 NDEBUG，此时 assert 将执行运行时检查。我们可以使用#define 来定义 NDEBUG 从而关闭调试状态。我们也可以使用如下的命令行来定义 DEBUG 从而关闭调试。我们也可以利用 NDEBUG 自定义条件调试代码：
 
-        void print(const int ia[], size_t size){
-            #ifndef NDEBUG
-                cerr << _ _func_ _ << ":array size is" << size << endl;
-            #endif
-        }
-        ```
+     ```c++
+     command line: $ CC -D NDEBUG main.C #在命令行定义了NDEBUG来跳过调试
+
+     void print(const int ia[], size_t size){
+         #ifndef NDEBUG
+             cerr << _ _func_ _ << ":array size is" << size << endl;
+         #endif
+     }
+     ```
 
 1. 用于程序调试的名字：
 
-    | 名称       | 作用                           |
-    | ---------- | ------------------------------ |
-    | \_ _ _FILE_ _ \_ | 存放文件名的字符串字面值       |
-    | \_ _ _LINE_ _ \_ | 存放当前行号的整型字面值       |
-    | \_ _ _TIME_ _ \_ | 存放文件编译时间的字符串字面值 |
-    | \_ _ _DATE_ _ \_ | 存放文件编译日期的字符串字面值 |
+   | 名称               | 作用                           |
+   | ------------------ | ------------------------------ |
+   | \_ \_ _FILE_ \_ \_ | 存放文件名的字符串字面值       |
+   | \_ \_ _LINE_ \_ \_ | 存放当前行号的整型字面值       |
+   | \_ \_ _TIME_ \_ \_ | 存放文件编译时间的字符串字面值 |
+   | \_ \_ _DATE_ \_ \_ | 存放文件编译日期的字符串字面值 |
 
 ## 6.6 函数匹配
 
 1. 函数匹配的第一步是选定本次调用对应的重载函数集，集合中的函数称为候选函数(candidate function)。候选函数具备两个特征，一是与被调用的函数同名，二是其声明在调用点可见。
 
-    ```c++
-    void f();
-    void f(int);
-    void f(int, int);
-    void f(double, double = 3.14);
-    f(2.5); // 实际调用f(double, double)
-    ```
+   ```c++
+   void f();
+   void f(int);
+   void f(int, int);
+   void f(double, double = 3.14);
+   f(2.5); // 实际调用f(double, double)
+   f(40, 2.5); // 二义性调用，错误。
+   ```
 
 1. 第二步考察本次调用提供的实参，然后从候选函数中选出能被这组实参调用的函数，这些新选出的函数称为可行函数(viable function)。可行函数的两个特征：一是其形参数量与本次调用提供的实参数量相等，二是每个实参的类型与对应的形参类型相同，或者能转换成形参的类型。
 
 1. 如果没找到可行函数，编译器将报告无匹配函数的错误。
 
-1. 函数匹配第三步
+1. 函数匹配第三步是从可行函数中选择与本次调用最匹配的函数。在这一过程中，逐一检查函数调用提供的实参，寻找形参类型与实参类型最匹配的那个可行函数。基本思想是，实参类型和形参类型越接近，他们就匹配的越好。
+
+1. 代码中 f(40, 2.5)的调用符合 f(int,int)和 f(double,double)，然而两者实际都需要一次强制类型转换，也就是说该调用具有二义性，从整体上编译器无法判断优劣，此时编译器会报错。
+
+1. **调用重载函数时应尽量避免强制类型转换。如果在实际应用中确实需要强制类型转换，则说明我们设计的形参集合不合理。**
+
+1. 编译器对实参类型到形参类型的转换划分成几个等级：
+
+   1. 精确匹配
+      - 实参类型和形参类型相同
+      - 实参从数组类型或函数类型转换成对应的指针类型
+      - 向实参添加顶层 const 或者从实参中删除顶层 const
+   1. 通过 const 转换实现的匹配
+   1. 通过类型提升实现的匹配
+   1. 通过算术类型转换或指针转换实现的匹配
+   1. 通过类类型转换实现的匹配（14 章介绍）
+
+1. 当有两个函数一个接受 int 一个接受 short，则当且只有当调用提供的是 short 类型的值时才会调用 short 版本的函数。大部分情况下小整型都会被提升为 int 型。
+
+   ```c++
+   void ff(int);
+   void ff(short);
+   ff('a'); // char提升为int型
+
+   void manp(long);
+   void manp(float);
+   manip(3.14); // double既能转换成long又能转换成float，二义性调用，错误
+   ```
+
+1. 所有算术类型转换的级别都一样，int 想 unsigned int 转换并不比 int 向 double 的转换级别高。如上述代码中 double 转换成 float 或者 long 都可，并无级别高低的区别。
+
+1.对于引用类型的实参是否引用了 const，或者指针类型的形参是否指向 const，那么当调用发生时编译器通过实参是否是常量来决定选用哪个函数：
+
+```c++
+    Record lookup(Account &);
+    Record lookup(const Account &);
+    const Account a;
+    Account b;
+
+    lookup(a); // 调用lookup(const Account &)
+    lookup(b); // 调用lookup(Account &)
+
+```
+
+## 6.7 函数指针
+
+1.
