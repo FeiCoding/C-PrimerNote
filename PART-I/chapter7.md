@@ -244,4 +244,65 @@
     };
     ```
 
+1. 下面代码中我们添加了两个新的成员函数set，负责设置光标所在位置的字符或者其他任一给定未知的字符：
+
+    ```c++
+    class Screen{
+        public:
+            Screen &set(char);
+            Screen &set(pos, pos, char);
+    };
+
+    inline Screen &Screen::set(char c){
+        contents[cursor] = c; // 设置给定未知的新值
+        return *this;
+    }
+
+    inline Screen &Screen::set(pos r, pos col, char ch){
+        contents[r*width + col] = ch; // 设置给定未知的新值
+        return *this;
+    }
+    ```
+
+    上述代码中，我们的set成员的返回值是调用set的对象的引用。返回引用的函数是做值得，意味着这些函数返回的时对象本身而非对象的副本，于是我们可以把一系列这样的操作链接在一条表达式中的话：
+
+    ```c++
+    myScreen.move(4, 0).set('#');
+    // 等价于下面
+    myScreen.move(4, 0);
+    myScreen.set('#');
+    ```
+
+    如果上述代码中返回的时Screen而不是Screen&，那么则等价于：
+
+    ```c++
+    Screen temp = myScreen.move(4, 0); // 对返回值进行拷贝
+    temp.set('#'); // 不会改变myScreen的contents
+    ```
+
+    于是此时move的返回值僵尸*this的拷贝，因此调用set只能改变临时副本，而不能改变myScreen的值。
+
+1. 在上述代码逻辑之后我们想再加入一个display函数用于打印Screen的内容，同时可以向set和move一样出现在同一序列中，那么此时就会出现问题，display不会改变打印的值，于是我们希望将display设置为返回值为const Screen&的函数，然而如果这样做了，在同一序列中，display后面就不能再跟set函数来改变对象的值了。对于这个问题，我们可以设置一个基于const的重载函数。
+
+    ```c++
+    class Screen{
+        public:
+            // 根据对象是否是const重载了display函数
+            Screen &display(std::ostream &os){
+                do_display(os); return *this;
+            }
+            const Screen &display(std::ostream &os){
+                do_display(os); return *this;
+            }
+
+        private:
+            // 这个函数将用于显式Screen的内容
+            void do_display(ostream &os) const{
+                os << contents;
+            }
+    };
+    ```
+
+1. 上述重载函数中，this指针在其中隐式的传递，当display调用do_display时，它的this指针隐式地传递给do_display，而当display的非常量版本调用do_display时，它的this指针将隐式地从指向非常量的指针转换成指向常量的指针。当do_display完成后，display函数各自返回解引用this所得的对象。在非常量版本中，this指向一个非常量对象，因此display范湖一个普通的（非常量）引用，而const成员则返回一个常量引用。所以当我们再某个对象上调用display时，该对象是否是const决定了应该调用display的哪个版本。
+
 1. 
