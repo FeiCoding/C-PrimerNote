@@ -160,4 +160,45 @@
    - 确保用户代码不会无意间破坏封装对象的状态
    - 封装的类的具体实现细节可以随时改变，而无须调整用户级别的代码。
 
-1. 为了使友元
+1. 友元的声明仅仅是指定了访问权限，我们仍然必须在友元之外在专门对函数进行一次声明。为了使友元对类的用户可见，我们通常把友元的声明与类本身放置在同一个头文件中（类的外部）。
+
+1. 大部分编译器不会强制限定友元函数必须在使用之前在类的外部声明。
+
+### 7.3 类的其他特性
+
+1. 定义一个Screen类：
+
+    ```c++
+    using namepsace std;
+    class Screen{
+        public:
+            using pos = string::size_type;
+            Screen() = default;
+            Screen(pos ht, pos wi, char c):height(hi),width(wi),contents(hi*wi, c){ }
+            char get() const{ // 隐式指定inline
+                return content;
+            }
+            inline char get(pos ht, pos wd) const; // 显式指定inline
+            Screen &move(pos r, pos c); // 可以在之后设置为内联函数
+   
+        private:
+            pos height = 0, width = 0;
+            pos cursor = 0;
+            string contents;
+    };
+
+    // 也可以在函数的定义处指定inline
+    inline Screen &Screen::move(pos r, pos c){
+        pos row = r * width; // 计算行的位置
+        cursor = row + c; // 在行内将光标移动到指定的列
+        return *this; // 以左值形式返回对象
+    }
+    char Screen::get(pos ht, pos wd) const{
+        pos row = r * width; // 计算行的位置
+        return contents[row + c]; // 返回给定列的字符
+    }
+    ```
+
+1. 我们无需再声明和定义的地方同时说明inline，虽然这么合法。不过最好只在类外部定义的地方说明inline，这样可以使类更容易理解。
+
+1. 
