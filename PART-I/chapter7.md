@@ -135,11 +135,16 @@
 
 1. 构造函数不应轻易覆盖掉类内初始值，除非新赋的值与原值不同。如果不能使用类内初始值，则所有构造函数都应该显式的初始化每个内置类型的成员。
 
+### 7.1.5 拷贝、赋值和析构
+
+1. 如果我们不定义拷贝、赋值和析构编译器将自动帮我们生成，一般来说编译器生成的版本将对对象的每个成员进行直接拷贝、赋值和销毁。 然而，对于某些类来说，例如当类需要分配类的对象之外的资源时（使用new），合成的版本将会失效。
+
 1. 很多需要动态内存的类能而且应该使用vector对象或者string对象管理必要的存储空间。使用vector或者string的类能便面分配和释放内存带来的复杂性。原因在于当我们对含有vector成员的对象执行拷贝或赋值操作时，vector类会设法拷贝或者赋值成员中的元素。当这样的对象被销毁时，将销毁vector对象，也就是依次销毁vector中的每一个元素。（string也是如此）
 
 ## 7.2 访问能控制与封装
 
 ### 7.2.1 访问说明符
+
 1. 我们使用访问说明符（access specifiers）加强类的封装性：
     - 定义在public说明符之后的成员在整个程序内可被访问，public成员定义类的接口
     - 定义在private说明符之后的成员可以被类的成员函数访问，但是不能被使用该类的代码访问，private部分封装了（即隐藏了）类的实现细节。
@@ -174,7 +179,8 @@
         public:
             using pos = string::size_type;
             Screen() = default;
-            Screen(pos ht, pos wi, char c):height(hi),width(wi),contents(hi*wi, c){ }
+            Screen(pos ht, pos wi, char c):height(hi),width(wi),
+            contents(hi*wi, c){ }
             char get() const{ // 隐式指定inline
                 return content;
             }
@@ -200,5 +206,42 @@
     ```
 
 1. 我们无需再声明和定义的地方同时说明inline，虽然这么合法。不过最好只在类外部定义的地方说明inline，这样可以使类更容易理解。
+
+1. 成员函数之间也可以重载，只要函数之间在参数的数量或类型上有区别即可。例如上述代码中的get函数，一个版本返回光标当前位置的字符，另一个版本返回由行号和列号确定的位置的字符。编译器根据实参的数量来决定运行哪个版本的函数。
+
+    ```c++
+    Screen myscreen;
+    char ch = myscreen.get(); // 调用Screen::get()
+    ch = myscreen.get(0,0);   // 调用Screen::get(pos, pos)
+    ```
+
+1. 当我们享有修改类的某个成员，即使是在一个const成员函数内，此时可以使用mutable关键字来声明该变量。一个可变数据成员（mutable data member）永远不会是const，即使他是const对象的成员。
+
+1. 我们可以为上述代码加入一个access_ctr的可变成员来追踪每个Screen成员函数被调用了多少次：
+
+    ```c++
+    class Screen{
+        public:
+            void some_member() const;
+        private:
+            mutable size_t access_ctr; //即使在一个const对象内也可以被修改
+    };
+
+    void Screen::some_member() const{
+        ++access_ctr; // 几遍some_member是一个const成员函数，
+                      // 它仍然能改变access_ctr的值
+    }
+    ```
+
+1. 当我们提供类内初始值时，必须使用符号“=”或者花括号表示。
+
+    ```c++
+    // 我们定义了一个窗口管理类并用它表示显示器上的一组Screen
+    using namespace std;
+    class Window_mgr{
+        private:
+            vector<Screen> screens{Screen(24, 80, ' ')}; //使用花括号进行类内初始化
+    };
+    ```
 
 1. 
