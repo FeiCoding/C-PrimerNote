@@ -361,4 +361,92 @@
 
 ## 7.4 类的作用域
 
-1.  
+1. 一个类就是一个作用域，因此在类的外部使用类内定义的成员时我们必须加上“类名:: ”来说明作用域。一旦遇到了该类名，那么参数列表和函数体内的其他成员就无须再次授权。而返回类型往往设置在类名之前，此时返回类型就需要我们指定它是哪个类的成员。
+
+1. 一般名字查找过程：
+   - 在名字所在的块中寻找，只考虑出现在名字的使用之前出现的声明
+   - 如果没找到，继续查找外层作用域
+   - 如果最终没找到，报错
+
+1. 编译器处理完类中的全部声明后才会处理成员函数的定义。声明中使用的名字，包括返回类型或参数列表中的名字，都必须在使用前确保可见。如果某个成员的声明使用了类中尚未出现的名字，则编译器将会在定义该类的作用域中继续查找。
+
+    ```c++
+    typedef double Money;
+    string bal;
+    class Account{
+        public:
+            // Money在类内声明中未发现，将去类外查找
+            Money balance() { return bal; } // 此处的bal是下方类内定义的
+        private:
+            Money bal;
+    };
+    ```
+
+1. 一般来说，内层作用域可以重新定义外层作用域的名字，即使改名字已经在内层作用域中使用过。然而在类中，如果成员使用了外层作用域的某个名字，而该名字代表一种类型，则类不能再之后重新定义该名字：
+
+    ```c++
+    typedef double Money;
+    string bal;
+    class Account{
+        private:
+            typedef Money; // 错误，不能重新定义Money
+            Money bal;
+    };
+    ```
+
+1. 类型名的定义通常出现在类的开始处，这样就能确保所有使用该类型的成员都出现在类名的定义之后。
+
+1. 成员函数名字的查找流程：
+   - 先在函数体内查找该名字的声明。和前面一样，只有在函数使用之前出现的声明才被考虑。
+   - 如果在成员函数内没有找到，则在类内继续查找，此时类的所有成员都可以被考虑。
+   - 如果类内也没有找到该名字的声明，则在成员函数定义之前的作用域内继续查找
+
+    ```c++
+    int height;
+    class Screen{
+        public:
+            typedef std::string::size_type pos;
+            // 如下写法非常不好，推荐不要把成员名字作为参数或其他局部变量使用
+            void dummy_fcn(pos height){
+                cursor = width * height; //此时使用传入的参数height
+
+                // 通过加上类名或this指针来强制访问类成员
+                cursor = width * Screen::height; //成员height
+                cursor = width * this->height; //成员height
+
+                // 通过外层作用域的运算符来使用外部定义的height
+                cursor = width * ::height; // 外部height
+
+            }
+        private:
+            pos cursor;
+            pos height = 0, width = 0;
+    }
+    ```
+
+1. 名字查找的第三步不仅要考虑类定义之前的全局作用域的声明，还需要考虑在成员函数定义之前的全局作用域的声明。
+
+    ```c++
+    int height;
+    class Screen{
+        public:
+            typedef std::string::size_type pos;
+            void setHeight(pos var);
+        private:
+            pos cursor;
+            pos height = 0, width = 0;
+    }
+    // 定义一个全局函数verify()
+    Screen::pos verify(Screen::pos);
+    void Screen::setHeight(pos var){
+        // var:传入参数
+        // height:类的成员height
+        // verify:全局函数
+        // 此时verify声明在setHeight函数定义之前，所以此时可以使用
+        height = verify(var);
+    }
+    ```
+
+## 7.5 构造函数再探
+
+1. 
