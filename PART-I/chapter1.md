@@ -76,4 +76,3 @@
    此处 outfile则表示输出到文件outfile中
 
 5. **成员函数\(member function\)**是定义为类的一部分的函数，有时也被称为**方法\(method\)**
-
