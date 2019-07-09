@@ -530,4 +530,52 @@
 
 ### 7.5.4隐式的类类型转换
 
+1. 如果构造函数只接受一个实参，则它实际上定义了转换为此类类型的隐式转换机制，有时我们把这种构造函数称作转换构造函数（converting constructor）。
+
+1. 能通过一个实参调用的构造函数定义了一条从构造函数的参数类型向类类型隐式转换的规则。
+
+    ```c++
+    string null_book = "9-999-999-9";
+    // null_book实际被隐式转换成了一个Sales_data的对象
+    // units_sold和revenue等于0，bookNo等于null_book
+    item.combine(null_book);
+    // 但是只允许一步类类型转换，下面的代码就是错误的
+    // 需要先将9-999-999-9转换成string然后再转换成Sales_data
+    item.combine("9-999-999-9");
+    ```
+
+1. 如果我们想完成上述调用，可以显式的把字符串转换成string或者Sales_data对象，再传给combine函数。
+
+    ```c++
+    item.combine(string("9-999-999-9"));
+    item.combine(Sales_data("9-999-999-9"));
+    // 下面是利用Sales_data可以接受istream的输入流
+    // 然后创建临时的Sales_data对象
+    item.combine(cin);
+    ```
+
+1. 在类类型的转过过程中产生的临时量，一旦在使用的那行代码执行完成后就不能再被访问。
+
+1. 如果我们想要阻断这种隐式类类型转换，那么加上关键字explicit就能阻止。
+
+    ```c++
+    class Sales_data{
+        public:
+            Sales_data() = default;
+            Sales_data(const std::string &s, unsigned n, double p):
+                bookNo(s), units_sold(n), revenue(p*n){ }
+            explicit Sales_data(const std::string &s): bookNo(s){ }
+            explicit Sales_data(std::istream&);
+    }
+    ```
+
+1. 关键字explicit支队一个实参的构造函数有效，需要多个实参的构造函数不能用于执行隐式转换，所以无需将这些构造函数指定为explicit的。只需在类内声明构造函数时使用explicit关键字，在类外定义时无需重复。
+
+1. 一旦我们直接声明了explicit于构造函数，那么我们只能使用直接初始化，而不能使用拷贝初始化。
+
+    ```c++
+    Sales_data item1(null_book);
+    Sales_data item2 = null_book; // 错误，不能使用拷贝初始化
+    ```
+
 1. 
