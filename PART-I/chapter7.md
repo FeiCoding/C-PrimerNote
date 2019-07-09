@@ -322,11 +322,11 @@
 
 1. 我们可以仅仅声明一个类而暂时不定义它，此时叫做向前声明（forward declaration），它想程序中引入了类名，并且指明该类名是一种类类型。对于这样的类型来说，在他声明之后定义之前是一个不完全类型（incomplete type）
 
-1. 对于不完全类型，哦们可以定义指向这种类型的指针或者引用，也可以声明（但是不能定义）以不完全类型作为参数或返回类型的函数。
+1. 对于不完全类型，我们可以定义指向这种类型的指针或者引用，也可以声明（但是不能定义）以不完全类型作为参数或返回类型的函数。
 
 1. 创建对象或通过指针、引用之前，该类必须有定义，而不能仅仅被声明。（原因是如果只声明，编译器将不知道需要分配多少内存）
 
-1. 一个类的成员类型不能是该类自己。然而，一旦一个类名出现后，他就被认为是声明过了（但尚未定义），因此类允许包含指向它自身类型的引用或指针。
+1. **一个类的成员类型不能是该类自己**。然而，一旦一个类名出现后，他就被认为是声明过了（但尚未定义），因此**类允许包含指向它自身类型的引用或指针**。
 
     ```c++
     class Link_Screen{
@@ -663,3 +663,103 @@
     ```
 
 ## 7.6 类的静态成员
+
+1. 我们通过在成员的声明之前加上关键字static使得其与类关联在一起。和其他成员一样，**静态成员可以是public的或private的。静态数据成员的类型可以是常量，引用或指针、类类型等等**。
+
+1. 类的静态成员存在于任何对象之外，对象中不包含任何与静态数据成员有关的数据。静态成员函数也不与任何对象绑定在一起，他们不包含this指针。**静态成员函数不能声明成const的，而且也不能在static函数内使用this指针**。这一限制既适用于this的显示使用，也对调用非静态成员的隐式使用有效。
+
+    ```c++
+    class Account{
+        public:
+            void calculate(){ amount += amount * interestRate; }
+            static double rate() { return interestRate; }
+            static void rate(double);
+        private:
+            std::string owner;
+            double amount;
+            static double interestRate;
+            static double initRate();
+    };
+    ```
+
+1. 我们可以使用作用域运算符直接访问静态成员，我们也可以使用类的对象、引用或者指针来访问静态成员：
+
+    ```c++
+    double r;
+    r = Account::rate(); // 使用作用域访问
+
+    Account ac1;
+    Account *ac2 = &ac1;
+
+    r = ac1.rate();  // 通过对象调用
+    r = ac2->rate(); // 通过指针调用
+    ```
+
+1. 类的成员可以不通过作用域运算符直接使用静态成员：
+
+    ```c++
+    class Account{
+        public:
+            void calculate(){ amount += amount * interestRate; }
+        private:
+            static double itnerestRate;
+    }
+    ```
+
+1. 和其他成员函数一样，我们既可以在类的内部也可以在类的外部定义静态成员函数，当在类外定义静态成员函数时，**不能重复static关键字，该关键字只出现在类内部的声明语句**：
+
+    ```c++
+    void Account::rate(double newRate){
+        interestRate = newRate;
+    }
+    ```
+
+1. 由于静态成员不属于任何一个类的对象，所以一般情况下他们不能再类的内部被定义，必须在类的外部定义和初始化每个静态成员。和其他对象一样，一个静态数据成员只能定义一次。类似于全局变量，静态数据成员定义在任何函数之外，因此一旦被定义，就将一直存在于程序的整个生命周期中。
+
+    ```c++
+    double Account::initerestRate = initRate();
+    ```
+
+1. 要想确保对象只定义一次，最好的办法是把静态数据成员的定义与其他非内联函数的定义放在同一个文件中。
+
+1. 一般情况下类的静态成员不应该在类的内部初始化，但是**我们可以为静态成员提供const整数类型的类内初始值**。不过要求静态成员必须是字面值常量类型的constexpr。初始值也必须是常量表达式，因为这些成员本身就是常量表达式，所以他们也可以用子啊所有适合常量表达式的地方。
+
+   ```c++
+   class Account{
+        public:
+            static double rate(){ return interestRate; }
+            static void rate(double);
+        private:
+            static constexpr int period = 30;
+            double daily_tbl(period);
+   };
+
+   // 在类外的一个不带初始值的静态成员的定义
+   constexpr int Account::period; // 初始值已经在类内提供
+   ```
+
+1. 即使一个常量静态数据成员在类内部被初始化了，通常情况下也应该在类的外定义一下该成员。
+
+1. **静态数据成员可以使不完全类型**，静态数据成员的类型可以就是它所属的类类型，而非静态数据成员则受到限制，只能声明成它所属类的指针或引用：
+
+   ```c++
+   class Bar{
+       public:
+            // ...
+        private:
+            static Bar mem1; // 正确，静态成员可以是不完全类型
+            Bar *mem2;  // 正确，指针成员可以使不完全类型
+            Bar mem3; // 错误，数据成员必须是完全类型
+   };
+   ```
+
+1. 静态成员和普通成员的另一个区别是**我们可以使用静态成员作为默认实参，而非静态数据成员不能作为默认实参**，因为它的值本身就属于对象的一部分，这么做的结果是无法真正提供一个对象以便从中获取成员的值，最终将引发错误：
+
+    ```c++
+    class Screen{
+        public:
+            Screen& clear(char = background);
+        private:
+            static const char background;
+    }
+    ```
