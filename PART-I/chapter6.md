@@ -379,7 +379,7 @@
    Record lookup(const Account&);
    Record lookup(const Account& var); //错误，只是多了形参名
 
-   typedef Phone Telno；
+   typedef Phone Telno;
    Record lookup(const Phone&);
    Record loopup(const Telno&); // Telno和Phone的类型相同
    ```
