@@ -117,12 +117,12 @@
 
     * 前缀
 
-    | 前缀 | 含义          | 类型      |
-    | :--- | :------------ | :-------- |
-    | u    | Unicode16字符 | char16\_t |
-    | U    | Unicode32字符 | char32\_t |
-    | L    | 宽字符        | wchar\_t  |
-    | u8   | UTF-8         | char      |
+        | 前缀 | 含义          | 类型      |
+        | :--- | :------------ | :-------- |
+        | u    | Unicode16字符 | char16\_t |
+        | U    | Unicode32字符 | char32\_t |
+        | L    | 宽字符        | wchar\_t  |
+        | u8   | UTF-8         | char      |
 
     * 后缀（尽量使用L来代替小写的l，因为小写的l像数字1）
 
@@ -159,7 +159,7 @@
 
    ```cpp
     long double ld = 3.1415123;
-    int a{ld}, b{ld}; // int转换成double，报错，会导致信息损失
+    int a{ld}, b{ld}; // double转换成int，报错，会导致信息损失
     int c(ld), d(ld); // 通过，忽略已发生的信息损失
    ```
 
