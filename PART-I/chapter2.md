@@ -282,7 +282,7 @@
 
 1. 因为const对象一旦创建后就无法改变，所以**一定要进行初始化**（类似于引用的初始化性质）
 
-2. 如果用一个对象**去初始化另一个对象**，则他们**是不是const都无关紧要**：
+2. 如果用一个对象**去初始化另一个对象**，则他们**是不是const都无关紧要**（仅限于顶层const）：
 
    ```cpp
     const int k; // 不合法，const必须初始化
@@ -336,7 +336,7 @@
     const int &r = temp;
    ```
 
-7. 同样的，常量的地址只能被指向常量的指针（pointer to const， 将const放在类型前面，例如const int _ptr）存储，但\*指向常量的指针也可以指向一个非常量对象，只是该指针不能修改其内容。指向常量的指针可以不进行初始化。
+7. 同样的，常量的地址只能被指向常量的指针（pointer to const， 将const放在类型前面，例如const int _ptr）存储，但指向常量的指针也可以指向一个非常量对象，只是该指针不能修改其内容。指向常量的指针可以不进行初始化。
 
 8. 被指向常量的指针或是常量引用绑定的非常量对象，虽然无法通过指针或者引用改变值，但可以通过其他方式改变值。
 
@@ -368,7 +368,7 @@
      ic = *p3;   // 不合法, ic是const int，初始化后不能再改变其值
     ```
 
-12. 顶层const（top-level const\) 表示指针**本身是一个常量**；底层const（low-level const）表示指针**所指的对象是一个常量**。
+12. 顶层const（top-level const) 表示指针**本身是一个常量**；底层const（low-level const）表示指针**所指的对象是一个常量**。
 
 13. 指针类型既可以是顶层const，也可以是底层const。**用于声明引用（&）的const都是底层const**。
 
@@ -384,7 +384,8 @@
 
      i = ci; // 正确：拷贝ci的值，ci是一个顶层const，操作无影响
      p2 = p3; // 正确：p2和p3指向的对象类型相同，p3顶层const部分不受影响
-     int *p = p3; // 错误：p3包含底层const，p没有，不能用const指针为非const初始化
+     int *p = p3; // 错误：p3包含底层const，p没有，
+                  // 不能用const指针为非const初始化
      p2 = &i; // 正确：此时int*被转换成const int*
      int &r2 = ci; // 错误：普通引用无法绑定const值 
      const int &r3 = i; // 正确
@@ -438,7 +439,7 @@
 
 21. 常量表达式要在编译过程都能获得计算结果，因此对声明constexpr时用到的类型必须是“字面值类型”（literal type）。目前接触过的类型中算数类型、引用、指针都属于字面值类型。自定义的类、IO库、string类都**不能被定义成constexpr**。
 
-22. **constexpr只能将指针声明成const，而对该指针指向的对象无影响**。\(也就是说constexpr是定义一个顶层const\)，此时constexpr指针既可以指向常量又可以指向非常量。
+22. **constexpr只能将指针声明成const，而对该指针指向的对象无影响**。(也就是说constexpr是定义一个顶层const)，此时constexpr指针既可以指向常量又可以指向非常量。
 
     ```cpp
      const int *ptr = nullptr; // 指向常量的指针
@@ -466,7 +467,7 @@
    ```cpp
     typedef char *pstr;
     const pstr cstr = 0; // cstr是指向char的常量指针
-    const pstr *ps; // ps是一个指针，他的对象是指向char的常量指针
+    const pstr *ps; // ps是一个指向常量指针的指针
    ```
 
    * pstr实际上是指向char的指针，因此const pstr就是指向char的**常量指针**，此处const修饰pstr这个指针，而非**指向常量字符的指针**。
