@@ -76,7 +76,7 @@
     ```cpp
      string s4 = s1 + ", "; // 正确：把一个string对象和一个字面值相加
      string s5 = "Hello" + ", "; // 错误，两个运算对象都不是string
-     string s6 = s1 + "," + "world";
+     string s6 = s1 + "," + "world"; // 正确
      string s7 = "Hello" + ", " + s2; // 错误，不能把字面值直接相加
      // string7的编译过程如下：
      string s7 = ("Hello" + ", ") + s2;
