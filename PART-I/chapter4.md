@@ -479,7 +479,7 @@
     int (&array)[10] = ia; // 引用初始化一个数组也不会发生转换
     ```
 
-1. c++还规定了几种其他的指针转换方式，包括常量整数值0或者字面值nullptr能转换成任意指针类型。指向任意非常量的指针能转换成void\*静态指针。指向任意对象的指针能转换成const void\*。
+1. c++还规定了几种其他的指针转换方式，包括常量整数值0或者字面值nullptr能转换成任意指针类型。**指向任意非常量的指针能转换成void\*静态指针**。指向任意对象的指针能转换成const void\*。
 
 1. 指针也可以转换成布尔类型，如果指针的值为0，则转换结果为false，否则为true。
 
@@ -512,7 +512,7 @@
 
 1. 显示转换的形式：cast-name<type>(expression)，其中type是转换的目标类型，expression是要转换的值，如果type是引用类型，则结果是左值，cast-name是static_cast\dynamic_cast\const_cast\reinterpret_cast的一种。dynamic_cast支持运行时类型识别。
 
-1. static_cast:任何具有明确定义的类型转换，只要不包含底层const，都可以使用static_cast。例如，通过将一个运算对象强制转换成double类型以执行浮点数除法：
+1. static_cast:任何具有明确定义的类型转换，**只要不包含底层const**，都可以使用static_cast。例如，通过将一个运算对象强制转换成double类型以执行浮点数除法：
 
     ```c++
     double slope = static_cast<double>(j) / i;
@@ -553,7 +553,7 @@
     ```c++
     int a = 10;
     int *ip = &a;
-    char *pc = reinterpret_cast<char *>(ip); 
+    char *pc = reinterpret_cast<char *>(ip);
     // 没有定义如何将int *转换为char *，此时只能通过reinterpret_cast来转换
     // 然而pc所指的真实对象仍然是一个int型对象，如果将pc当做普通的字符指针
     // 来使用就可能在运行时发生错误
