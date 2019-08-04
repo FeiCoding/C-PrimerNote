@@ -119,7 +119,7 @@
    void func(const int i); // 重复定义
    ```
 
-1. 把函数不会改变的形参定义成普通引用是一种比较常见的错误，这么做带给函数调用者一种误导，即函数可以修改他的实参的值。此外，使用引用而非常量引用也会极大地限制函数所能接受的实参类型。例如，我们不能把 const 对象、字面值或者需要类型转换的对象，传递给普通的引用形参。
+1. 把函数不会改变的形参定义成普通引用是一种比较常见的错误，这么做带给函数调用者一种误导，即函数可以修改他的实参的值。此外，使用一般引用而非常量引用也会极大地限制函数所能接受的实参类型。例如，我们不能把 const 对象、字面值或者需要类型转换的对象，传递给普通的引用形参。
 
    ```c++
    string::size_type find_char(string &s, char c, string::size_type &occurs){
@@ -348,7 +348,7 @@
 
       ```c++
       // func接受一个int类型的实参，返回一个指针，该指针指向含有10个整数的数组
-      auto func(int i) -> int(*)[10]
+      auto func(int i) -> int(*)[10];
       ```
 
    4. 使用 decltype
@@ -413,13 +413,13 @@
 4. 使用 const_cast 可以使得某些非常量转换成常量来进行函数调用时的传参操作。
 
    ```c++
-   const string &shortString(const string &s1, const string &s2){
+   const string &shorterString(const string &s1, const string &s2){
        return s1.size() < s2.size() ? s1 : s2;
    }
 
    string &shorterString(string &s1, string &s2){
        auto &r = shorterString(const_cast<const string &>(s1), const_cast<const string &>(s2));
-       return const_string<string&>(r);
+       return const_cast<string>(r);
    }
    ```
 
