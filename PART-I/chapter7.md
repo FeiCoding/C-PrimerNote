@@ -213,7 +213,7 @@
     ch = myscreen.get(0,0);   // 调用Screen::get(pos, pos)
     ```
 
-1. 当我们享有修改类的某个成员，即使是在一个const成员函数内，此时可以使用mutable关键字来声明该变量。一个可变数据成员（mutable data member）永远不会是const，即使他是const对象的成员。我们可以为上述代码加入一个access_ctr的可变成员来追踪每个Screen成员函数被调用了多少次：
+1. **当我们享有修改类的某个成员，即使是在一个const成员函数内，此时可以使用mutable关键字来声明该变量。一个可变数据成员（mutable data member）永远不会是const，即使他是const对象的成员**。我们可以为上述代码加入一个access_ctr的可变成员来追踪每个Screen成员函数被调用了多少次：
 
     ```c++
     class Screen{
