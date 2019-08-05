@@ -276,7 +276,7 @@
     temp.set('#'); // 不会改变myScreen的contents
     ```
 
-    于是此时move的返回值将是*this的拷贝，因此调用set只能改变临时副本，而不能改变myScreen的值。
+    于是此时move的返回值将是\*this的拷贝，因此调用set只能改变临时副本，而不能改变myScreen的值。
 
 1. 在上述代码逻辑之后我们想再加入一个display函数用于打印Screen的内容，同时可以向set和move一样出现在同一序列中，那么此时就会出现问题，display不会改变打印的值，于是我们希望将display设置为返回值为const Screen&的函数，然而如果这样做了，在同一序列中，display后面就不能再跟set函数来改变对象的值了。对于这个问题，我们可以设置一个基于const的重载函数。
 
