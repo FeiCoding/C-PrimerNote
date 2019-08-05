@@ -298,7 +298,7 @@
        else if(expected == actual)
            return {"FunctionX", "okay"}; // 返回列表初始化的vector对象
        else
-           return {"functionX:, expected, actual};
+           return {"functionX", "expected", "actual"};
    }
    ```
 
