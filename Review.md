@@ -460,3 +460,47 @@
             Money bal;
     };
     ```
+
+1. 如果没有在构造函数的初始值列表中显示的初始化成员，则该成员将在构造函数体之前执行默认初始化。
+
+    ```c++
+    Sales_data::Sales_data(const string &s, unsigned cnt, double price){
+        bookNo = s;
+        units_sold = cnt;
+        revenue = cnt * price;
+    }
+    ```
+
+    此段代码和我们之前使用的列表初始化的功能相同，**但是此段代码使用的是赋值操作**。而列表初始化则是直接初始化。
+
+1. 上述初始化过程具有一定的局限性，例如**当我们的成员变量是const或者引用时，此时必须使用列表初始化而不能使用赋值操作**。类似的，**当成员属于某种类类型且该类没有定义默认构造函数时，也必须对该成员进行初始化**。
+
+    ```c++
+    class ConstRef{
+        public:
+            ConstRef(int ii);
+        private:
+            int i;
+            const int ci;
+            int &ri;
+    }
+    ConstRef::ConstRef(int ii){
+        i = ii;
+        ci = ii; // 错误，ci是const int
+        ri = ii; // 错误，ri没有初始化
+    }
+    // 列表初始化
+    ConstRef::ConstRef(int ii):i(ii), ci(ii), ri(ii){ }
+
+1. **初始化和赋值操作的区别事关底层效率问题，前者直接初始化数据成员，后者则先初始化再赋值**。除此以外，一些数据成员必须被初始化。所以我们应该养成使用构造函数初始值的习惯，这样可以避免意想不到的编译错误。
+
+1. **如果一个构造函数为所有参数都提供了默认实参，则它实际上也定义了默认构造函数**。
+
+1. 类必须包含一个默认构造函数以便在上述情况下使用。**即便定义了其他构造函数，最好也提供一个默认构造函数**。
+
+1. 一旦我们直接声明了explicit于构造函数前，那么我们**只能使用直接初始化，而不能使用拷贝初始化**。
+
+    ```c++
+    Sales_data item1(null_book);
+    Sales_data item2 = null_book; // 错误，不能使用拷贝初始化
+    ```
