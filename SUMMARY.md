@@ -15,6 +15,7 @@
 ## 第二部分：C++标准库
 
 * [chapter 8 文件输入输出](PART-II/chapter8.md)
+* [chapter 9 顺序容器](PART-II/chapter9.md)
 
 ## 第三部分：类设计者的工具
 
