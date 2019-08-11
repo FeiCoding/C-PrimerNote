@@ -124,4 +124,78 @@
 
 ## 8.2 文件输入输出
 
+1. 头文件fstream定义了三个类型来支持文件IO：
+   - ifstream，从一个给定文件读取数据
+   - ofstream，想一个给定文件写入数据
+   - fstream可以读写给定文件
+
+1. 我们可以使用IO运算符<<和>>来读写文件，也可以用getline从一个ifstream读取数据。
+
+1. fstream独有的操作：
+
+    ```c++
+    fstream fstrm; // 创建一个未绑定的文件流
+    fstream fstrm(s); // 创建一个fstream并打开名为s的文件，s可以使string也可以是一个指向C风格字符串的指针。这些构造函数都是explict的。
+    fstream fstrm(s, mode); // 按照指定mode打开文件
+    fstrm.open(s); // 打开名为s的文件，并将文件与fstrm绑定
+    fstrm.close(); // 关闭与fstrm绑定的文件，返回void
+    fstrm.is_open(); // 返回一个bool值，指出与fstrm关联的文件是否成功打开且尚未关闭
+    ```
+
+1. 创建文件流对象时，我们可以提供文件名，此时open自动调用：
+
+    ```c++
+    ifstream in(ifile); // 构造一个ifstream并打开给定文件
+    ofstream out; // 输出文件流未关联到任何文件
+    ```
+
+1. **接受一个iostream类型引用（或指针）参数的函数，可以用一个对应的fstream类型调用，也就是说，如果有一个函数接受一个ostream&参数，我们在调用这个函数时，可以传递给他一个ofstream对象，对istream&和ifstream也是类似的。**
+
+1. 当我们调用open函数失败时，failbit会被置位，所以我们需要检测open是否成功：
+
+    ```c++
+    if(out){ // 检查open是否成功
+
+    }
+    ```
+
+1. **对一个已经打开的文件流调用open会失败，并会导致failbit被置位，随后对文件流的使用或操作都会失败。所以当我们想要把文件流绑定到另一个文件时，必须先关闭已经关联的文件。**
+
+1. 当一个fstream对象被销毁时，close会自动被调用。所以我们可以再循环语句中创建文件流并打开进行处理，而循环结束该文件流对象将会自动销毁。（自动调用close()函数）
+
+1. 文件模式：
+   - in，以读方式打开
+   - out, 以写方式打开
+   - app，每次写操作均定位到文件末尾
+   - ate，打开文件后立即定位到文件末尾
+   - trunc，截断文件
+   - binary，以二进制方式进行IO
+
+1. 每个文件流类型都定义了一个默认的文件模式，当我们未指定文件模式时，就是用此默认模式：
+   - 与ifstream关联的文件默认以in模式打开
+   - 与ofstream关联的文件以out模式打开
+   - 与fstream关联的文件以in和out模式打开
+
+1. 文件模式有如下限制：
+   - 只可以对ofstream或fstream对象设定out模式
+   - 只可以对ifstream或fstream对象设定in模式
+   - 只有当out被设定时才可以设定trunc模式
+   - 只要trunc模式没被设定，就可以设定app模式。在app模式下，即使没有显示的指定out模式，文件也总是以输出方式被打开。
+   - 默认情况下，即使我们没有指定trunc，以out模式打开的文件也会被截断
+   - ate和binary可以用于任何类型的文件流对象，且可以与其他任何文件模式组合使用
+
+1. 默认情况下，当我们打开ofstream时，文件的内容会被丢弃，**阻止一个ofstream清空给定文件的方法是同时指定app模式**：
+
+    ```c++
+    ofstream out("file1"); // 隐含以输出模式打开文件并截断文件
+    ofstream out2("file1", ofstream::out); // 隐含地截断文件
+    ofstream out3("file1", ofstream::out | ofstream::trunc);
+    ofstream app("file2", ofstream::app); // 隐含为输出模式，显示指定app模式
+    ofstream app2("file1", ofstream::out | ofstream::app);
+    ```
+
+1. 每次打开文件时，都要设置文件模式，可能是显式也可能是隐式的。当程序未指定打开模式时，就是用默认值。
+
+## 8.3 string 流
+
 1. 
