@@ -67,7 +67,7 @@
 1. 对于接受一个参数版本的clear函数可以使用如下方法来复位所需位：
 
     ```c++
-    cin.clear(cin.rdstate() & ~cin.failbit & ~cin.badint());
+    cin.clear(cin.rdstate() & ~cin.failbit & ~cin.badbit());
     ```
 
 1. 例题8.1：编写函数，接受一个istream&参数，返回值类型也是istream&。此函数从给定流中读取数据，直至遇到文件结束标志时停止。它将读取的数据打印在标准输出上。完成这些操作后，在返回流之前，对流进行复位，使其处于有效状态。
@@ -110,5 +110,18 @@
     ```
 
 1. **如果程序崩溃，输出缓冲区不会被刷新。当一个程序崩溃以后，它所输出的数据很可能停留在输出缓冲区中等待打印。**
+
+1. tie函数不带参数的版本返回指向输出流的指针，如果对象关联到一个输出流，则返回的就是指向这个流的指针，如果对象未关联到流，则返回空指针。tie第二个版本接受一个指向ostream的指针，将自己关联到此ostream，即x.tie(&o)将流关联到输出流o。
+
+1. 我们可以将一个istream对象关联到另一个ostream，也可以将ostream关联到另一个ostream：
+
+    ```c++
+    cin.tie(&cout);
+    ostream *old_tie = cin.tie(nullptr); // cin不再关联任何流
+    cin.tie(&cerr); // 读取cin会刷新cerr而不是cout,这不是一个好主意
+    cin.tie(old_tie); // 重建cin和cout之间的正常关联
+    ```
+
+## 8.2 文件输入输出
 
 1. 
