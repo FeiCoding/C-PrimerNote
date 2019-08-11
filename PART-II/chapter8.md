@@ -198,4 +198,46 @@
 
 ## 8.3 string 流
 
-1. 
+1. string头文件定义了三个类型来支持内存IO：
+   - istringstream从string读取数据
+   - ostringstream从string写数据
+   - stringstream既可以向string读也可以写数据
+
+1. stringstream中的独有操作：
+
+    ```c++
+    sstream strm; // strm是一个未绑定的stringstream对象。sstream是头文件sstream中定义的一个类型
+    sstream strm; // strm是一个sstream对象，保存string s的一个拷贝，此构造函数时explicit的
+    strm.str();   // 返回strm所保存的string中的拷贝
+    strm.str(s); // 将string s拷贝到strm中，返回void
+    ```
+
+1. 使用istringstream的例子：假设有一个文件列出了一个人的姓名和他所有的号码：
+
+    ```c++
+    morgan 20124232 123123412
+    drew 1233412
+    lee 123342003 241239024 9891234123
+    ```
+
+    那么我们就可以使用istringstream这个类来处理这一类数据：
+
+    ```c++
+    struct PersonInfo{
+        string name;
+        vector<string> phones;
+    };
+
+    string line, word;
+    vector<PersonInfo> people;
+    while(getline(cin, line)){
+        PersonInfo person;
+        istringstream iss(line); // 利用istringstream来绑定读取的那一行
+        line >> person.name;
+        while(line >> word)
+            person.phones.push_back(word);
+        people.push_back(person)
+    }
+    ```
+
+1. ostringstream适用于我们希望逐步构造输出，最后一起打印的情况。
