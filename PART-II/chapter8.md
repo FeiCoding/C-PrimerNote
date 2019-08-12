@@ -8,7 +8,7 @@
     | -------- | --------------------------------------------- |
     | iostream | istream, wistream从流读取数据                 |
     |          | ostream, wostream向流写入数据                 |
-    |          | iostream，wiostream读写流                    |
+    |          | iostream，wiostream读写流                     |
     | fstream  | ifstream，wifstream从文件读取数据             |
     |          | ofstream，wofstream向文件写入数据             |
     |          | fstream，wfstream读写文件                     |
@@ -241,3 +241,14 @@
     ```
 
 1. ostringstream适用于我们希望逐步构造输出，最后一起打印的情况。
+
+    ```c++
+    ostringstream oss;
+    for (auto p : people)
+    {
+        oss << p.name << " ";
+        for (auto num : p.phones)
+            oss << num << " ";
+    }
+    cout << oss.str();
+    ```
