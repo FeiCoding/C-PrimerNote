@@ -95,4 +95,32 @@
 
 1. 迭代器支持的算术运算符，只能应用于string、vector、deque和array的迭代器。不适用于其他任何容器类型的迭代器。
 
+1. 一个迭代器范围（iterator range）由一堆迭代器表示，两个迭代器分别指向同一个容器中的元素或者是尾元素之后的位置（one past the last element)。这两个迭代器通常被称为begin和end，或者是first和last，它们标记了容器中元素的一个范围。
+
+1. 第二个迭代器虽然叫last，但并不指向最后一个元素，而是最后一个元素之后的位置。这种元素范围被称为左闭合区间（left-inclusive interval），其标准数学描述为：[begin, end)。
+
+1. 迭代器范围的三种性质：
+   - 如果begin和end相等，则范围为空
+   - 如果begin和end不等，则范围至少包含一个元素，且begin指向该范围中的第一个元素
+   - 我们可以对begin递增若干次，使得begin==end
+
+    ```c++
+    while(begin != end){
+        *begin = val; // 正确：范围非空，因此begin指向第一个元素
+        ++begin; // 移动迭代器，获取下一个元素
+    }
+    ```
+
+1. **list的迭代器不支持大小比较。**
+
+    ```c++
+    list<int> lst1;
+    list<int>::iterator iter1 = lst1.begin(), iter2 = lst1.end();
+    while(iter1 < iter2){ // 错误
+        // code block
+    }
+    ```
+
+### 9.2.2 容器类型成员
+
 1. 
