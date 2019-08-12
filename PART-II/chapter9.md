@@ -56,17 +56,43 @@
     ```
 
 1. 容器操作表：
-   | 名称            | 作用                                                        |
-   | --------------- | ----------------------------------------------------------- |
-   | iterator        | 次容器类型的迭代器类型                                      |
-   | const_iterator  | 可以读取元素，但不能修改元素的迭代器类型                    |
-   | size_type       | 无符号整数类型，足够保存此种容器类型最大可能容器的大小      |
-   | difference_type | 带符号整数类型，足够保存两个迭代器之间的距离                |
-   | value_type      | 元素类型                                                    |
-   | reference       | 元素的左值类型：与value_type&含义相同                       |
-   | const_reference | 元素的const左值类型                                         |
-   | C c;            | 默认构造函数，构造空容器                                    |
-   | C c1(c2);       | 构造c2的拷贝c1                                              |
-   | C c(b, e);      | 构造c，将迭代器b和e指定的范围内的元素拷贝到c（array不支持） |
+   | 名称                   | 作用                                                        |
+   | ---------------------- | ----------------------------------------------------------- |
+   | iterator               | 次容器类型的迭代器类型                                      |
+   | const_iterator         | 可以读取元素，但不能修改元素的迭代器类型                    |
+   | size_type              | 无符号整数类型，足够保存此种容器类型最大可能容器的大小      |
+   | difference_type        | 带符号整数类型，足够保存两个迭代器之间的距离                |
+   | value_type             | 元素类型                                                    |
+   | reference              | 元素的左值类型：与value_type&含义相同                       |
+   | const_reference        | 元素的const左值类型                                         |
+   | C c;                   | 默认构造函数，构造空容器                                    |
+   | C c1(c2);              | 构造c2的拷贝c1                                              |
+   | C c(b, e);             | 构造c，将迭代器b和e指定的范围内的元素拷贝到c（array不支持） |
+   | C c{a, b, c}           | 列表初始化c                                                 |
+   | c1 = c2                | 将c1中的元素替换成c2中的元素                                |
+   | c1 = {a, v, c}         | 将c1中的元素替换为列表中的元素（不适用于array）             |
+   | a.swap(b)              | 交换a和b的元素                                              |
+   | swap(a, b)             | 与上面相同                                                  |
+   | c.size()               | c中的元素个数                                               |
+   | c.max_size()           | c可保存的最大元素数目                                       |
+   | c.empty()              | 若c中存储了元素，返回false，否则返回true                    |
+   | c.insert(args)         | 将args中的元素拷贝进c                                       |
+   | c.emplace(init)        | 使用inits构造c中的一个元素                                  |
+   | c.erase(args)          | 删除args指定的元素                                          |
+   | c.clear()              | 删除c中的所有元素，返回void                                 |
+   | ==, !=                 | 所有容器都支持相等（不等）运算符                            |
+   | <, <=, >, >=           | 关系运算符（无序关联容器不支持）                            |
+   | c.begin(), c.end()     | 返回指向c的首元素和尾元素之后位置的迭代器                   |
+   | c.cbegin(), c.cend()   | 返回const_iterator                                          |
+   | reverse_iterator       | 按逆序寻址元素的迭代器                                      |
+   | const_reverse_iterator | 不能修改元素的逆序迭代器                                    |
+   | c.rbegin(), c.rend()   | 返回指向c尾元素和首元素之前位置的迭代器                     |
+   | c.crbegin(), c.crend() | 返回const_reverse_iterator                                  |
 
+### 9.2.1 迭代器
 
+1. **forward_list迭代器不支持递减运算符。**
+
+1. 迭代器支持的算术运算符，只能应用于string、vector、deque和array的迭代器。不适用于其他任何容器类型的迭代器。
+
+1. 
