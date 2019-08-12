@@ -116,7 +116,7 @@
     ```c++
     list<int> lst1;
     list<int>::iterator iter1 = lst1.begin(), iter2 = lst1.end();
-    while(iter1 < iter2){ // 错误
+    while(iter1 < iter2){ // 错误，使用iter2 != iter2
         // code block
     }
     ```
