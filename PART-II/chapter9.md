@@ -295,4 +295,23 @@
 
 1. 新标准引入是三个新成员：emplace_front\emplace\emplace_back三个函数，这些操作构造而不是拷贝元素。这些操作分IE对应push_front\insert和push_back，允许我们将元素放置在容器头部、一个指定位置之前或容器尾部。当我们调用push或insert函数时，**我们传递的是一个对象的拷贝。**而当我们调用emplace函数时，则是将参数传递给元素类型的构造函数。**emplace成员使用这些参数在容器管理的内存空间中直接构造元素。**
 
+    ```c++
+    // 直接在c的末尾构造一个Sales_date对象
+    // 使用三个参数的Sales_data构造函数
+    c.emplace_back("978-0590353403", 25, 15.99);
+    // 错误：没有接受三个参数的push_back版本
+    c.push_back("978-0590353403", 25, 15.99);
+    // 正确，创建一个临时的Sales_data对象传递给push_back
+    c.push_back(Sales_date("978-0590353403", 25, 15.99));
+    ```
+
+1. emplace 函数的参数根据元素类型而变化，**参数必须与元素类型的构造函数相匹配**。
+
+   ```c++
+   c.emplace_back();//使用Sale_data的默认构造函数
+   c.emplace(iter, "99-99999999");
+   // 使用Sales_data的接受一个ISBN，一个count和一个price的构造函数
+   c.emplace_front("978-0590353403", 25, 15.99);
+   ```
+
 1. 
