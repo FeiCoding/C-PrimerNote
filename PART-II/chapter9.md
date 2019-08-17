@@ -264,4 +264,35 @@
 
 1. 将元素插入到vector、deque和string中的任何位置都是合法的。然而，这样做可能很耗时。
 
+1. insert函数其中一个版本接受一个元素数目和一个值，他将指定数量的元素添加到指定位置之前，这些元素都按给定值初始化：
+
+    ```c++
+    svec.insert(svec.end(), 10, "Anna");
+    ```
+
+1. 接受一堆迭代器或一个初始化列表的insert版本将给定范围中的元素插入到指定位置之前：
+
+    ```c++
+    vector<string> v = {"quasi", "simba", "frollo", "scar"};
+    slist.insert(slist.begin(), v.end() - 2, v.end());
+    slist.insert(slist.end(), {"theese", "words", "will", "go", "at", "the", "end"});
+    // 运行时错误，迭代器表示要拷贝的范围，不能指向与目的为止相同的容器
+    slist.insert(slist.begin(), slist.begin(), slist.end());
+    ```
+
+1. **如果我们传递给一对迭代器，他们不能指向添加元素的目标容器。**
+
+1. 新标准下，**接受元素个数或范围的insert版本返回指向第一个新加入元素的迭代器**。如果范围为空，不插入任何元素，insert操作会将第一个参数返回。
+
+1. 使用insert的返回值，可以再容器中一个特定位置反复插入元素：
+
+    ```c++
+    list<string> lst;
+    auto iter = lst.begin();
+    while(cin >> word)
+        iter = lst.insert(iter, word); // 等价于调用push_front
+    ```
+
+1. 新标准引入是三个新成员：emplace_front\emplace\emplace_back三个函数，这些操作构造而不是拷贝元素。这些操作分IE对应push_front\insert和push_back，允许我们将元素放置在容器头部、一个指定位置之前或容器尾部。当我们调用push或insert函数时，**我们传递的是一个对象的拷贝。**而当我们调用emplace函数时，则是将参数传递给元素类型的构造函数。**emplace成员使用这些参数在容器管理的内存空间中直接构造元素。**
+
 1. 
