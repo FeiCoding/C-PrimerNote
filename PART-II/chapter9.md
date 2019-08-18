@@ -464,4 +464,46 @@
 
 ## 9.5 额外的string操作
 
-1. 
+## 9.6 容器适配器
+
+1. 标准库定义了三个顺序容器适配器：stack、queue和priority_queue。适配器(adaptor)是标准库中的一个通用概念。一个适配器是一种机制，能使某种事物的行为看起来像另外一种事务一样。
+
+1. 每个适配器都定义了两个构造函数：默认构造函数创建了一个空对象，接受一个容器的构造函数拷贝该容器来初始化适配器。
+
+1. 默认情况下，stack和queue是基于deque实现的，priority_queue是在vector上实现的，我们在创建一个适配器时可以讲一个命名的顺序容器作为第二个类型参数，来重载默认容器类型。
+
+    ```c++
+    // 在vector上实现的空栈
+    stack<string, vector<string>> str_stk;
+    // str_stk2在vector上实现，初始化时保存svec的拷贝
+    stack<string, vector<string>> str_stk(svec);
+    ```
+
+1. 适配器不能构造在array和forward_list之上，因为适配器必须要求容器具有添加删除以及访问尾元素的功能。
+    - stack只要求push_back, pop_back和back操作，因此可以使用除array和forward_list之外的任何容器类型来构造stack。
+    - queue适配器要求back, push_back, front和push_front，因此它可以构造与list或deque之上，但不能基于vector构造。
+    - priority_queue除了front、push_back和pop_back操作之外还要求随机访问能力，因此它可以构造与vector或deque之上，但不能基于list构造。
+
+1. 栈操作：**栈默认基于deque实现，也可以在vector或list上实现**
+   | 操作            | 解释                                                   |
+   | --------------- | ------------------------------------------------------ |
+   | s.pop()         | 删除栈顶元素，但不返回该元素                           |
+   | s.push(item)    | 创建一个新元素并压入栈顶，钙元素通过拷贝或移动item而来 |
+   | s.emplace(args) | 由args构造一个元素并压入栈顶                           |
+   | s.top()         | 返回栈顶元素，但不弹出                                 |
+
+1. 虽然stack是基于deque实现的，但我们不能直接使用deque的操作。
+
+1. 队列操作：**queue默认基于deque实现，priority_queue默认基于vector实现，queue也可以用list或vector实现，priority_queue也可以用deque实现**
+   | 操作            | 解释                                                                |
+   | --------------- | ------------------------------------------------------------------- |
+   | q.pop()         | 返回queue的首元素或priority_queue的最高优先级的元素，但不删除此元素 |
+   | q.front()       | 返回首元素或尾元素，但不删除                                        |
+   | q.back()        | 只适用于queue                                                       |
+   | q.top()         | 返回最高优先级元素，但不删除该元素                                  |
+   | q.push(item)    | 在queue末尾或priority_queue中恰当位置创建一个元素                   |
+   | q.emplace(args) | 由args构造一个元素并加入队列                                        |
+
+1. 标准库queue使用一种先进先出的存储和访问策略，进入队列的对象被放置队尾，离开的对象从队首删除。（饭店客人先到先安排座位）
+
+1. priority_queue允许我们为队列中的元素建立优先级，新加入的元素比他低的已有元素之前。默认情况下，标准库在元素类型上使用"<"运算符来确定相对优先级。（饭店客人按预定时间而不是到达时间来安排座位）
