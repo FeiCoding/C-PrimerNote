@@ -11,23 +11,29 @@ void printData(const deque<string> &ds){
     cout << endl;
 }
 
-void clearStream(istream &in){
-    in.clear();
+void readData(istream &in, deque<string>::iterator &iter, deque<string> &ds){
+    string str;
+    while(cin >> str){
+        iter = ds.insert(iter, str);
+    }
+}
+
+void readData(istream &in, deque<string> &ds){
+    string str;
+    while(cin >> str){
+        ds.push_back(str);
+    }
 }
 
 int main(int argc, const char** argv) {
     string str;
     deque<string> ds;
     auto iter = ds.begin();
-    while(cin >> str){
-        iter = ds.insert(iter, str);
-    }
+    readData(cin, iter, ds);
     printData(ds);
     ds.clear();
-    clearStream(cin);
-    while(cin >> str){
-        ds.push_back(str);
-    }
+    cin.clear();
+    readData(cin, ds);
     printData(ds);
     ds.clear();
     return 0;
