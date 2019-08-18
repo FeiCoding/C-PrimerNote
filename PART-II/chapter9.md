@@ -314,4 +314,107 @@
    c.emplace_front("978-0590353403", 25, 15.99);
    ```
 
+1. 例题9.22:
+
+    ```c++
+    vector<int>::iterator iter = iv.begin(), mid = iv.begin() + iv.size() / 2;
+    while(iter != mid)
+        if(*iter == some_value)
+            iv.insert(iter, some_value*2);
+    ```
+
+    上述代码错在while为无限循环。且当插入一个新元素后，mid将失效，因此需加上mid--:
+
+    ```c++
+    while(iter != mid)
+        if(*iter == some_value)
+            iv.insert(iter, some_value*2);
+        else  iter++;
+    ```
+
+1. 若果容器中没有元素，访问操作的结果是未定义的。
+
+1. 包括array在内的每个顺序容器都有一个front成员函数，而除forward_list之外的所有顺序容器都有一个back成员函数。这两个操作分别返回首元素和尾元素的**引用**。
+
+1. 对一个空容器调用front和back函数，就像使用一个越界的下标一样，是一种严重的程序设计错误。
+
+1. 如果容器是一个const对象，则 front\back\下标\at 函数返回的都是const的引用。如果不是const，则返回普通引用，也因此我们可以改变元素的值：
+
+    ```c++
+    if(!c.empty()){
+        c.front() = 42;     // 将42赋予c中的第一个元素
+        auto &v = c.back(); // 获得指向最后一个元素的引用
+        v = 1024;           // 改变c中的元素
+        auto v2 = c.back(); // v2不是一个引用，他是c.back()的一个拷贝。
+        v2 = 0;             // 未改变c中的元素
+    }
+    ```
+
+1. 提供快速随机访问的容器（string，vector，deque和array）也都提供下标运算符。下标运算符接受一个下标参数，返回容器中该位置的元素的引用。给定下标必须在范围内（即大于等于0，小于容器的大小）。
+
+1. 如果我们希望确保下标是合法的，可以使用at成员函数，at成员函数类似下标运算符，但如果下标越界，at会抛出一个out_of_range异常。
+
+    ```c++
+    vector<string> svec; 
+    cout << svec[0];     // 运行时错误:sve中没有元素
+    cout << svec.at(0);  // 抛出一个out_of_range异常
+    ```
+
+1. pop_back和pop_front分别删除首元素和尾元素。vector和string不支持push_front，所以也不支持pop_front。不能对一个空容器执行弹出操作。这些操作返回一个void，所以如果需要弹出的元素的值，就必须在执行弹出操作之前保存它。
+
+1. 成员函数erase函数从容器中指定位置删除元素。可以删除一个迭代器指定的单个元素，也可以删除一对迭代器指定的范围内的所有元素。两种形式的erase都返回指向删除的元素之后位置的迭代器。
+
+   ```c++
+   list<int> li = {1, 2, 3, 4, 5};
+   auto it = li.begin();
+   while(it != li.end())
+        if(*it % 2 == 1)
+            li.erase(it);
+        ++it;
+    ```
+
+1. 接受一堆迭代器的erase版本允许我们删除一个范围内的元素：
+
+    ```c++
+    // 删除两个迭代器表示的范围内的元素
+    // 返回指向最后一个被删元素之后位置的迭代器
+    elem1 = slist.erase(elem1, elem2); // 调用后，elem1 == elem2
+    ```
+
+1. 删除一个容器中的所有元素，我们既可以调用clear，也可以用begin和end获得的迭代器作为参数调用erase。
+
+1. forward_list并未定义insert、emplace和erase，而是定义了名为insert_after、emplace_after和erase_after的操作。原因在于，为了添加或删除一个元素，我们需要访问其前驱，以便改变前驱的链接，但是forward_list是单向链表，在一个单向链表中，没有简单地方法来获取一个元素的前驱。所以单向链表只能在给定元素之后添加删除元素来实现。
+
+1. forward_list还定义了before_begin，它返回一个首前（off-the-beginning）迭代器。这个迭代器允许我们在链表首元素之前并不存在的元素“之后”添加或删除元素。
+
+1. 从forward_list中删除元素：
+
+    ```c++
+    using FLI = forward_list<int>;
+
+    int main(int argc, char const *argv[])
+    {
+        FLI fl = {1, 2, 3, 4, 5, 6};
+        auto prev = fl.before_begin();
+        auto cur = fl.begin();
+        while(cur != fl.end()){
+            if(*cur % 2)                    // 若元素为奇数
+                cur = fl.erase_after(prev); // 删除它并移动cur，指向删除元素的后一个元素
+            else
+            {
+                prev = cur; // 移动迭代器，指向下一个元素，prev指向cur之前的元素
+                ++cur;
+            }
+
+        }
+        for(auto i : fl){
+            cout << i << " ";
+        }
+        cout << endl;
+        return 0;
+    }
+    ```
+
+1. 我们可以用resize来增大或缩小容器，arra不支持resize。如果当前大小大于所要求的的大小，容器后部的元素都会被删除，如果当前大小小于新大小，则会将新元素添加到容器后部。
+
 1. 
