@@ -17,6 +17,8 @@
 * [chapter 8 文件输入输出](PART-II/chapter8.md)
 * [chapter 9 顺序容器](PART-II/chapter9.md)
 * [chapter10 泛型算法](PART-II/chapter10.md)
+* [chapter11 关联容器](PART-II/chapter11.md)
+* [chapter12 动态内存](PART-II/chapter12.md)
 
 ## 第三部分：类设计者的工具
 
