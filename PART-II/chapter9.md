@@ -464,13 +464,64 @@
 
 ## 9.5 额外的string操作
 
+1. 构造string的其他方法：
+   | 语句                     | 解释                                                                                                                                             |
+   | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+   | string s(cp, n)          | s是cp指向**数组中**前n个字符的拷贝，此数组至少应该包含n个字符                                                                                        |
+   | string s(s2, pos2)       | s是string s2从下标pos2开始的字符的拷贝。若pos2 > s2.size(),构造函数的行为未定义                                                                  |
+   | string s(s2, pos2, len2) | s是string s2从下标pos2开始len2个字符的拷贝，若pos2 > s2.size()，构造函数的行为未定义。不管len2的值是多少，构造函数至多拷贝s2.size() - pos2个字符 |
+
+1. 当我们从一个const char*创建string时，**指针指向的数组必须以空字符结尾，拷贝操作遇到空字符时停止**。如果我们还传递给构造函数一个计数值，数组就不必以空字符结尾。
+
+   ```c++
+   char noNull[] = {'h', 'i'};  // 不是以空字符结束的字符
+   const char *cp = "Hello World!!!"; // 以空字符结束的数组
+   string s1(cp); // 拷贝cp中的字符直到遇到空字符
+   string s2(noNull, 2); // 从noNull拷贝两个字符
+   string s3(noNull); // 未定义：noNull不是以空字符结束
+   string s4(cp + 6, 5); // 从cp[6]开始拷贝5个字符
+   string s5(s1, 6, 5); // 从s1[6]开始拷贝5个字符
+   string s6(s1, 6); // 从s1[6]开始拷贝直至s1末尾
+   string s7(s1, 6, 20); // 正确，只拷贝到s1末尾
+   string s8(s1. 16); // 抛出out of range异常
+   ```
+
+1. substr操作返回一个string,他是原始string的一部分或全部的拷贝。可以传递给substr一个可选的开始位置和计数值：
+
+    ```c++
+    string s("hello world");
+    string s2 = s.substr(0, 5); // s2 = hello
+    string s3 = s.substr(6); // s3 = word
+    string s4 = s.substr(6, 11); // s4 = word
+    string s5 = s.substr(12); // 抛出异常
+    ```
+
+1. 除了接受迭代器的insert和erase版本外，string还提供了接受下标的版本。下标指出了开始删除的位置，或是insert到给定值之前的位置，同时标准库string类型还提供了接受C风格字符数组的insert和assign版本。
+
+    ```c++
+    s.insert(s.size(), 5, '!'); // 在末尾插入5个！
+    s.erase(s.size() - 5, 5); // 删除最后5个字符
+
+    const char* cp = "Stately, plump Buck";
+    s.assign(cp, 7); // 从cp指向地址开始的7个位置，s == "Stately"
+    s.insert(s.size(), cp + 7); // s == "Stately, plump Buck"
+    ```
+
+1. append操作可以向string末尾进行插入的一种形式，replace操作：
+
+    ```c++
+    s.replace(11, 3, "5th"); // 从位置11开始，删除3个字符并插入“5th”
+    ```
+
+1. compare函数根据s是等于、大于还是小于参数指定的字符串，s.compare返回0、正数、负数。
+
 ## 9.6 容器适配器
 
 1. 标准库定义了三个顺序容器适配器：stack、queue和priority_queue。适配器(adaptor)是标准库中的一个通用概念。一个适配器是一种机制，能使某种事物的行为看起来像另外一种事务一样。
 
-1. 每个适配器都定义了两个构造函数：默认构造函数创建了一个空对象，接受一个容器的构造函数拷贝该容器来初始化适配器。
+2. 每个适配器都定义了两个构造函数：默认构造函数创建了一个空对象，接受一个容器的构造函数拷贝该容器来初始化适配器。
 
-1. 默认情况下，stack和queue是基于deque实现的，priority_queue是在vector上实现的，我们在创建一个适配器时可以讲一个命名的顺序容器作为第二个类型参数，来重载默认容器类型。
+3. 默认情况下，stack和queue是基于deque实现的，priority_queue是在vector上实现的，我们在创建一个适配器时可以讲一个命名的顺序容器作为第二个类型参数，来重载默认容器类型。
 
     ```c++
     // 在vector上实现的空栈
@@ -479,12 +530,12 @@
     stack<string, vector<string>> str_stk(svec);
     ```
 
-1. 适配器不能构造在array和forward_list之上，因为适配器必须要求容器具有添加删除以及访问尾元素的功能。
+4. 适配器不能构造在array和forward_list之上，因为适配器必须要求容器具有添加删除以及访问尾元素的功能。
     - stack只要求push_back, pop_back和back操作，因此可以使用除array和forward_list之外的任何容器类型来构造stack。
     - queue适配器要求back, push_back, front和push_front，因此它可以构造与list或deque之上，但不能基于vector构造。
     - priority_queue除了front、push_back和pop_back操作之外还要求随机访问能力，因此它可以构造与vector或deque之上，但不能基于list构造。
 
-1. 栈操作：**栈默认基于deque实现，也可以在vector或list上实现**
+5. 栈操作：**栈默认基于deque实现，也可以在vector或list上实现**
    | 操作            | 解释                                                   |
    | --------------- | ------------------------------------------------------ |
    | s.pop()         | 删除栈顶元素，但不返回该元素                           |
@@ -492,9 +543,9 @@
    | s.emplace(args) | 由args构造一个元素并压入栈顶                           |
    | s.top()         | 返回栈顶元素，但不弹出                                 |
 
-1. 虽然stack是基于deque实现的，但我们不能直接使用deque的操作。
+6. 虽然stack是基于deque实现的，但我们不能直接使用deque的操作。
 
-1. 队列操作：**queue默认基于deque实现，priority_queue默认基于vector实现，queue也可以用list或vector实现，priority_queue也可以用deque实现**
+7. 队列操作：**queue默认基于deque实现，priority_queue默认基于vector实现，queue也可以用list或vector实现，priority_queue也可以用deque实现**
    | 操作            | 解释                                                                |
    | --------------- | ------------------------------------------------------------------- |
    | q.pop()         | 返回queue的首元素或priority_queue的最高优先级的元素，但不删除此元素 |
@@ -504,6 +555,6 @@
    | q.push(item)    | 在queue末尾或priority_queue中恰当位置创建一个元素                   |
    | q.emplace(args) | 由args构造一个元素并加入队列                                        |
 
-1. 标准库queue使用一种先进先出的存储和访问策略，进入队列的对象被放置队尾，离开的对象从队首删除。（饭店客人先到先安排座位）
+8. 标准库queue使用一种先进先出的存储和访问策略，进入队列的对象被放置队尾，离开的对象从队首删除。（饭店客人先到先安排座位）
 
-1. priority_queue允许我们为队列中的元素建立优先级，新加入的元素比他低的已有元素之前。默认情况下，标准库在元素类型上使用"<"运算符来确定相对优先级。（饭店客人按预定时间而不是到达时间来安排座位）
+9. priority_queue允许我们为队列中的元素建立优先级，新加入的元素比他低的已有元素之前。默认情况下，标准库在元素类型上使用"<"运算符来确定相对优先级。（饭店客人按预定时间而不是到达时间来安排座位）
