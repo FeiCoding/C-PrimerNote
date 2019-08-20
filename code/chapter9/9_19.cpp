@@ -3,29 +3,32 @@
 #include <string>
 using namespace std;
 
-
-
-void printData(const list<string> &ls){
-    for(auto ss:ls){
+void printData(const list<string> &ls)
+{
+    for (auto ss : ls)
+    {
         cout << ss << " ";
     }
     cout << endl;
 }
 
-void readData(istream &in, list<string>::iterator &iter, list<string> &ls){
+void readData(istream &in, list<string>::iterator &iter, list<string> &ls)
+{
     string str;
-    while(cin >> str){
+    while (cin >> str)
+    {
         iter = ls.insert(iter, str);
     }
 }
 
-void readData(istream &in, list<string> &ls){
+void readData(istream &in, list<string> &ls)
+{
     string str;
-    while(cin >> str){
+    while (cin >> str)
+    {
         ls.push_back(str);
     }
 }
-
 
 int main(int argc, char const *argv[])
 {
