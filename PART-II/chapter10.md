@@ -101,4 +101,19 @@
     auto ret = copy(begin(a1), end(a1), a2); // 把a1的内容拷贝给a2
     ```
 
+1. replace算法读入一个序列，并将其中所有等于给定值的元素都改为另一个值，此算法接受4个参数，前两个是迭代器，表示输入序列，后两个一个是要搜索的值，另一个是新值，她将所有等于第一个值的元素替换为第二个值：
+
+    ```c++
+    // 将所有0的元素改为42
+    replace(ilst.begin(), ilst.end(), 0, 42);
+    ```
+
+1. replace_copy保留原序列不变，此方法接受额外第三个迭代器参数，指出调整后序列的保存位置：
+
+    ```c++
+    replace_copy(ilst.cbegin(), ilst.cend(). back_insert(ivec), 0, 52);
+    ```
+
+    此调用后，ilst并未改变，ivec包含ilst的一份拷贝，不过原来在ilst中值为0的元素，在ivec中都变为42。
+
 1. 
